@@ -1,0 +1,6 @@
+framework module Pods_Plant_Baby_Monitor {
+  umbrella header "Pods-Plant Baby Monitor-umbrella.h"
+
+  export *
+  module * { export * }
+}
