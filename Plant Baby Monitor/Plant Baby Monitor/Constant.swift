@@ -6,6 +6,11 @@
 //
 
 struct Constants {
-    static var loginToHomeSegue = "loginToHomeSegue"
-    static var registerToHomeSegue = "registerToHomeSegue"
+    static var appName = "Plant Baby Monitor"
+    
+    struct Segue {
+        static var loginToHomeSegue = "loginToHomeSegue"
+        static var registerToHomeSegue = "registerToHomeSegue"
+        
+    }
 }

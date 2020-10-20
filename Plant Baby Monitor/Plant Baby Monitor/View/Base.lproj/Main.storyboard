@@ -125,6 +125,9 @@
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="33"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Login"/>
+                                <connections>
+                                    <action selector="loginButtonPressed:" destination="dOm-0p-8ZC" eventType="touchUpInside" id="4OW-JU-dXa"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Sh1-9a-ISG"/>
@@ -142,6 +145,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="L6i-6l-eRf"/>
                     <connections>
+                        <outlet property="emailTextField" destination="5is-I7-v2X" id="Hrr-Ub-Ya4"/>
+                        <outlet property="passwordTextField" destination="Qa4-0h-hUU" id="Mgi-kf-OI1"/>
                         <segue destination="d9l-rt-Bxd" kind="show" identifier="loginToHomeSegue" id="pqA-Tl-1CJ"/>
                     </connections>
                 </viewController>
@@ -156,10 +161,28 @@
                     <view key="view" contentMode="scaleToFill" id="E9d-Kp-SpX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R9D-ps-1kQ">
+                                <rect key="frame" x="184" y="437.66666666666669" width="46" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="zfg-dA-dIr"/>
                         <color key="backgroundColor" name="AppHeader"/>
+                        <constraints>
+                            <constraint firstItem="R9D-ps-1kQ" firstAttribute="centerY" secondItem="E9d-Kp-SpX" secondAttribute="centerY" id="bB7-kb-38K"/>
+                            <constraint firstItem="R9D-ps-1kQ" firstAttribute="centerX" secondItem="E9d-Kp-SpX" secondAttribute="centerX" id="j4L-ID-I6p"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="BjG-re-ufY"/>
+                    <navigationItem key="navigationItem" id="BjG-re-ufY">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="8Bk-PI-PhC">
+                            <connections>
+                                <action selector="logoutPressed:" destination="d9l-rt-Bxd" id="ydy-YC-6wy"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mHn-Fh-M1l" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -254,6 +277,9 @@
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="33"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Register"/>
+                                <connections>
+                                    <action selector="registerButtonPressed:" destination="n9D-c4-gG3" eventType="touchUpInside" id="9dA-B7-wce"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lZr-bl-vlV"/>
@@ -271,6 +297,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="arZ-K7-bnc"/>
                     <connections>
+                        <outlet property="emailTextField" destination="e06-Bt-zRu" id="lHl-HI-nLc"/>
+                        <outlet property="passwordTextField" destination="CjA-T5-mfY" id="2ne-x8-qqE"/>
                         <segue destination="d9l-rt-Bxd" kind="show" identifier="registerToHomeSegue" id="vs1-Wu-imD"/>
                     </connections>
                 </viewController>
@@ -280,7 +308,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vs1-Wu-imD"/>
+        <segue reference="pqA-Tl-1CJ"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="textField" width="298" height="93"/>
