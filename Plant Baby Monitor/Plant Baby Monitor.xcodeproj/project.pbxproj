@@ -3,23 +3,39 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		111CC2200820FE580987978F /* Pods_Plant_Baby_Monitor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D9BF7FFFE8C54AE490E9CC /* Pods_Plant_Baby_Monitor.framework */; };
+		FC49A889253ECE64004D9206 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49A888253ECE64004D9206 /* Constant.swift */; };
+		FC49A88E253ED59F004D9206 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49A88D253ED59F004D9206 /* WelcomeViewController.swift */; };
+		FC49A891253ED5D1004D9206 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49A890253ED5D1004D9206 /* LoginViewController.swift */; };
+		FC49A894253ED605004D9206 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49A893253ED605004D9206 /* RegisterViewController.swift */; };
+		FC49A897253ED610004D9206 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49A896253ED610004D9206 /* HomeViewController.swift */; };
+		FC49A8BD253ED8D2004D9206 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FC49A8BC253ED8D2004D9206 /* GoogleService-Info.plist */; };
+		FC49A8D1253EEC2A004D9206 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49A8D0253EEC2A004D9206 /* CustomNavigationController.swift */; };
 		FC8EB398253EBB31009D858E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8EB397253EBB31009D858E /* AppDelegate.swift */; };
 		FC8EB39A253EBB31009D858E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8EB399253EBB31009D858E /* SceneDelegate.swift */; };
-		FC8EB39C253EBB31009D858E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8EB39B253EBB31009D858E /* ViewController.swift */; };
 		FC8EB39F253EBB31009D858E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC8EB39D253EBB31009D858E /* Main.storyboard */; };
 		FC8EB3A1253EBB34009D858E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC8EB3A0253EBB34009D858E /* Assets.xcassets */; };
 		FC8EB3A4253EBB34009D858E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC8EB3A2253EBB34009D858E /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2E7FE89289C8D89A48486C0D /* Pods-Plant Baby Monitor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Plant Baby Monitor.release.xcconfig"; path = "Target Support Files/Pods-Plant Baby Monitor/Pods-Plant Baby Monitor.release.xcconfig"; sourceTree = "<group>"; };
+		41D9BF7FFFE8C54AE490E9CC /* Pods_Plant_Baby_Monitor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Plant_Baby_Monitor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E002F8CF89A597F9B7F8861C /* Pods-Plant Baby Monitor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Plant Baby Monitor.debug.xcconfig"; path = "Target Support Files/Pods-Plant Baby Monitor/Pods-Plant Baby Monitor.debug.xcconfig"; sourceTree = "<group>"; };
+		FC49A888253ECE64004D9206 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		FC49A88D253ED59F004D9206 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		FC49A890253ED5D1004D9206 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		FC49A893253ED605004D9206 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		FC49A896253ED610004D9206 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		FC49A8BC253ED8D2004D9206 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FC49A8D0253EEC2A004D9206 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		FC8EB394253EBB31009D858E /* Plant Baby Monitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Plant Baby Monitor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC8EB397253EBB31009D858E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC8EB399253EBB31009D858E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FC8EB39B253EBB31009D858E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FC8EB39E253EBB31009D858E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		FC8EB3A0253EBB34009D858E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC8EB3A3253EBB34009D858E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -31,17 +47,59 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				111CC2200820FE580987978F /* Pods_Plant_Baby_Monitor.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		276E6C1BC095BF63C117649E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E002F8CF89A597F9B7F8861C /* Pods-Plant Baby Monitor.debug.xcconfig */,
+				2E7FE89289C8D89A48486C0D /* Pods-Plant Baby Monitor.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		38E610F92A0FC178E0F3DEEB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				41D9BF7FFFE8C54AE490E9CC /* Pods_Plant_Baby_Monitor.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		FC49A886253ECE28004D9206 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				FC8EB39D253EBB31009D858E /* Main.storyboard */,
+				FC8EB3A2253EBB34009D858E /* LaunchScreen.storyboard */,
+				FC8EB3A0253EBB34009D858E /* Assets.xcassets */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		FC49A88C253ED4F4004D9206 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				FC49A88D253ED59F004D9206 /* WelcomeViewController.swift */,
+				FC49A890253ED5D1004D9206 /* LoginViewController.swift */,
+				FC49A893253ED605004D9206 /* RegisterViewController.swift */,
+				FC49A896253ED610004D9206 /* HomeViewController.swift */,
+				FC49A8D0253EEC2A004D9206 /* CustomNavigationController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		FC8EB38B253EBB31009D858E = {
 			isa = PBXGroup;
 			children = (
 				FC8EB396253EBB31009D858E /* Plant Baby Monitor */,
 				FC8EB395253EBB31009D858E /* Products */,
+				276E6C1BC095BF63C117649E /* Pods */,
+				38E610F92A0FC178E0F3DEEB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,11 +116,11 @@
 			children = (
 				FC8EB397253EBB31009D858E /* AppDelegate.swift */,
 				FC8EB399253EBB31009D858E /* SceneDelegate.swift */,
-				FC8EB39B253EBB31009D858E /* ViewController.swift */,
-				FC8EB39D253EBB31009D858E /* Main.storyboard */,
-				FC8EB3A0253EBB34009D858E /* Assets.xcassets */,
-				FC8EB3A2253EBB34009D858E /* LaunchScreen.storyboard */,
+				FC49A886253ECE28004D9206 /* View */,
+				FC49A88C253ED4F4004D9206 /* Controller */,
 				FC8EB3A5253EBB34009D858E /* Info.plist */,
+				FC49A8BC253ED8D2004D9206 /* GoogleService-Info.plist */,
+				FC49A888253ECE64004D9206 /* Constant.swift */,
 			);
 			path = "Plant Baby Monitor";
 			sourceTree = "<group>";
@@ -74,9 +132,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FC8EB3A8253EBB34009D858E /* Build configuration list for PBXNativeTarget "Plant Baby Monitor" */;
 			buildPhases = (
+				2696AC666D73470594CE525C /* [CP] Check Pods Manifest.lock */,
 				FC8EB390253EBB31009D858E /* Sources */,
 				FC8EB391253EBB31009D858E /* Frameworks */,
 				FC8EB392253EBB31009D858E /* Resources */,
+				93FF0D54F80E659438B02C88 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -125,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC8EB3A4253EBB34009D858E /* LaunchScreen.storyboard in Resources */,
+				FC49A8BD253ED8D2004D9206 /* GoogleService-Info.plist in Resources */,
 				FC8EB3A1253EBB34009D858E /* Assets.xcassets in Resources */,
 				FC8EB39F253EBB31009D858E /* Main.storyboard in Resources */,
 			);
@@ -132,14 +193,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2696AC666D73470594CE525C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Plant Baby Monitor-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		93FF0D54F80E659438B02C88 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Plant Baby Monitor/Pods-Plant Baby Monitor-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Plant Baby Monitor/Pods-Plant Baby Monitor-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Plant Baby Monitor/Pods-Plant Baby Monitor-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		FC8EB390253EBB31009D858E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC8EB39C253EBB31009D858E /* ViewController.swift in Sources */,
 				FC8EB398253EBB31009D858E /* AppDelegate.swift in Sources */,
+				FC49A88E253ED59F004D9206 /* WelcomeViewController.swift in Sources */,
 				FC8EB39A253EBB31009D858E /* SceneDelegate.swift in Sources */,
+				FC49A894253ED605004D9206 /* RegisterViewController.swift in Sources */,
+				FC49A8D1253EEC2A004D9206 /* CustomNavigationController.swift in Sources */,
+				FC49A891253ED5D1004D9206 /* LoginViewController.swift in Sources */,
+				FC49A897253ED610004D9206 /* HomeViewController.swift in Sources */,
+				FC49A889253ECE64004D9206 /* Constant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +391,7 @@
 		};
 		FC8EB3A9253EBB34009D858E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E002F8CF89A597F9B7F8861C /* Pods-Plant Baby Monitor.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -302,6 +411,7 @@
 		};
 		FC8EB3AA253EBB34009D858E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E7FE89289C8D89A48486C0D /* Pods-Plant Baby Monitor.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

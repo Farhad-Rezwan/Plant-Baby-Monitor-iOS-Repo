@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>388531466614-7p4f7kuddi7504cmv64jd0ho09o40oav.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.388531466614-7p4f7kuddi7504cmv64jd0ho09o40oav</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDokwHSfENsAPKIexq1dSroN5behZhQ9m8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>388531466614</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.farhadrezwan.Plant-Baby-Monitor</string>
+	<key>PROJECT_ID</key>
+	<string>plant-baby-monitor</string>
+	<key>STORAGE_BUCKET</key>
+	<string>plant-baby-monitor.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:388531466614:ios:33891c5be15843175f0a57</string>
+	<key>DATABASE_URL</key>
+	<string>https://plant-baby-monitor.firebaseio.com</string>
+</dict>
+</plist>
