@@ -188,10 +188,10 @@
             </objects>
             <point key="canvasLocation" x="3086.9565217391305" y="10.714285714285714"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Custom Navigation Controller-->
         <scene sceneID="5Ro-9d-oPh">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cXL-Pk-0mS" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="cXL-Pk-0mS" customClass="CustomNavigationController" customModule="Plant_Baby_Monitor" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="igu-wd-tz2">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
