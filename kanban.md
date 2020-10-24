@@ -1,6 +1,5 @@
 ## To Do
 
-- Plant Cell and table view
 - Core data and Firebase store
 
 ## Doing
@@ -14,3 +13,4 @@
     * [x] Login
     * [x] Register
     * [x] UI of Storyboards minimal
+- Plant Cell and table view

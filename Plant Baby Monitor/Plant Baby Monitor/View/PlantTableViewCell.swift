@@ -17,6 +17,15 @@ class PlantTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        // add border and color
+        self.backgroundColor = UIColor.white
+        self.layer.borderColor = UIColor.black.cgColor
+        self.layer.borderWidth = 1
+        self.layer.cornerRadius = frameViewCorner.frame.size.height / 10
+        self.clipsToBounds = true
+        
+        
+        
         frameViewCorner.layer.cornerRadius = frameViewCorner.frame.size.height / 10
     }
 
@@ -25,5 +34,7 @@ class PlantTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    
     
 }

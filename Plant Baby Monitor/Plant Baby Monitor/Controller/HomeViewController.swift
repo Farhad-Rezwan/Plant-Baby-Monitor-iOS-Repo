@@ -21,6 +21,7 @@ class Plant {
 class HomeViewController: UIViewController {
     
     var plant: [Plant] = []
+    var cellSpacingHeight = 200
 
     @IBOutlet weak var plantTableView: UITableView!
     override func viewDidLoad() {
@@ -45,15 +46,25 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return plant.count
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    // Make the background color show through
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.plantTableViewCell, for: indexPath) as! PlantTableViewCell
-        cell.plantName.text = plant[indexPath.row].name
-        cell.plantLocation.text = plant[indexPath.row].location
-        cell.plantImage.image = UIImage(named: plant[indexPath.row].image!)
+        cell.plantName.text = plant[indexPath.section].name
+        cell.plantLocation.text = plant[indexPath.section].location
+        cell.plantImage.image = UIImage(named: plant[indexPath.section].image!)
         return cell
     }
     

@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -164,18 +163,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JFr-Yi-i5j">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
-                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <rect key="frame" x="30" y="238" width="354" height="624"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <sections/>
                             </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zfg-dA-dIr"/>
-                        <color key="backgroundColor" name="AppHeader"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="JFr-Yi-i5j" firstAttribute="leading" secondItem="zfg-dA-dIr" secondAttribute="leading" id="Dcb-rZ-BtE"/>
-                            <constraint firstItem="zfg-dA-dIr" firstAttribute="trailing" secondItem="JFr-Yi-i5j" secondAttribute="trailing" id="cvM-2e-ZKB"/>
+                            <constraint firstItem="JFr-Yi-i5j" firstAttribute="leading" secondItem="zfg-dA-dIr" secondAttribute="leading" constant="30" id="Dcb-rZ-BtE"/>
+                            <constraint firstItem="zfg-dA-dIr" firstAttribute="trailing" secondItem="JFr-Yi-i5j" secondAttribute="trailing" constant="30" id="cvM-2e-ZKB"/>
                             <constraint firstItem="zfg-dA-dIr" firstAttribute="bottom" secondItem="JFr-Yi-i5j" secondAttribute="bottom" id="mnd-36-fBL"/>
-                            <constraint firstItem="JFr-Yi-i5j" firstAttribute="top" secondItem="zfg-dA-dIr" secondAttribute="top" id="xlk-Ld-wB2"/>
+                            <constraint firstItem="JFr-Yi-i5j" firstAttribute="top" secondItem="zfg-dA-dIr" secondAttribute="top" constant="150" id="xlk-Ld-wB2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BjG-re-ufY">
@@ -326,8 +325,5 @@
         <namedColor name="LogoBackground">
             <color red="0.49411764705882355" green="0.72549019607843135" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <systemColor name="systemGray5Color">
-            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
     </resources>
 </document>
