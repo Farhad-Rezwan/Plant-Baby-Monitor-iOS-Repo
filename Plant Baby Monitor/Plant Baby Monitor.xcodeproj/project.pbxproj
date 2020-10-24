@@ -20,6 +20,8 @@
 		FC8EB39F253EBB31009D858E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC8EB39D253EBB31009D858E /* Main.storyboard */; };
 		FC8EB3A1253EBB34009D858E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC8EB3A0253EBB34009D858E /* Assets.xcassets */; };
 		FC8EB3A4253EBB34009D858E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC8EB3A2253EBB34009D858E /* LaunchScreen.storyboard */; };
+		FCEC7D7A25443020009FC83C /* PlantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEC7D7825443020009FC83C /* PlantTableViewCell.swift */; };
+		FCEC7D7B25443020009FC83C /* PlantTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCEC7D7925443020009FC83C /* PlantTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		FC8EB3A0253EBB34009D858E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC8EB3A3253EBB34009D858E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FC8EB3A5253EBB34009D858E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCEC7D7825443020009FC83C /* PlantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantTableViewCell.swift; sourceTree = "<group>"; };
+		FCEC7D7925443020009FC83C /* PlantTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlantTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,8 @@
 				FC8EB39D253EBB31009D858E /* Main.storyboard */,
 				FC8EB3A2253EBB34009D858E /* LaunchScreen.storyboard */,
 				FC8EB3A0253EBB34009D858E /* Assets.xcassets */,
+				FCEC7D7825443020009FC83C /* PlantTableViewCell.swift */,
+				FCEC7D7925443020009FC83C /* PlantTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -186,6 +192,7 @@
 			files = (
 				FC8EB3A4253EBB34009D858E /* LaunchScreen.storyboard in Resources */,
 				FC49A8BD253ED8D2004D9206 /* GoogleService-Info.plist in Resources */,
+				FCEC7D7B25443020009FC83C /* PlantTableViewCell.xib in Resources */,
 				FC8EB3A1253EBB34009D858E /* Assets.xcassets in Resources */,
 				FC8EB39F253EBB31009D858E /* Main.storyboard in Resources */,
 			);
@@ -244,6 +251,7 @@
 				FC49A88E253ED59F004D9206 /* WelcomeViewController.swift in Sources */,
 				FC8EB39A253EBB31009D858E /* SceneDelegate.swift in Sources */,
 				FC49A894253ED605004D9206 /* RegisterViewController.swift in Sources */,
+				FCEC7D7A25443020009FC83C /* PlantTableViewCell.swift in Sources */,
 				FC49A8D1253EEC2A004D9206 /* CustomNavigationController.swift in Sources */,
 				FC49A891253ED5D1004D9206 /* LoginViewController.swift in Sources */,
 				FC49A897253ED610004D9206 /* HomeViewController.swift in Sources */,

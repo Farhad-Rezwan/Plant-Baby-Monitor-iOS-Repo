@@ -13,4 +13,8 @@ struct Constants {
         static var registerToHomeSegue = "registerToHomeSegue"
         
     }
+    struct Identifier {
+        static var plantTableViewCell = "plantCell"
+        static var plantTableViewCellNib = "PlantTableViewCell"
+    }
 }
