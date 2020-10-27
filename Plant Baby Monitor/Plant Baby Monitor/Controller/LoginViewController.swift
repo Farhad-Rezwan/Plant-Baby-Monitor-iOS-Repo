@@ -23,7 +23,7 @@ class LoginViewController: UIViewController {
                 if let err = error {
                     print(err)
                 } else {
-                    self.performSegue(withIdentifier: Constants.Segue.loginToHomeSegue, sender: self)
+                    self.performSegue(withIdentifier: K.Segue.loginToHomeSegue, sender: self)
                     
                 }
             }

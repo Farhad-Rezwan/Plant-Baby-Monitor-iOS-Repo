@@ -65,7 +65,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uQw-bI-xDu">
                                 <rect key="frame" x="0.0" y="88" width="414" height="150"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textField" translatesAutoresizingMaskIntoConstraints="NO" id="pIQ-v9-N9K">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textfield" translatesAutoresizingMaskIntoConstraints="NO" id="pIQ-v9-N9K">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="150" id="clu-tx-BrN"/>
@@ -93,7 +93,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EW9-3J-XfI">
                                 <rect key="frame" x="0.0" y="188" width="414" height="150"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textField" translatesAutoresizingMaskIntoConstraints="NO" id="spx-9h-MFR">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textfield" translatesAutoresizingMaskIntoConstraints="NO" id="spx-9h-MFR">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Sf_01671119079" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qa4-0h-hUU">
@@ -163,17 +163,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JFr-Yi-i5j">
-                                <rect key="frame" x="30" y="238" width="354" height="624"/>
+                                <rect key="frame" x="30" y="238" width="354" height="480"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <sections/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XVl-GH-pIj">
+                                <rect key="frame" x="214" y="768" width="150" height="44"/>
+                                <color key="backgroundColor" name="DGreen"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="Ccl-iV-4wq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="22"/>
+                                <state key="normal" title="Add Plant">
+                                    <color key="titleColor" name="AccentColor"/>
+                                </state>
+                                <connections>
+                                    <segue destination="Kqr-Kr-Su1" kind="show" id="2u2-iI-Hwl"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zfg-dA-dIr"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="zfg-dA-dIr" firstAttribute="trailing" secondItem="XVl-GH-pIj" secondAttribute="trailing" constant="50" id="8Dz-KU-8Dq"/>
                             <constraint firstItem="JFr-Yi-i5j" firstAttribute="leading" secondItem="zfg-dA-dIr" secondAttribute="leading" constant="30" id="Dcb-rZ-BtE"/>
+                            <constraint firstItem="zfg-dA-dIr" firstAttribute="bottom" secondItem="XVl-GH-pIj" secondAttribute="bottom" constant="50" id="ECz-UB-Exg"/>
                             <constraint firstItem="zfg-dA-dIr" firstAttribute="trailing" secondItem="JFr-Yi-i5j" secondAttribute="trailing" constant="30" id="cvM-2e-ZKB"/>
-                            <constraint firstItem="zfg-dA-dIr" firstAttribute="bottom" secondItem="JFr-Yi-i5j" secondAttribute="bottom" id="mnd-36-fBL"/>
+                            <constraint firstItem="XVl-GH-pIj" firstAttribute="top" secondItem="JFr-Yi-i5j" secondAttribute="bottom" constant="50" id="mnd-36-fBL"/>
                             <constraint firstItem="JFr-Yi-i5j" firstAttribute="top" secondItem="zfg-dA-dIr" secondAttribute="top" constant="150" id="xlk-Ld-wB2"/>
                         </constraints>
                     </view>
@@ -185,6 +201,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addPlantButtonDesign" destination="XVl-GH-pIj" id="7iJ-rn-Rzf"/>
                         <outlet property="plantTableView" destination="JFr-Yi-i5j" id="vwH-xj-H30"/>
                     </connections>
                 </viewController>
@@ -221,7 +238,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5S4-IR-wCA">
                                 <rect key="frame" x="0.0" y="88" width="414" height="150"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textField" translatesAutoresizingMaskIntoConstraints="NO" id="cr7-wL-ATC">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textfield" translatesAutoresizingMaskIntoConstraints="NO" id="cr7-wL-ATC">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="150" id="i34-2O-kx3"/>
@@ -249,7 +266,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M2H-Ed-BkS">
                                 <rect key="frame" x="0.0" y="188" width="414" height="150"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textField" translatesAutoresizingMaskIntoConstraints="NO" id="uMG-cK-g5x">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textfield" translatesAutoresizingMaskIntoConstraints="NO" id="uMG-cK-g5x">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
                                     </imageView>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="CjA-T5-mfY">
@@ -310,12 +327,146 @@
             </objects>
             <point key="canvasLocation" x="1941" y="-265"/>
         </scene>
+        <!--Add Plant View Controller-->
+        <scene sceneID="P5c-Sy-GDI">
+            <objects>
+                <viewController id="Kqr-Kr-Su1" customClass="AddPlantViewController" customModule="Plant_Baby_Monitor" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mtN-u0-nul">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Klr-fH-mK8">
+                                <rect key="frame" x="0.0" y="246" width="414" height="150"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textfield" translatesAutoresizingMaskIntoConstraints="NO" id="wwy-Ho-WVd">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="vSd-D3-RIU"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Plant Image" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Buh-vb-Uuh">
+                                        <rect key="frame" x="50" y="25" width="314" height="55"/>
+                                        <color key="textColor" name="DGreen"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="25"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Buh-vb-Uuh" firstAttribute="top" secondItem="Klr-fH-mK8" secondAttribute="top" constant="25" id="7X1-7e-rBd"/>
+                                    <constraint firstItem="Buh-vb-Uuh" firstAttribute="leading" secondItem="Klr-fH-mK8" secondAttribute="leading" constant="50" id="KfB-WK-I0x"/>
+                                    <constraint firstAttribute="trailing" secondItem="Buh-vb-Uuh" secondAttribute="trailing" priority="999" constant="50" id="XxK-kG-b6j"/>
+                                    <constraint firstAttribute="bottom" secondItem="Buh-vb-Uuh" secondAttribute="bottom" constant="70" id="bxE-41-VY6"/>
+                                    <constraint firstAttribute="bottom" secondItem="wwy-Ho-WVd" secondAttribute="bottom" id="eVJ-vX-YgD"/>
+                                    <constraint firstAttribute="trailing" secondItem="wwy-Ho-WVd" secondAttribute="trailing" id="i2W-nQ-cb8"/>
+                                    <constraint firstItem="wwy-Ho-WVd" firstAttribute="top" secondItem="Klr-fH-mK8" secondAttribute="top" id="iNI-7K-Zez"/>
+                                    <constraint firstItem="wwy-Ho-WVd" firstAttribute="leading" secondItem="Klr-fH-mK8" secondAttribute="leading" id="wd0-qH-hMw"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZj-8L-JcT">
+                                <rect key="frame" x="0.0" y="88" width="414" height="150"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textfield" translatesAutoresizingMaskIntoConstraints="NO" id="6hV-1j-6Rz">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="h6t-B3-8hF"/>
+                                        </constraints>
+                                    </imageView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Plant Name" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fS0-CK-Irc">
+                                        <rect key="frame" x="50" y="25" width="314" height="55"/>
+                                        <color key="textColor" name="DGreen"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="25"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="fS0-CK-Irc" secondAttribute="bottom" constant="70" id="2tp-F1-S77"/>
+                                    <constraint firstItem="6hV-1j-6Rz" firstAttribute="top" secondItem="PZj-8L-JcT" secondAttribute="top" id="60W-hZ-1LJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="6hV-1j-6Rz" secondAttribute="trailing" id="Ayf-je-Gw9"/>
+                                    <constraint firstItem="fS0-CK-Irc" firstAttribute="leading" secondItem="PZj-8L-JcT" secondAttribute="leading" constant="50" id="IH5-bP-FJy"/>
+                                    <constraint firstItem="6hV-1j-6Rz" firstAttribute="leading" secondItem="PZj-8L-JcT" secondAttribute="leading" id="a2A-52-npU"/>
+                                    <constraint firstAttribute="bottom" secondItem="6hV-1j-6Rz" secondAttribute="bottom" id="c8D-BM-GpX"/>
+                                    <constraint firstItem="fS0-CK-Irc" firstAttribute="top" secondItem="PZj-8L-JcT" secondAttribute="top" constant="25" id="pop-tQ-4ZZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="fS0-CK-Irc" secondAttribute="trailing" priority="999" constant="50" id="rAk-yH-FLa"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kS6-9X-S9Z">
+                                <rect key="frame" x="57" y="506" width="300" height="59"/>
+                                <color key="backgroundColor" name="LogoBackground"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="nN7-83-NSE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="33"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Add Plant"/>
+                                <connections>
+                                    <action selector="addPlantButtonAction:" destination="Kqr-Kr-Su1" eventType="touchUpInside" id="KUc-wW-BUh"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQl-CL-RQ5">
+                                <rect key="frame" x="0.0" y="348" width="414" height="150"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="textfield" translatesAutoresizingMaskIntoConstraints="NO" id="0qi-V7-A4p">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+                                    </imageView>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Plant Location" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nc8-Cs-lax">
+                                        <rect key="frame" x="50" y="25" width="314" height="50"/>
+                                        <color key="textColor" name="DGreen"/>
+                                        <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="25"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="0qi-V7-A4p" firstAttribute="top" secondItem="eQl-CL-RQ5" secondAttribute="top" id="5xB-ik-vHV"/>
+                                    <constraint firstAttribute="bottom" secondItem="0qi-V7-A4p" secondAttribute="bottom" id="6eD-de-5q0"/>
+                                    <constraint firstItem="nc8-Cs-lax" firstAttribute="leading" secondItem="eQl-CL-RQ5" secondAttribute="leading" constant="50" id="G0u-Yf-o4R"/>
+                                    <constraint firstItem="0qi-V7-A4p" firstAttribute="leading" secondItem="eQl-CL-RQ5" secondAttribute="leading" id="Mjv-sj-1zs"/>
+                                    <constraint firstItem="nc8-Cs-lax" firstAttribute="top" secondItem="eQl-CL-RQ5" secondAttribute="top" constant="25" id="MxH-pw-jio"/>
+                                    <constraint firstAttribute="bottom" secondItem="nc8-Cs-lax" secondAttribute="bottom" constant="75" id="gS9-Pa-TS2"/>
+                                    <constraint firstAttribute="height" constant="150" id="ntf-zG-ZH5"/>
+                                    <constraint firstAttribute="trailing" secondItem="nc8-Cs-lax" secondAttribute="trailing" constant="50" id="pev-GU-fHJ"/>
+                                    <constraint firstAttribute="trailing" secondItem="0qi-V7-A4p" secondAttribute="trailing" id="xM5-2G-prn"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="KBV-kD-gD0"/>
+                        <color key="backgroundColor" name="AppHeader"/>
+                        <constraints>
+                            <constraint firstItem="PZj-8L-JcT" firstAttribute="leading" secondItem="KBV-kD-gD0" secondAttribute="leading" id="8j1-gm-xm2"/>
+                            <constraint firstItem="KBV-kD-gD0" firstAttribute="trailing" secondItem="Klr-fH-mK8" secondAttribute="trailing" id="9CZ-kO-Cci"/>
+                            <constraint firstItem="kS6-9X-S9Z" firstAttribute="centerX" secondItem="eQl-CL-RQ5" secondAttribute="centerX" id="Dae-5J-Ckv"/>
+                            <constraint firstItem="eQl-CL-RQ5" firstAttribute="trailing" secondItem="KBV-kD-gD0" secondAttribute="trailing" id="Eal-Yu-FeO"/>
+                            <constraint firstItem="KBV-kD-gD0" firstAttribute="trailing" secondItem="PZj-8L-JcT" secondAttribute="trailing" id="Qfq-bh-QnV"/>
+                            <constraint firstItem="Klr-fH-mK8" firstAttribute="top" secondItem="PZj-8L-JcT" secondAttribute="bottom" constant="8" id="RYT-t6-YYY"/>
+                            <constraint firstItem="kS6-9X-S9Z" firstAttribute="centerY" secondItem="eQl-CL-RQ5" secondAttribute="centerY" constant="112.5" id="TWM-eR-JG1"/>
+                            <constraint firstItem="eQl-CL-RQ5" firstAttribute="top" secondItem="PZj-8L-JcT" secondAttribute="bottom" constant="110" id="XaZ-ck-Ira"/>
+                            <constraint firstItem="Klr-fH-mK8" firstAttribute="leading" secondItem="PZj-8L-JcT" secondAttribute="leading" id="bCe-5D-39M"/>
+                            <constraint firstItem="eQl-CL-RQ5" firstAttribute="leading" secondItem="KBV-kD-gD0" secondAttribute="leading" id="gPa-Oi-c7L"/>
+                            <constraint firstItem="PZj-8L-JcT" firstAttribute="top" secondItem="KBV-kD-gD0" secondAttribute="top" id="vcr-l6-1rf"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="855-fe-rn0"/>
+                    <connections>
+                        <outlet property="plantImageTextField" destination="Buh-vb-Uuh" id="wnr-65-KiA"/>
+                        <outlet property="plantLocationTextField" destination="nc8-Cs-lax" id="F6f-4F-f4x"/>
+                        <outlet property="plantNameTextField" destination="fS0-CK-Irc" id="rsg-M5-c8r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rgB-TE-3zY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4186.9565217391309" y="-93.080357142857139"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="pqA-Tl-1CJ"/>
+        <segue reference="vs1-Wu-imD"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="textField" width="298" height="93"/>
+        <image name="textfield" width="298" height="93"/>
+        <namedColor name="AccentColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="AppHeader">
             <color red="0.61960784313725492" green="0.77254901960784317" blue="0.70588235294117652" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>

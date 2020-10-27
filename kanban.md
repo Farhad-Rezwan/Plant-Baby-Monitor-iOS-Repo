@@ -1,6 +1,6 @@
 ## To Do
 
-- Core data and Firebase store
+- Data type to store in Databas
 
 ## Doing
 
@@ -14,3 +14,4 @@
     * [x] Register
     * [x] UI of Storyboards minimal
 - Plant Cell and table view
+- Core data and Firebase store

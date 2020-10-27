@@ -7,41 +7,59 @@
 
 import UIKit
 
-class Plant {
-    var name: String?
-    var location: String?
-    var image: String?
-    init(name: String, location: String, image: String) {
-        self.name = name
-        self.image = image
-        self.location = location
-    }
-}
 
-class HomeViewController: UIViewController {
+
+class HomeViewController: UIViewController, DatabaseListener {
+    var listenerType: ListenerType = .plant
+    
+    func onUserChange(change: DatabaseChange, userPlants: [Plant]) { }
+    
+    func onPlantListChange(change: DatabaseChange, plants: [Plant]) {
+        plant = plants
+        print(plant)
+        plantTableView.reloadData()
+    }
+    
     
     var plant: [Plant] = []
     var cellSpacingHeight = 200
-
+    weak var databaseController: DatabaseProtocol?
+    
+    @IBOutlet weak var addPlantButtonDesign: UIButton!
     @IBOutlet weak var plantTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
         plantTableView.dataSource = self
         plantTableView.delegate = self
-        title = Constants.appName
+        title = K.appName
         
-        plantTableView.register(UINib(nibName: Constants.Identifier.plantTableViewCellNib, bundle: nil), forCellReuseIdentifier: Constants.Identifier.plantTableViewCell)
+        plantTableView.register(UINib(nibName: K.Identifier.plantTableViewCellNib, bundle: nil), forCellReuseIdentifier: K.Identifier.plantTableViewCell)
         
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        databaseController = appDelegate.databaseController
+        
+        addPlantButtonDesign.layer.borderColor = UIColor.black.cgColor
+        addPlantButtonDesign.layer.borderWidth = 1
+        addPlantButtonDesign.layer.cornerRadius = addPlantButtonDesign.frame.size.height / 10
         loadPlant()
     }
     
     func loadPlant() {
-        plant.append(Plant(name: "Plant A", location: "Home", image: "pa"))
-        plant.append(Plant(name: "Plant B", location: "Home", image: "pb"))
-        plant.append(Plant(name: "Plant C", location: "Office", image: "pc"))
+        
     }
     @IBAction func logoutPressed(_ sender: Any) {
         navigationController?.popToRootViewController(animated: true)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+        plantTableView.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
     }
 }
 
@@ -61,10 +79,10 @@ extension HomeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: Constants.Identifier.plantTableViewCell, for: indexPath) as! PlantTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.plantTableViewCell, for: indexPath) as! PlantTableViewCell
         cell.plantName.text = plant[indexPath.section].name
         cell.plantLocation.text = plant[indexPath.section].location
-        cell.plantImage.image = UIImage(named: plant[indexPath.section].image!)
+        cell.plantImage.image = UIImage(named: plant[indexPath.section].image)
         return cell
     }
     
