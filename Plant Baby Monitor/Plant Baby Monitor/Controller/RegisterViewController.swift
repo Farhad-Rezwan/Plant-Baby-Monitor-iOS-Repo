@@ -23,7 +23,7 @@ class RegisterViewController: UIViewController {
                 if let err = error {
                     print(err)
                 } else {
-                    self.performSegue(withIdentifier: Constants.Segue.registerToHomeSegue, sender: self)
+                    self.performSegue(withIdentifier: K.Segue.registerToHomeSegue, sender: self)
                 }
             }
             

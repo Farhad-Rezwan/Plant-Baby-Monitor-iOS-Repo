@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		111CC2200820FE580987978F /* Pods_Plant_Baby_Monitor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D9BF7FFFE8C54AE490E9CC /* Pods_Plant_Baby_Monitor.framework */; };
+		E44549BA2547A9BF001F2CC1 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44549B92547A9BF001F2CC1 /* DatabaseProtocol.swift */; };
+		E44549BE2547A9EE001F2CC1 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44549BD2547A9EE001F2CC1 /* MulticastDelegate.swift */; };
+		E44549C12547AA0D001F2CC1 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44549C02547AA0D001F2CC1 /* FirebaseController.swift */; };
+		E44549D82547AABF001F2CC1 /* Plant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44549D72547AABF001F2CC1 /* Plant.swift */; };
+		E44549DB2547AACE001F2CC1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44549DA2547AACE001F2CC1 /* User.swift */; };
+		E44549E02547BC43001F2CC1 /* AddPlantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44549DF2547BC43001F2CC1 /* AddPlantViewController.swift */; };
 		FC49A889253ECE64004D9206 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49A888253ECE64004D9206 /* Constant.swift */; };
 		FC49A88E253ED59F004D9206 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49A88D253ED59F004D9206 /* WelcomeViewController.swift */; };
 		FC49A891253ED5D1004D9206 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49A890253ED5D1004D9206 /* LoginViewController.swift */; };
@@ -20,12 +26,20 @@
 		FC8EB39F253EBB31009D858E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC8EB39D253EBB31009D858E /* Main.storyboard */; };
 		FC8EB3A1253EBB34009D858E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC8EB3A0253EBB34009D858E /* Assets.xcassets */; };
 		FC8EB3A4253EBB34009D858E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC8EB3A2253EBB34009D858E /* LaunchScreen.storyboard */; };
+		FCEC7D7A25443020009FC83C /* PlantTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCEC7D7825443020009FC83C /* PlantTableViewCell.swift */; };
+		FCEC7D7B25443020009FC83C /* PlantTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FCEC7D7925443020009FC83C /* PlantTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2E7FE89289C8D89A48486C0D /* Pods-Plant Baby Monitor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Plant Baby Monitor.release.xcconfig"; path = "Target Support Files/Pods-Plant Baby Monitor/Pods-Plant Baby Monitor.release.xcconfig"; sourceTree = "<group>"; };
 		41D9BF7FFFE8C54AE490E9CC /* Pods_Plant_Baby_Monitor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Plant_Baby_Monitor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E002F8CF89A597F9B7F8861C /* Pods-Plant Baby Monitor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Plant Baby Monitor.debug.xcconfig"; path = "Target Support Files/Pods-Plant Baby Monitor/Pods-Plant Baby Monitor.debug.xcconfig"; sourceTree = "<group>"; };
+		E44549B92547A9BF001F2CC1 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
+		E44549BD2547A9EE001F2CC1 /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
+		E44549C02547AA0D001F2CC1 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
+		E44549D72547AABF001F2CC1 /* Plant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plant.swift; sourceTree = "<group>"; };
+		E44549DA2547AACE001F2CC1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E44549DF2547BC43001F2CC1 /* AddPlantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlantViewController.swift; sourceTree = "<group>"; };
 		FC49A888253ECE64004D9206 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		FC49A88D253ED59F004D9206 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		FC49A890253ED5D1004D9206 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +54,8 @@
 		FC8EB3A0253EBB34009D858E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC8EB3A3253EBB34009D858E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FC8EB3A5253EBB34009D858E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FCEC7D7825443020009FC83C /* PlantTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantTableViewCell.swift; sourceTree = "<group>"; };
+		FCEC7D7925443020009FC83C /* PlantTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlantTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,12 +87,42 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E44549B52547A937001F2CC1 /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				E44549D72547AABF001F2CC1 /* Plant.swift */,
+				E44549DA2547AACE001F2CC1 /* User.swift */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		E44549B72547A985001F2CC1 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				E44549B92547A9BF001F2CC1 /* DatabaseProtocol.swift */,
+				E44549BD2547A9EE001F2CC1 /* MulticastDelegate.swift */,
+				E44549C02547AA0D001F2CC1 /* FirebaseController.swift */,
+			);
+			path = Database;
+			sourceTree = "<group>";
+		};
+		E44549B82547A992001F2CC1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E44549B72547A985001F2CC1 /* Database */,
+				E44549B52547A937001F2CC1 /* DataModel */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		FC49A886253ECE28004D9206 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				FC8EB39D253EBB31009D858E /* Main.storyboard */,
 				FC8EB3A2253EBB34009D858E /* LaunchScreen.storyboard */,
 				FC8EB3A0253EBB34009D858E /* Assets.xcassets */,
+				FCEC7D7825443020009FC83C /* PlantTableViewCell.swift */,
+				FCEC7D7925443020009FC83C /* PlantTableViewCell.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -89,6 +135,7 @@
 				FC49A893253ED605004D9206 /* RegisterViewController.swift */,
 				FC49A896253ED610004D9206 /* HomeViewController.swift */,
 				FC49A8D0253EEC2A004D9206 /* CustomNavigationController.swift */,
+				E44549DF2547BC43001F2CC1 /* AddPlantViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -114,6 +161,7 @@
 		FC8EB396253EBB31009D858E /* Plant Baby Monitor */ = {
 			isa = PBXGroup;
 			children = (
+				E44549B82547A992001F2CC1 /* Model */,
 				FC8EB397253EBB31009D858E /* AppDelegate.swift */,
 				FC8EB399253EBB31009D858E /* SceneDelegate.swift */,
 				FC49A886253ECE28004D9206 /* View */,
@@ -186,6 +234,7 @@
 			files = (
 				FC8EB3A4253EBB34009D858E /* LaunchScreen.storyboard in Resources */,
 				FC49A8BD253ED8D2004D9206 /* GoogleService-Info.plist in Resources */,
+				FCEC7D7B25443020009FC83C /* PlantTableViewCell.xib in Resources */,
 				FC8EB3A1253EBB34009D858E /* Assets.xcassets in Resources */,
 				FC8EB39F253EBB31009D858E /* Main.storyboard in Resources */,
 			);
@@ -240,12 +289,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E44549E02547BC43001F2CC1 /* AddPlantViewController.swift in Sources */,
 				FC8EB398253EBB31009D858E /* AppDelegate.swift in Sources */,
+				E44549C12547AA0D001F2CC1 /* FirebaseController.swift in Sources */,
+				E44549DB2547AACE001F2CC1 /* User.swift in Sources */,
 				FC49A88E253ED59F004D9206 /* WelcomeViewController.swift in Sources */,
 				FC8EB39A253EBB31009D858E /* SceneDelegate.swift in Sources */,
 				FC49A894253ED605004D9206 /* RegisterViewController.swift in Sources */,
+				E44549BA2547A9BF001F2CC1 /* DatabaseProtocol.swift in Sources */,
+				E44549D82547AABF001F2CC1 /* Plant.swift in Sources */,
+				FCEC7D7A25443020009FC83C /* PlantTableViewCell.swift in Sources */,
 				FC49A8D1253EEC2A004D9206 /* CustomNavigationController.swift in Sources */,
 				FC49A891253ED5D1004D9206 /* LoginViewController.swift in Sources */,
+				E44549BE2547A9EE001F2CC1 /* MulticastDelegate.swift in Sources */,
 				FC49A897253ED610004D9206 /* HomeViewController.swift in Sources */,
 				FC49A889253ECE64004D9206 /* Constant.swift in Sources */,
 			);
