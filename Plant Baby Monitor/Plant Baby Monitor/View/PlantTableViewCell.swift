@@ -24,15 +24,11 @@ class PlantTableViewCell: UITableViewCell {
         self.layer.cornerRadius = frameViewCorner.frame.size.height / 10
         self.clipsToBounds = true
         
-        
-        
         frameViewCorner.layer.cornerRadius = frameViewCorner.frame.size.height / 10
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     

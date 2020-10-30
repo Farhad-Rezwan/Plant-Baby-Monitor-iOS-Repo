@@ -10,13 +10,16 @@ import UIKit
 
 
 class HomeViewController: UIViewController, DatabaseListener {
+    
+    var uID: String?
+    var user: User?
     var listenerType: ListenerType = .plant
     
     func onUserChange(change: DatabaseChange, userPlants: [Plant]) { }
     
     func onPlantListChange(change: DatabaseChange, plants: [Plant]) {
         plant = plants
-        print(plant)
+//        print(plant)
         plantTableView.reloadData()
     }
     
@@ -32,7 +35,7 @@ class HomeViewController: UIViewController, DatabaseListener {
         plantTableView.dataSource = self
         plantTableView.delegate = self
         title = K.appName
-        
+
         plantTableView.register(UINib(nibName: K.Identifier.plantTableViewCellNib, bundle: nil), forCellReuseIdentifier: K.Identifier.plantTableViewCell)
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -41,19 +44,15 @@ class HomeViewController: UIViewController, DatabaseListener {
         addPlantButtonDesign.layer.borderColor = UIColor.black.cgColor
         addPlantButtonDesign.layer.borderWidth = 1
         addPlantButtonDesign.layer.cornerRadius = addPlantButtonDesign.frame.size.height / 10
-        loadPlant()
     }
     
-    func loadPlant() {
-        
-    }
     @IBAction func logoutPressed(_ sender: Any) {
         navigationController?.popToRootViewController(animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        databaseController?.addListener(listener: self)
+        databaseController?.addListener(listener: self, userCredentials: uID!)
         plantTableView.reloadData()
     }
     
@@ -61,6 +60,15 @@ class HomeViewController: UIViewController, DatabaseListener {
         super.viewWillDisappear(animated)
         databaseController?.removeListener(listener: self)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == K.Segue.homeToAddPlantSegue {
+            var destination = segue.destination as! AddPlantViewController
+            destination.uID = uID
+        }
+    }
+    
+    
 }
 
 extension HomeViewController: UITableViewDataSource {

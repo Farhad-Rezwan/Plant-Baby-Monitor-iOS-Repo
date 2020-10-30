@@ -10,6 +10,7 @@ import Firebase
 
 class RegisterViewController: UIViewController {
 
+    var uID: String?
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -23,10 +24,18 @@ class RegisterViewController: UIViewController {
                 if let err = error {
                     print(err)
                 } else {
+                    
+                    self.uID = authResult?.user.uid
                     self.performSegue(withIdentifier: K.Segue.registerToHomeSegue, sender: self)
                 }
             }
             
+        }
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == K.Segue.registerToHomeSegue {
+            let destination = segue.destination as! HomeViewController
+            destination.uID = uID
         }
     }
 }

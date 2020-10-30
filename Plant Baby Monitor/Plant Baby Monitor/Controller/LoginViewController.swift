@@ -9,12 +9,14 @@ import UIKit
 import Firebase
 
 class LoginViewController: UIViewController {
-
+    
+    var tempUserEmail: String?
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
     @IBAction func loginButtonPressed(_ sender: Any) {
         if let email = emailTextField.text, let password = passwordTextField.text {
@@ -23,10 +25,20 @@ class LoginViewController: UIViewController {
                 if let err = error {
                     print(err)
                 } else {
+                    
+                    self.tempUserEmail = email
                     self.performSegue(withIdentifier: K.Segue.loginToHomeSegue, sender: self)
                     
                 }
             }
         }
     }
+        
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == K.Segue.loginToHomeSegue {
+            let destination = segue.destination as! HomeViewController
+            destination.uID = tempUserEmail
+        }
+    }
+
 }

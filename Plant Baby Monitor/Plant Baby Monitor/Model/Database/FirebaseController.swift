@@ -15,24 +15,31 @@ import FirebaseFirestoreSwift
 class FirebaseController: NSObject, DatabaseProtocol {
     
     var listeners = MulticastDelegate<DatabaseListener>()
+    var defaultUser: User
     var authController: Auth
     var database: Firestore
     var plantsRef: CollectionReference?
     var usersRef: CollectionReference?
+    var plantStatusRef: CollectionReference?
     var plantList: [Plant]
-    var defaultUser: User
+    var plantStatusList: [PlantStatus]
+    var defaultUserPlant: Plant
+    var USER_PLANT_NAME = K.Databae.tempPlantName
     let DEFAULT_USER_NAME = K.Databae.defaultUser
 
+    /// user er email ane, akhane initialize korbo, niche method ase how to fetch for that email id,
     override init() {
         /// firebase appp configuration method to run the fireabse in the app
         FirebaseApp.configure()
         authController = Auth.auth()
         database = Firestore.firestore()
         plantList = [Plant]()
+        plantStatusList = [PlantStatus]()
         defaultUser = User()
+        defaultUserPlant = Plant()
         
         super.init()
-        
+
         // sign in an annonymous account
         
 //        authController.signInAnonymously { (authResult, error) in
@@ -43,16 +50,16 @@ class FirebaseController: NSObject, DatabaseProtocol {
 //            }
 //        }
         
-        let email = "click9417@gmail.com"
-        let password = "Sf_01671119079"
-            
-        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-            if let err = error {
-                print(err)
-            } else {
-                self.setUpPlantListener()
-            }
-        }
+//        let email = "click9417@gmail.com"
+//        let password = "Sf_01671119079"
+//            
+//        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+//            if let err = error {
+//                print(err)
+//            } else {
+//                self.setUpPlantListener()
+//            }
+//        }
         
     }
     
@@ -73,7 +80,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             if let err = error {
                 print("error \(err)")
             } else if let querySnapshot = querySnapshot, let teamSnapshot = querySnapshot.documents.first {
-                self.perseTeamSnapshot(snapshot: teamSnapshot)
+                self.perseTeamSnapshot(documentSnapshot: teamSnapshot)
             }
         })
     }
@@ -124,12 +131,12 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
         
     }
-    private func perseTeamSnapshot(snapshot: QueryDocumentSnapshot) {
+    private func perseTeamSnapshot(documentSnapshot: QueryDocumentSnapshot) {
         defaultUser = User()
-        defaultUser.name = snapshot.data()[K.Databae.Attributes.userName] as! String
-        defaultUser.id = snapshot.documentID
+        defaultUser.name = documentSnapshot.data()[K.Databae.Attributes.userName] as! String
+        defaultUser.id = documentSnapshot.documentID
         
-        if let heroReferences = snapshot.data()[K.Databae.Attributes.plants] as? [DocumentReference] {
+        if let heroReferences = documentSnapshot.data()[K.Databae.Attributes.plants] as? [DocumentReference] {
             for reference in heroReferences {
                 if let hero = getPlantByID(reference.documentID) {
                     defaultUser.plants.append(hero)
@@ -183,19 +190,19 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return plant
     }
     
-    func addUser(teamName: String) -> User {
+    func addUser(userName: String) -> User {
         let team = User()
-        team.name = teamName
+        team.name = userName
         
-        if let teamRef = usersRef?.addDocument(data: ["name": teamName, "heroes": []]) {
+        if let teamRef = usersRef?.addDocument(data: ["name": userName, "heroes": []]) {
             team.id = teamRef.documentID
         }
         
         return team
     }
     
-    func addPlantToTeam(hero: Plant, team: User) -> Bool {
-        guard let heroID = hero.id, let teamID = team.id, team.plants.count < 6 else {
+    func addPlantToUser(hero: Plant, user: User) -> Bool {
+        guard let heroID = hero.id, let teamID = user.id, user.plants.count < 6 else {
             return false
         }
         
@@ -229,7 +236,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
-    func addListener(listener: DatabaseListener) {
+    func addListener(listener: DatabaseListener, userCredentials: String) {
         listeners.addDelegate(listener)
         
         if listener.listenerType == ListenerType.user ||

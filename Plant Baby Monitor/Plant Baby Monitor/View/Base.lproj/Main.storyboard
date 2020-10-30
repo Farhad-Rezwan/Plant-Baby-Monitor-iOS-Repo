@@ -178,7 +178,7 @@
                                     <color key="titleColor" name="AccentColor"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Kqr-Kr-Su1" kind="show" id="2u2-iI-Hwl"/>
+                                    <segue destination="Kqr-Kr-Su1" kind="show" identifier="homeToAddPlantSegue" id="2u2-iI-Hwl"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -456,7 +456,62 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rgB-TE-3zY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4186.9565217391309" y="-93.080357142857139"/>
+            <point key="canvasLocation" x="4122" y="-265"/>
+        </scene>
+        <!--Home View Controller-->
+        <scene sceneID="1Dq-EG-OdE">
+            <objects>
+                <viewController id="lqm-uM-Ria" customClass="HomeViewController" customModule="Plant_Baby_Monitor" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="HNU-sp-83m">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="8r0-Kz-dCr">
+                                <rect key="frame" x="30" y="168" width="354" height="694"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <sections/>
+                            </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NW6-ij-iQg">
+                                <rect key="frame" x="264" y="74" width="120" height="44"/>
+                                <color key="backgroundColor" name="DGreen"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="22"/>
+                                <state key="normal" title="Water Plant">
+                                    <color key="titleColor" name="AccentColor"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I2p-Ms-Cx8">
+                                <rect key="frame" x="30" y="74" width="122" height="44"/>
+                                <color key="backgroundColor" name="DGreen"/>
+                                <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="22"/>
+                                <state key="normal" title="Update Data">
+                                    <color key="titleColor" name="AccentColor"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vAF-lo-cm5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="NW6-ij-iQg" firstAttribute="top" secondItem="vAF-lo-cm5" secondAttribute="top" constant="30" id="CGN-t7-ekG"/>
+                            <constraint firstItem="8r0-Kz-dCr" firstAttribute="leading" secondItem="vAF-lo-cm5" secondAttribute="leading" constant="30" id="DjL-Gn-ABX"/>
+                            <constraint firstItem="I2p-Ms-Cx8" firstAttribute="leading" secondItem="vAF-lo-cm5" secondAttribute="leading" constant="30" id="MnY-cC-32j"/>
+                            <constraint firstItem="I2p-Ms-Cx8" firstAttribute="top" secondItem="vAF-lo-cm5" secondAttribute="top" constant="30" id="O7h-qU-n1V"/>
+                            <constraint firstItem="vAF-lo-cm5" firstAttribute="trailing" secondItem="NW6-ij-iQg" secondAttribute="trailing" constant="30" id="U6B-KM-YMI"/>
+                            <constraint firstItem="8r0-Kz-dCr" firstAttribute="bottom" secondItem="vAF-lo-cm5" secondAttribute="bottom" id="Vcb-L3-NBr"/>
+                            <constraint firstItem="vAF-lo-cm5" firstAttribute="trailing" secondItem="8r0-Kz-dCr" secondAttribute="trailing" constant="30" id="Yi2-R0-xYp"/>
+                            <constraint firstItem="8r0-Kz-dCr" firstAttribute="top" secondItem="NW6-ij-iQg" secondAttribute="bottom" constant="50" id="eQZ-N8-sAP"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="rLZ-wB-Hvh">
+                        <barButtonItem key="rightBarButtonItem" title="Logout" id="b9R-94-qZL">
+                            <connections>
+                                <action selector="logoutPressed:" destination="lqm-uM-Ria" id="2Rd-F2-0qx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="y82-p0-qIv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4121.739130434783" y="596.65178571428567"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
