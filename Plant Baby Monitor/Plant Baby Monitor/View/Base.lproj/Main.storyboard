@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -513,6 +514,21 @@
             </objects>
             <point key="canvasLocation" x="4121.739130434783" y="596.65178571428567"/>
         </scene>
+        <!--Plant Details View Controller-->
+        <scene sceneID="9ju-5m-4fH">
+            <objects>
+                <viewController storyboardIdentifier="plantDetailsVC" id="jno-UG-H5M" customClass="PlantDetailsViewController" customModule="Plant_Baby_Monitor" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fBi-xp-cx8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="bNl-Kh-Noq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9GQ-Jg-qcY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5186" y="461"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="vs1-Wu-imD"/>
@@ -531,5 +547,8 @@
         <namedColor name="LogoBackground">
             <color red="0.49411764705882355" green="0.72549019607843135" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

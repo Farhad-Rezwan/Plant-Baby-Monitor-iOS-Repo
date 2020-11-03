@@ -10,6 +10,7 @@ import Firebase
 
 class RegisterViewController: UIViewController {
 
+    weak var databaseController: DatabaseProtocol?
     var uID: String?
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -17,7 +18,12 @@ class RegisterViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /// adding delegate, because need to update user in the firestore
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        databaseController = appDelegate.databaseController
     }
+    
     @IBAction func registerButtonPressed(_ sender: Any) {
         if let email = emailTextField.text, let password = passwordTextField.text {
             Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
@@ -26,12 +32,17 @@ class RegisterViewController: UIViewController {
                 } else {
                     
                     self.uID = authResult?.user.uid
+                    self.addUserInFirestore()
                     self.performSegue(withIdentifier: K.Segue.registerToHomeSegue, sender: self)
                 }
             }
             
         }
     }
+    func addUserInFirestore() {
+        let _ = databaseController?.addUser(userID: uID!)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Segue.registerToHomeSegue {
             let destination = segue.destination as! HomeViewController

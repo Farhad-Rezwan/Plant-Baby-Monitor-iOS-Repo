@@ -13,14 +13,15 @@ class HomeViewController: UIViewController, DatabaseListener {
     
     var uID: String?
     var user: User?
-    var listenerType: ListenerType = .plant
+    var listenerType: ListenerType = .user
     
-    func onUserChange(change: DatabaseChange, userPlants: [Plant]) { }
+    func onUserChange(change: DatabaseChange, userPlants: [Plant]) {
+        plant = userPlants
+        plantTableView.reloadData()
+    }
     
     func onPlantListChange(change: DatabaseChange, plants: [Plant]) {
-        plant = plants
-//        print(plant)
-        plantTableView.reloadData()
+        /// do nothing
     }
     
     
@@ -63,15 +64,15 @@ class HomeViewController: UIViewController, DatabaseListener {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Segue.homeToAddPlantSegue {
-            var destination = segue.destination as! AddPlantViewController
-            destination.uID = uID
+            let destination = segue.destination as! AddPlantViewController
+            destination.userDocumentID = uID
         }
     }
     
     
 }
 
-extension HomeViewController: UITableViewDataSource {
+extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     func numberOfSections(in tableView: UITableView) -> Int {
         return plant.count
     }
@@ -95,8 +96,14 @@ extension HomeViewController: UITableViewDataSource {
     }
     
     
-}
-
-extension HomeViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let viewController = storyboard?.instantiateViewController(identifier: K.Identifier.plantDetailsViewController) as! PlantDetailsViewController
+        
+        viewController.plant = plant[indexPath.section]
+        
+        navigationController?.pushViewController(viewController, animated: true)
+        
+    }
     
 }
+
