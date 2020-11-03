@@ -10,7 +10,7 @@ import Firebase
 
 class LoginViewController: UIViewController {
     
-    var tempUserEmail: String?
+    var tempUserID: String?
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
@@ -26,7 +26,7 @@ class LoginViewController: UIViewController {
                     print(err)
                 } else {
                     
-                    self.tempUserEmail = email
+                    self.tempUserID = authResult?.user.uid
                     self.performSegue(withIdentifier: K.Segue.loginToHomeSegue, sender: self)
                     
                 }
@@ -37,7 +37,7 @@ class LoginViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Segue.loginToHomeSegue {
             let destination = segue.destination as! HomeViewController
-            destination.uID = tempUserEmail
+            destination.uID = tempUserID
         }
     }
 

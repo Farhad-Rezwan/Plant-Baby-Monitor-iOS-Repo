@@ -25,7 +25,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var plantStatusList: [PlantStatus]
     var defaultUserPlant: Plant
     var USER_PLANT_NAME = K.Databae.tempPlantName
-    let DEFAULT_USER_NAME = K.Databae.defaultUser
+    var DEFAULT_USER_UID = K.Databae.defaultUser
 
     /// user er email ane, akhane initialize korbo, niche method ase how to fetch for that email id,
     override init() {
@@ -39,58 +39,44 @@ class FirebaseController: NSObject, DatabaseProtocol {
         defaultUserPlant = Plant()
         
         super.init()
-
-        // sign in an annonymous account
-        
-//        authController.signInAnonymously { (authResult, error) in
-//            if let err = error {
-//                print("error sign in annonymously \(err)")
-//            } else {
-//
-//            }
-//        }
-        
-//        let email = "click9417@gmail.com"
-//        let password = "Sf_01671119079"
-//            
-//        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
-//            if let err = error {
-//                print(err)
-//            } else {
-//                self.setUpPlantListener()
-//            }
-//        }
-        
     }
     
+    
+    /// 1. method to add the listner
     private func setUpPlantListener() {
         plantsRef = database.collection(K.Databae.plantCollectionName)
         plantsRef?.addSnapshotListener({ (querySnapshot, error) in
             if let err = error {
                 print("error listening to database collection plants \(err)")
             } else if let querySnapshot = querySnapshot {
+                /// 2.
                 self.persePlantsSnapshot(snapshot: querySnapshot)
+                /// 3.
                 self.setupUserListener()
             }
         })
     }
+    
+    /// 3.
     private func setupUserListener() {
         usersRef = database.collection(K.Databae.userCollectionName)
-        usersRef?.whereField(K.Databae.Attributes.userName, isEqualTo: DEFAULT_USER_NAME).addSnapshotListener({ (querySnapshot, error) in
+        usersRef?.whereField(K.Databae.Attributes.userID, isEqualTo: DEFAULT_USER_UID).addSnapshotListener({ (querySnapshot, error) in
             if let err = error {
                 print("error \(err)")
             } else if let querySnapshot = querySnapshot, let teamSnapshot = querySnapshot.documents.first {
-                self.perseTeamSnapshot(documentSnapshot: teamSnapshot)
+                /// 4.
+                self.parseUserSnapshot(documentSnapshot: teamSnapshot)
             }
         })
     }
     
+    
     // MARK:- Parse Functions for Firestore Responses
+    /// 2. perse plant snapshots
     private func persePlantsSnapshot(snapshot: QuerySnapshot) {
         snapshot.documentChanges.forEach { (change) in
             let plantID = change.document.documentID
-            print(plantID)
-            
+
             var parsePlant: Plant?
             
             do{
@@ -131,15 +117,18 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
         
     }
-    private func perseTeamSnapshot(documentSnapshot: QueryDocumentSnapshot) {
+    
+    /// 4.
+    private func parseUserSnapshot(documentSnapshot: QueryDocumentSnapshot) {
         defaultUser = User()
-        defaultUser.name = documentSnapshot.data()[K.Databae.Attributes.userName] as! String
+        defaultUser.name = documentSnapshot.data()[K.Databae.Attributes.userID] as! String
         defaultUser.id = documentSnapshot.documentID
+        print(defaultUser.id)
         
-        if let heroReferences = documentSnapshot.data()[K.Databae.Attributes.plants] as? [DocumentReference] {
-            for reference in heroReferences {
-                if let hero = getPlantByID(reference.documentID) {
-                    defaultUser.plants.append(hero)
+        if let plantReference = documentSnapshot.data()[K.Databae.Attributes.plants] as? [DocumentReference] {
+            for reference in plantReference {
+                if let plant = getPlantByID(reference.documentID) {
+                    defaultUser.plants.append(plant)
                 }
             }
         }
@@ -175,6 +164,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func addPlant(name: String, location: String, image: String) -> Plant {
+        plantsRef = database.collection(K.Databae.plantCollectionName)
         let plant = Plant()
         plant.name = name
         plant.location = location
@@ -190,25 +180,29 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return plant
     }
     
-    func addUser(userName: String) -> User {
-        let team = User()
-        team.name = userName
+    func addUser(userID: String) -> User {
+        /// userRef required becauase the collection will be nill if the app wants to add a user.
+        usersRef = database.collection(K.Databae.userCollectionName)
+        let user = User()
+        user.name = userID
         
-        if let teamRef = usersRef?.addDocument(data: ["name": userName, "heroes": []]) {
-            team.id = teamRef.documentID
+        if let teamRef = usersRef?.addDocument(data: [K.Databae.Attributes.userID: userID, K.Databae.Attributes.plants: []]) {
+            user.id = teamRef.documentID
         }
         
-        return team
+        return user
     }
     
-    func addPlantToUser(hero: Plant, user: User) -> Bool {
-        guard let heroID = hero.id, let teamID = user.id, user.plants.count < 6 else {
+    func addPlantToUser(plant: Plant, userID: String) -> Bool {
+        plantsRef = database.collection(K.Databae.plantCollectionName)
+        usersRef = database.collection(K.Databae.userCollectionName)
+        guard let plantID = plant.id else {
             return false
         }
         
-        if let newHeroRef = plantsRef?.document(heroID) {
-            usersRef?.document(teamID).updateData(
-                [K.Databae.Attributes.plants : FieldValue.arrayUnion([newHeroRef])]
+        if let plantDocument = plantsRef?.document(plantID) {
+            usersRef?.document(defaultUser.id!).updateData(
+                [K.Databae.Attributes.plants : FieldValue.arrayUnion([plantDocument])]
             )
         }
         return true
@@ -237,6 +231,12 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func addListener(listener: DatabaseListener, userCredentials: String) {
+        
+        DEFAULT_USER_UID = userCredentials
+        setUpPlantListener()
+        
+        
+        
         listeners.addDelegate(listener)
         
         if listener.listenerType == ListenerType.user ||

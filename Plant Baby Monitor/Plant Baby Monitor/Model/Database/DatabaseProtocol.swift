@@ -30,8 +30,8 @@ protocol DatabaseProtocol: AnyObject {
     
     func cleanup()
     func addPlant(name: String, location: String, image: String) -> Plant
-    func addUser(userName: String) -> User
-    func addPlantToUser(hero: Plant, user: User) -> Bool
+    func addUser(userID: String) -> User
+    func addPlantToUser(plant: Plant, userID: String) -> Bool
     func deletePlant(hero: Plant)
     func deleteUser(team: User)
     func deletePlantFromTeam(hero: Plant, team: User)
