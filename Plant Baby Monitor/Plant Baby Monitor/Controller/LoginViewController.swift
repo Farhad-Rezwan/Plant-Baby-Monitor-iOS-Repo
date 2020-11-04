@@ -15,6 +15,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
     }
@@ -29,6 +30,7 @@ class LoginViewController: UIViewController {
                     self.tempUserID = authResult?.user.uid
                     self.performSegue(withIdentifier: K.Segue.loginToHomeSegue, sender: self)
                     
+
                 }
             }
         }

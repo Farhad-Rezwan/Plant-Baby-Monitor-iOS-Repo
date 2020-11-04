@@ -7,10 +7,35 @@
 
 import UIKit
 import Charts
+import Firebase
 import TinyConstraints
+
+
+
+struct Status: CustomStringConvertible {
+    let humid: Int
+    let moist: Int
+    let temp: Int
+    let timeStamp: Double
+    
+    init(dictionary: [String: Any]) {
+        self.humid = dictionary["jobNumber"] as? Int ?? 0
+        self.moist = dictionary["jobName"] as? Int ?? 0
+        self.temp = dictionary["client"] as? Int ?? 0
+        self.timeStamp = dictionary["client"] as? Double ?? 0
+    }
+    var description: String {
+        return "Job#: " + String(humid) + " - name: " +  String(moist) + " - client: " +  String(temp) + " - client: " +  String(timeStamp)
+    }
+}
+
+
+
+
 
 class PlantDetailsViewController: UIViewController {
     
+    var ref: DatabaseReference = Database.database().reference()
     lazy var lineChartView: LineChartView = {
         let chartView = LineChartView()
         chartView.backgroundColor = .systemBlue
@@ -94,23 +119,23 @@ class PlantDetailsViewController: UIViewController {
         
         ///--------- test
         
-//        let userID = Auth.auth().currentUser?.uid
-//        ref.child("users").child(userID!).observeSingleEvent(of: .value, with: { (snapshot) in
-//          // Get user value
-//          let value = snapshot.value as? NSDictionary
-//          let username = value?["username"] as? String ?? ""
-//          let user = User(username: username)
-//
-//          // ...
-//          }) { (error) in
-//            print(error.localizedDescription)
-//        }
+        ref.child("7MBL5Bbt48NnpWcZappr").observeSingleEvent(of: .value, with: { (snapshot) in
+          // Get user value
+            let value = snapshot.value as! NSDictionary
+            print(value)
+            for key in value.allKeys {
+                print(value[key])
+                let s = Status(dictionary: value[key] as! [String: Any])
+                print(s.humid)
+            }
+
+          // ...
+          }) { (error) in
+            print(error.localizedDescription)
+        }
         
         
-        
-        
-        
-        
+
         ///--------- test
         
         

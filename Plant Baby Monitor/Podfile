@@ -5,6 +5,7 @@ target 'Plant Baby Monitor' do
 
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
+  pod 'Firebase/Database'
   pod 'FirebaseFirestoreSwift'
   pod 'Charts'
   pod 'TinyConstraints'

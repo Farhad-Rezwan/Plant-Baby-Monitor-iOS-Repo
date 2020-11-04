@@ -19,6 +19,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var authController: Auth
     var database: Firestore
     var plantsRef: CollectionReference?
+    
     var usersRef: CollectionReference?
     var plantStatusRef: CollectionReference?
     var plantList: [Plant]
@@ -31,6 +32,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     override init() {
         /// firebase appp configuration method to run the fireabse in the app
         FirebaseApp.configure()
+
         authController = Auth.auth()
         database = Firestore.firestore()
         plantList = [Plant]()
@@ -39,6 +41,12 @@ class FirebaseController: NSObject, DatabaseProtocol {
         defaultUserPlant = Plant()
         
         super.init()
+        
+        
+        
+        
+        
+        
     }
     
     
@@ -234,6 +242,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
         DEFAULT_USER_UID = userCredentials
         setUpPlantListener()
+        
+        
         
         
         
