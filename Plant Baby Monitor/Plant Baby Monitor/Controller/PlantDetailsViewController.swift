@@ -13,19 +13,19 @@ import TinyConstraints
 
 
 struct Status: CustomStringConvertible {
-    let humid: Int
-    let moist: Int
-    let temp: Int
+    let humid: Double
+    let moist: Double
+    let temp: Double
     let timeStamp: Double
     
     init(dictionary: [String: Any]) {
-        self.humid = dictionary["jobNumber"] as? Int ?? 0
-        self.moist = dictionary["jobName"] as? Int ?? 0
-        self.temp = dictionary["client"] as? Int ?? 0
-        self.timeStamp = dictionary["client"] as? Double ?? 0
+        self.humid = dictionary["humid"] as? Double ?? 0
+        self.moist = dictionary["moist"] as? Double ?? 0
+        self.temp = dictionary["temp"] as? Double ?? 0
+        self.timeStamp = dictionary["timestamp"] as? Double ?? 0
     }
     var description: String {
-        return "Job#: " + String(humid) + " - name: " +  String(moist) + " - client: " +  String(temp) + " - client: " +  String(timeStamp)
+        return "Humid#: " + String(humid) + " - name: " +  String(moist) + " - temp: " +  String(temp) + " - temeStamp: " +  String(timeStamp)
     }
 }
 
@@ -62,49 +62,27 @@ class PlantDetailsViewController: UIViewController {
         return chartView
     }()
     
-    let yValues: [ChartDataEntry] = [
-        ChartDataEntry(x: 0.0, y: 10.0),
-        ChartDataEntry(x: 1.0, y: 20.0),
-        ChartDataEntry(x: 2.0, y: 10.0),
-        ChartDataEntry(x: 3.0, y: 10.0),
-        ChartDataEntry(x: 4.0, y: 3.0),
-        ChartDataEntry(x: 5.0, y: 1.0),
-        ChartDataEntry(x: 6.0, y: 19.0),
-        ChartDataEntry(x: 7.0, y: 13.0),
-        ChartDataEntry(x: 8.0, y: 14.0),
-        ChartDataEntry(x: 9.0, y: 10.0),
-        ChartDataEntry(x: 10.0, y: 10.0),
-        ChartDataEntry(x: 11.0, y: 20.0),
-        ChartDataEntry(x: 12.0, y: 10.0),
-        ChartDataEntry(x: 13.0, y: 10.0),
-        ChartDataEntry(x: 14.0, y: 20.0),
-        ChartDataEntry(x: 15.0, y: 1.0),
-        ChartDataEntry(x: 16.0, y: 19.0),
-        ChartDataEntry(x: 17.0, y: 13.0),
-        ChartDataEntry(x: 18.0, y: 14.0),
-        ChartDataEntry(x: 19.0, y: 10.0),
-        ChartDataEntry(x: 20.0, y: 10.0),
-    ]
-    
+    var yValues: [ChartDataEntry] = []
+
     func setData() {
         let set1 = LineChartDataSet(entries: yValues, label: "Plants")
         set1.drawCirclesEnabled = false
         
-        /// remove the sharp edges
+        // remove the sharp edges
         set1.mode = .cubicBezier
         set1.lineWidth = 3
         set1.setColor(.white)
         set1.fill = Fill(color: .white)
-        
+
         /// if imgage is used better
         set1.fillAlpha = 0.8
         set1.drawFilledEnabled = true
-        
-        
+
+
         /// remove highlight indecator
         set1.drawVerticalHighlightIndicatorEnabled = false
         set1.highlightColor = .systemRed
-        
+
         let data = LineChartData(dataSet: set1)
         data.setDrawValues(false)
         lineChartView.data = data
@@ -114,8 +92,16 @@ class PlantDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(plant)
+
+        view.addSubview(lineChartView)
+        lineChartView.centerInSuperview()
+        lineChartView.width(to: view)
+        lineChartView.heightToWidth(of: view)
         
+        fetchData()
+    }
+    
+    func fetchData() {
         
         ///--------- test
         
@@ -123,12 +109,17 @@ class PlantDetailsViewController: UIViewController {
           // Get user value
             let value = snapshot.value as! NSDictionary
             print(value)
+            var i: Double = 0
             for key in value.allKeys {
-                print(value[key])
                 let s = Status(dictionary: value[key] as! [String: Any])
-                print(s.humid)
+                print(s.timeStamp)
+                print(s.moist)
+                self.yValues.append(
+                    
+                    ChartDataEntry(x: i, y: s.humid)
+                )
+                i += 1
             }
-
           // ...
           }) { (error) in
             print(error.localizedDescription)
@@ -138,14 +129,10 @@ class PlantDetailsViewController: UIViewController {
 
         ///--------- test
         
-        
-        
-        
-        view.addSubview(lineChartView)
-        lineChartView.centerInSuperview()
-        lineChartView.width(to: view)
-        lineChartView.heightToWidth(of: view)
-        
+    }
+    
+    @IBAction func populateChartPressed(_ sender: Any) {
         setData()
     }
+    
 }

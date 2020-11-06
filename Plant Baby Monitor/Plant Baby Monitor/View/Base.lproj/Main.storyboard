@@ -521,8 +521,29 @@
                     <view key="view" contentMode="scaleToFill" id="fBi-xp-cx8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DIh-gm-hFI">
+                                <rect key="frame" x="0.0" y="799" width="414" height="30"/>
+                                <color key="backgroundColor" name="DGreen"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="nLo-nl-2ly"/>
+                                </constraints>
+                                <state key="normal" title="POPULATE Chart">
+                                    <color key="titleColor" name="AccentColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="populateChartPressed:" destination="jno-UG-H5M" eventType="touchUpInside" id="9ut-HM-Gac"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="bNl-Kh-Noq"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="DIh-gm-hFI" firstAttribute="centerX" secondItem="fBi-xp-cx8" secondAttribute="centerX" id="IV9-hf-BMc"/>
+                            <constraint firstItem="bNl-Kh-Noq" firstAttribute="trailing" secondItem="DIh-gm-hFI" secondAttribute="trailing" id="LLK-SW-Q82"/>
+                            <constraint firstItem="DIh-gm-hFI" firstAttribute="top" secondItem="bNl-Kh-Noq" secondAttribute="top" constant="755" id="gzG-TV-8Kj"/>
+                            <constraint firstItem="DIh-gm-hFI" firstAttribute="leading" secondItem="bNl-Kh-Noq" secondAttribute="leading" id="lAT-bV-EE5"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9GQ-Jg-qcY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
