@@ -12,7 +12,7 @@ struct K {
         static var loginToHomeSegue = "loginToHomeSegue"
         static var registerToHomeSegue = "registerToHomeSegue"
         static var homeToAddPlantSegue = "homeToAddPlantSegue"
-        
+
     }
     struct Identifier {
         static var plantTableViewCell = "plantCell"

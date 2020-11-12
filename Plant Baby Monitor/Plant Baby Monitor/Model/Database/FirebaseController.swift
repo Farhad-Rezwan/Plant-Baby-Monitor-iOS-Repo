@@ -20,10 +20,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var database: Firestore
     var plantsRef: CollectionReference?
     
+    var plantStatusRef: DatabaseReference?
+
     var usersRef: CollectionReference?
-    var plantStatusRef: CollectionReference?
     var plantList: [Plant]
-    var plantStatusList: [PlantStatus]
+    var plantStatusList: [Status]
     var defaultUserPlant: Plant
     var USER_PLANT_NAME = K.Databae.tempPlantName
     var DEFAULT_USER_UID = K.Databae.defaultUser
@@ -36,21 +37,18 @@ class FirebaseController: NSObject, DatabaseProtocol {
         authController = Auth.auth()
         database = Firestore.firestore()
         plantList = [Plant]()
-        plantStatusList = [PlantStatus]()
+        plantStatusList = [Status]()
         defaultUser = User()
         defaultUserPlant = Plant()
+        // defaultPlantStatus = Status(dictionary: [String : Any])
         
         super.init()
-        
-        
-        
-        
-        
-        
     }
     
     
-    /// 1. method to add the listner
+    /// 1
+    /// adds reference to the dartabase from firebase firestore.
+    /// Innitiates the listeners for user, and starts persing the plant snapshot
     private func setUpPlantListener() {
         plantsRef = database.collection(K.Databae.plantCollectionName)
         plantsRef?.addSnapshotListener({ (querySnapshot, error) in
@@ -59,8 +57,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
             } else if let querySnapshot = querySnapshot {
                 /// 2.
                 self.persePlantsSnapshot(snapshot: querySnapshot)
-                /// 3.
-                self.setupUserListener()
             }
         })
     }
@@ -76,6 +72,21 @@ class FirebaseController: NSObject, DatabaseProtocol {
                 self.parseUserSnapshot(documentSnapshot: teamSnapshot)
             }
         })
+    }
+    
+    /// 5
+    /// Setting up to listen plant status from real time database
+    private func setupPlantStatusListener() {
+        /// sets reference to the database
+        plantStatusRef = Database.database().reference()
+        /// Obesrve events of single plant status changes
+        plantStatusRef?.child("7MBL5Bbt48NnpWcZappr").observeSingleEvent(of: .value, with: { (snapshot) in
+          // Get user value
+            self.parsePlantStatusSnapshot(documentSnapshot: snapshot)
+          // ...
+          }) { (error) in
+            print(error.localizedDescription)
+        }
     }
     
     
@@ -131,7 +142,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         defaultUser = User()
         defaultUser.name = documentSnapshot.data()[K.Databae.Attributes.userID] as! String
         defaultUser.id = documentSnapshot.documentID
-        print(defaultUser.id)
+        print("Default User Id: (FROM FIREBASE CONTROLLER CLASS: 146:) \(defaultUser.id ?? "USER NOT FOUND")")
         
         if let plantReference = documentSnapshot.data()[K.Databae.Attributes.plants] as? [DocumentReference] {
             for reference in plantReference {
@@ -149,6 +160,31 @@ class FirebaseController: NSObject, DatabaseProtocol {
             }
         }
         
+    }
+    
+    /// 6
+    /// Perse plant status snapshot
+    private func parsePlantStatusSnapshot(documentSnapshot: DataSnapshot) {
+        let value = documentSnapshot.value as! NSDictionary
+        // print(value)
+        
+        //MARK:- FIX!!!
+        
+        /// have to be time stamp insted of double
+        for key in value.allKeys {
+            let s = Status(dictionary: value[key] as! [String: Any])
+            plantStatusList.append(s)
+        }
+        //print("From Firebase COntroller")
+        //print(plantStatusList)
+        
+        listeners.invoke { (listener) in
+            if listener.listenerType == ListenerType.plantStatus ||
+                listener.listenerType == ListenerType.all {
+                
+                listener.onPlantStatusChange(change: .update, statuses: plantStatusList)
+            }
+        }
     }
     
     private func getPlantIndexByID(_ id: String) -> Int? {
@@ -239,24 +275,36 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func addListener(listener: DatabaseListener, userCredentials: String) {
-        
         DEFAULT_USER_UID = userCredentials
-        setUpPlantListener()
-        
-        
-        
-        
-        
+
+
         listeners.addDelegate(listener)
         
         if listener.listenerType == ListenerType.user ||
             listener.listenerType == ListenerType.all {
+            
+            /// HOME VIEW CONTROLLER
+            setUpPlantListener()
+            setupUserListener()
+            
             listener.onUserChange(change: .update, userPlants: defaultUser.plants)
         }
         
         if listener.listenerType == ListenerType.plant ||
             listener.listenerType == ListenerType.all {
+            
+            ///
+            setUpPlantListener()
+
+            
             listener.onPlantListChange(change: .update, plants: plantList)
+        }
+        if listener.listenerType == ListenerType.plantStatus ||
+            listener.listenerType == ListenerType.all {
+            
+            /// Plant Details View Controller
+            setupPlantStatusListener()
+            listener.onPlantStatusChange(change: .update, statuses: plantStatusList)
         }
     }
     

@@ -9,33 +9,18 @@ import UIKit
 import Charts
 import Firebase
 import TinyConstraints
+//import CodableFirebase
 
 
+class PlantDetailsViewController: UIViewController, DatabaseListener {
+    var listenerType: ListenerType = .plantStatus
+    weak var databaseController: DatabaseProtocol?
 
-struct Status: CustomStringConvertible {
-    let humid: Double
-    let moist: Double
-    let temp: Double
-    let timeStamp: Double
-    
-    init(dictionary: [String: Any]) {
-        self.humid = dictionary["humid"] as? Double ?? 0
-        self.moist = dictionary["moist"] as? Double ?? 0
-        self.temp = dictionary["temp"] as? Double ?? 0
-        self.timeStamp = dictionary["timestamp"] as? Double ?? 0
-    }
-    var description: String {
-        return "Humid#: " + String(humid) + " - name: " +  String(moist) + " - temp: " +  String(temp) + " - temeStamp: " +  String(timeStamp)
-    }
-}
-
-
-
-
-
-class PlantDetailsViewController: UIViewController {
-    
+    var statuses: [Status]?
+    /// sets reference to the database 
     var ref: DatabaseReference = Database.database().reference()
+    var uID: String?
+    
     lazy var lineChartView: LineChartView = {
         let chartView = LineChartView()
         chartView.backgroundColor = .systemBlue
@@ -92,47 +77,147 @@ class PlantDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        databaseController = appDelegate.databaseController
 
         view.addSubview(lineChartView)
         lineChartView.centerInSuperview()
         lineChartView.width(to: view)
         lineChartView.heightToWidth(of: view)
-        
+
         fetchData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self, userCredentials: uID!)
+
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
     }
     
     func fetchData() {
         
-        ///--------- test
+////        ///--------- test
+////        /// Obesrve events of single plant status changes
+////        ref.child("7MBL5Bbt48NnpWcZappr").observeSingleEvent(of: .value, with: { (snapshot) in
+////          // Get user value
+////            let value = snapshot.value as! NSDictionary
+////            print(value)
+////            var i: Double = 0
+////            for key in value.allKeys {
+////                let s = Status(dictionary: value[key] as! [String: Any])
+////                print(s.timeStamp)
+////                print(s.humid)
+////                self.yValues.append(
+////
+////                    ChartDataEntry(x: i, y: s.moist)
+////                )
+////                i += 1
+////            }
+////          // ...
+////          }) { (error) in
+////            print(error.localizedDescription)
+////        }
+//
+//
+//
+//        ///--------- Code
+//        ref.child("7MBL5Bbt48NnpWcZappr").observeSingleEvent(of: .value, with: { (snapshot) in
+//          // Get user value
+//            let value = snapshot.value as! NSDictionary
+//            var i: Double = 0
+//            for key in value.allKeys {
+//                let s = Status(dictionary: value[key] as! [String: Any])
+//
+//
+//                // converting date to string date
+//                var localDate: String = ""
+//                let timeResult = (s.timeStamp)
+//                let date = Date(timeIntervalSince1970: timeResult)
+//                let dateFormatter = DateFormatter()
+//                dateFormatter.timeStyle = DateFormatter.Style.medium //Set time style
+//                dateFormatter.dateStyle = DateFormatter.Style.medium //Set date style
+//                dateFormatter.timeZone = .current
+//                localDate = dateFormatter.string(from: date)
+//
+//                //print(" timeStamp: \(localDate), humidity: \(s.humid), temperature: \(s.temp), moisture: \(s.moist)")
+//
+//
+//
+//                self.yValues.append(
+//
+//                    ChartDataEntry(x: i, y: s.moist)
+//                )
+//                i += 1
+//            }
+//          // ...
+//          }) { (error) in
+//            print(error.localizedDescription)
+//        }
         
-        ref.child("7MBL5Bbt48NnpWcZappr").observeSingleEvent(of: .value, with: { (snapshot) in
-          // Get user value
-            let value = snapshot.value as! NSDictionary
-            print(value)
-            var i: Double = 0
-            for key in value.allKeys {
-                let s = Status(dictionary: value[key] as! [String: Any])
-                print(s.timeStamp)
-                print(s.moist)
-                self.yValues.append(
-                    
-                    ChartDataEntry(x: i, y: s.humid)
-                )
-                i += 1
-            }
-          // ...
-          }) { (error) in
-            print(error.localizedDescription)
+    }
+    
+    private func loopAndPopulateDateInyValues(){
+        // sorting statuses by time stamp
+        print("BeforeSortign")
+        for i in statuses!  {
+            var localDate: String = ""
+            let timeResult = (i.timeStamp)
+            let date = Date(timeIntervalSince1970: timeResult)
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeStyle = DateFormatter.Style.medium //Set time style
+            dateFormatter.dateStyle = DateFormatter.Style.medium //Set date style
+            dateFormatter.timeZone = .current
+            localDate = dateFormatter.string(from: date)
+            print(localDate)
         }
         
+
+        
+        statuses?.sort(by: { $0.timeStamp > $1.timeStamp})
         
 
-        ///--------- test
+        print("After sorting")
+        for i in statuses!  {
+            var localDate: String = ""
+            let timeResult = (i.timeStamp)
+            let date = Date(timeIntervalSince1970: timeResult)
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeStyle = DateFormatter.Style.medium //Set time style
+            dateFormatter.dateStyle = DateFormatter.Style.medium //Set date style
+            dateFormatter.timeZone = .current
+            localDate = dateFormatter.string(from: date)
+            print(localDate)
+        }
         
+        self.yValues.append(
+            ChartDataEntry(x: 1, y: 1)
+        )
     }
     
     @IBAction func populateChartPressed(_ sender: Any) {
         setData()
     }
+    
+    func onUserChange(change: DatabaseChange, userPlants: [Plant]) {
+        // do nothing
+    }
+    
+    func onPlantListChange(change: DatabaseChange, plants: [Plant]) {
+        // do nothing
+    }
+    
+    func onPlantStatusChange(change: DatabaseChange, statuses: [Status]) {
+        self.statuses = statuses
+//        print("Plant status invoked from Plant Details View Controller")
+//        print(statuses)
+        loopAndPopulateDateInyValues()
+    }
+    
     
 }

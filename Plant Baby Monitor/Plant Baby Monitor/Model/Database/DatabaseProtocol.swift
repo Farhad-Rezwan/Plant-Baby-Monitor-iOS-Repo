@@ -16,6 +16,7 @@ enum DatabaseChange {
 enum ListenerType {
     case user
     case plant
+    case plantStatus
     case all
 }
 
@@ -23,6 +24,7 @@ protocol DatabaseListener: AnyObject {
     var listenerType: ListenerType {get set}
     func onUserChange(change: DatabaseChange, userPlants: [Plant])
     func onPlantListChange(change: DatabaseChange, plants: [Plant])
+    func onPlantStatusChange(change: DatabaseChange, statuses: [Status])
 }
 
 protocol DatabaseProtocol: AnyObject {

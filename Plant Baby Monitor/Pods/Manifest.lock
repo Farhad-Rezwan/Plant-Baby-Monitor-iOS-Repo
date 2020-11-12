@@ -212,6 +212,20 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
+  - AWSAuthCore (2.18.1):
+    - AWSCore (= 2.18.1)
+  - AWSCognitoIdentityProvider (2.18.1):
+    - AWSCognitoIdentityProviderASF (= 2.18.1)
+    - AWSCore (= 2.18.1)
+  - AWSCognitoIdentityProviderASF (2.18.1)
+  - AWSCore (2.18.1)
+  - AWSIoT (2.18.1):
+    - AWSCore (= 2.18.1)
+  - AWSMobileClient (2.18.1):
+    - AWSAuthCore (= 2.18.1)
+    - AWSCognitoIdentityProvider (= 2.18.1)
+    - AWSCognitoIdentityProviderASF (= 2.18.1)
+    - AWSCore (= 2.18.1)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
     - BoringSSL-GRPC/Interface (= 0.0.7)
@@ -315,6 +329,8 @@ PODS:
   - TinyConstraints (4.0.1)
 
 DEPENDENCIES:
+  - AWSIoT
+  - AWSMobileClient
   - Charts
   - Firebase/Auth
   - Firebase/Database
@@ -325,6 +341,12 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - abseil
+    - AWSAuthCore
+    - AWSCognitoIdentityProvider
+    - AWSCognitoIdentityProviderASF
+    - AWSCore
+    - AWSIoT
+    - AWSMobileClient
     - BoringSSL-GRPC
     - Charts
     - Firebase
@@ -346,6 +368,12 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
+  AWSAuthCore: 89562ca19419744144f7afcfe81acba64b33a9bd
+  AWSCognitoIdentityProvider: bb5c856ac56d976efb72660a2c09aeb131b44c88
+  AWSCognitoIdentityProviderASF: 67fe08635f9c0769a0cb1e6c548662075e40251e
+  AWSCore: 0979d22aebe17ffc24eea19d8bc40402b651b018
+  AWSIoT: e03fbff16d7593545bafa097aa64f0a340ecdada
+  AWSMobileClient: e436716389ccbfaa8ee41f52d2128f942527a64e
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
@@ -365,6 +393,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   TinyConstraints: 8dd91295e56797648c7bc335dd20e1d91ec4c192
 
-PODFILE CHECKSUM: c6bfe6e996209769f3d7c587700a2b819ded0f2f
+PODFILE CHECKSUM: c40a672cb9cce812c83e86e544d9db1d29327ef8
 
 COCOAPODS: 1.10.0

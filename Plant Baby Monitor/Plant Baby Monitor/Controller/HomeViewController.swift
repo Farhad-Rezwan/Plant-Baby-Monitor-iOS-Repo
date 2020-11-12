@@ -6,23 +6,29 @@
 //
 
 import UIKit
-
+import AWSIoT
+import AWSMobileClient
 
 
 class HomeViewController: UIViewController, DatabaseListener {
+
     
+    
+    @objc var iotDataManager: AWSIoTDataManager!
     var uID: String?
     var user: User?
     var listenerType: ListenerType = .user
     
     func onUserChange(change: DatabaseChange, userPlants: [Plant]) {
+        print("User listener listening")
         plant = userPlants
         plantTableView.reloadData()
     }
+    /// do nothing
+    func onPlantStatusChange(change: DatabaseChange, statuses: [Status]) { }
     
-    func onPlantListChange(change: DatabaseChange, plants: [Plant]) {
-        /// do nothing
-    }
+    /// do nothing
+    func onPlantListChange(change: DatabaseChange, plants: [Plant]) { }
     
     
     var plant: [Plant] = []
@@ -100,6 +106,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let viewController = storyboard?.instantiateViewController(identifier: K.Identifier.plantDetailsViewController) as! PlantDetailsViewController
         
         viewController.plant = plant[indexPath.section]
+        viewController.uID = uID
         
         navigationController?.pushViewController(viewController, animated: true)
         

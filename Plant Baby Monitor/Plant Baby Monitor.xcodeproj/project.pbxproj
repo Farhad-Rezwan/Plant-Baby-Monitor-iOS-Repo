@@ -15,9 +15,10 @@
 		E44549DB2547AACE001F2CC1 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44549DA2547AACE001F2CC1 /* User.swift */; };
 		E44549E02547BC43001F2CC1 /* AddPlantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44549DF2547BC43001F2CC1 /* AddPlantViewController.swift */; };
 		E4462AB92550FE590016A13F /* PlantDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4462AB82550FE590016A13F /* PlantDetailsViewController.swift */; };
+		E44AF8CE255519ED00B4B53A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44AF8CD255519ED00B4B53A /* Constants.swift */; };
 		E49DFFB3254B51B800B9EE2C /* PlantChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49DFFB1254B51B800B9EE2C /* PlantChartTableViewCell.swift */; };
 		E49DFFB4254B51B800B9EE2C /* PlantChartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E49DFFB2254B51B800B9EE2C /* PlantChartTableViewCell.xib */; };
-		E49DFFB7254B58A400B9EE2C /* PlantStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49DFFB6254B58A400B9EE2C /* PlantStatus.swift */; };
+		E49DFFB7254B58A400B9EE2C /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49DFFB6254B58A400B9EE2C /* Status.swift */; };
 		FC49A889253ECE64004D9206 /* K.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49A888253ECE64004D9206 /* K.swift */; };
 		FC49A88E253ED59F004D9206 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49A88D253ED59F004D9206 /* WelcomeViewController.swift */; };
 		FC49A891253ED5D1004D9206 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC49A890253ED5D1004D9206 /* LoginViewController.swift */; };
@@ -45,9 +46,11 @@
 		E44549DA2547AACE001F2CC1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E44549DF2547BC43001F2CC1 /* AddPlantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlantViewController.swift; sourceTree = "<group>"; };
 		E4462AB82550FE590016A13F /* PlantDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantDetailsViewController.swift; sourceTree = "<group>"; };
+		E44AF8CD255519ED00B4B53A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E44AF8D02555210C00B4B53A /* awsiot-identity.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "awsiot-identity.p12"; path = "../../../../../Downloads/PlantBabyMonitor/certs/awsiot-identity.p12"; sourceTree = "<group>"; };
 		E49DFFB1254B51B800B9EE2C /* PlantChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantChartTableViewCell.swift; sourceTree = "<group>"; };
 		E49DFFB2254B51B800B9EE2C /* PlantChartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PlantChartTableViewCell.xib; sourceTree = "<group>"; };
-		E49DFFB6254B58A400B9EE2C /* PlantStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlantStatus.swift; sourceTree = "<group>"; };
+		E49DFFB6254B58A400B9EE2C /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		FC49A888253ECE64004D9206 /* K.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = K.swift; sourceTree = "<group>"; };
 		FC49A88D253ED59F004D9206 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		FC49A890253ED5D1004D9206 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -100,7 +103,7 @@
 			children = (
 				E44549D72547AABF001F2CC1 /* Plant.swift */,
 				E44549DA2547AACE001F2CC1 /* User.swift */,
-				E49DFFB6254B58A400B9EE2C /* PlantStatus.swift */,
+				E49DFFB6254B58A400B9EE2C /* Status.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 		FC8EB396253EBB31009D858E /* Plant Baby Monitor */ = {
 			isa = PBXGroup;
 			children = (
+				E44AF8D02555210C00B4B53A /* awsiot-identity.p12 */,
 				E44549B82547A992001F2CC1 /* Model */,
 				FC8EB397253EBB31009D858E /* AppDelegate.swift */,
 				FC8EB399253EBB31009D858E /* SceneDelegate.swift */,
@@ -181,6 +185,7 @@
 				FC8EB3A5253EBB34009D858E /* Info.plist */,
 				FC49A8BC253ED8D2004D9206 /* GoogleService-Info.plist */,
 				FC49A888253ECE64004D9206 /* K.swift */,
+				E44AF8CD255519ED00B4B53A /* Constants.swift */,
 			);
 			path = "Plant Baby Monitor";
 			sourceTree = "<group>";
@@ -303,11 +308,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E44549E02547BC43001F2CC1 /* AddPlantViewController.swift in Sources */,
+				E44AF8CE255519ED00B4B53A /* Constants.swift in Sources */,
 				FC8EB398253EBB31009D858E /* AppDelegate.swift in Sources */,
 				E44549C12547AA0D001F2CC1 /* FirebaseController.swift in Sources */,
 				E44549DB2547AACE001F2CC1 /* User.swift in Sources */,
 				FC49A88E253ED59F004D9206 /* WelcomeViewController.swift in Sources */,
-				E49DFFB7254B58A400B9EE2C /* PlantStatus.swift in Sources */,
+				E49DFFB7254B58A400B9EE2C /* Status.swift in Sources */,
 				FC8EB39A253EBB31009D858E /* SceneDelegate.swift in Sources */,
 				FC49A894253ED605004D9206 /* RegisterViewController.swift in Sources */,
 				E44549BA2547A9BF001F2CC1 /* DatabaseProtocol.swift in Sources */,
