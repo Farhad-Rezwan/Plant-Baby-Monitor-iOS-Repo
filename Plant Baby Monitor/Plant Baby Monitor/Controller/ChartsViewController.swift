@@ -36,8 +36,10 @@ class ChartsViewController: UIViewController {
     lazy var chartScrollView: UIScrollView = {
         let chartScrollView = UIScrollView()
         chartScrollView.backgroundColor = .gray
-        
-        
+        chartScrollView.autoresizingMask = .flexibleWidth
+        chartScrollView.showsHorizontalScrollIndicator = true
+        chartScrollView.bounces = true
+
         
         
         return chartScrollView
@@ -66,7 +68,7 @@ class ChartsViewController: UIViewController {
     
     lazy var tempHumChartView: LineChartView = {
         let chartView = LineChartView()
-        chartView.backgroundColor = .systemBlue
+        chartView.backgroundColor = .systemRed
         /// to remove right axis
         chartView.rightAxis.enabled = false
         let yAxis = chartView.leftAxis
@@ -90,7 +92,13 @@ class ChartsViewController: UIViewController {
 
         setupViews()
     }
-    
+////    override func viewDidLayoutSubviews() {
+////        setupViews()
+////    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        setupViews()
+//    }
     fileprivate func setupViews() {
 //        view.addSubview(headerImageView)
         view.addSubview(waterButton)
@@ -99,7 +107,7 @@ class ChartsViewController: UIViewController {
         view.addSubview(chartScrollView)
         
         chartScrollView.addSubview(moistureChartView)
-        
+        chartScrollView.addSubview(tempHumChartView)
         
 //        headerImageView.edgesToSuperview(excluding: .bottom, usingSafeArea: true)
 //        headerImageView.height(headerImageViewHeight)
@@ -110,16 +118,32 @@ class ChartsViewController: UIViewController {
         updateButton.top(to: view, offset: 30)
         updateButton.left(to: view, offset: 16)
         
-        chartScrollView.edgesToSuperview(excluding: .top, usingSafeArea: true)
+        chartScrollView.edgesToSuperview(excluding: .none, usingSafeArea: true)
+//        chartScrollView.edgesToSuperview(excluding: .bottom, usingSafeArea: true)
         chartScrollView.top(to: view, offset: 110)
-        chartScrollView.autoresizingMask = .flexibleHeight
-        chartScrollView.showsHorizontalScrollIndicator = true
-        chartScrollView.bounces = true
+        chartScrollView.bottom(to: view, offset: -10)
+        chartScrollView.left(to: view, offset: 40)
+        chartScrollView.right(to: view, offset: -40)
+//        chartScrollView.height(1000)
+//        chartScrollView.edgesToSuperview()
+//        chartScrollView.autoresizingMask = .flexibleWidth
+//        chartScrollView.showsHorizontalScrollIndicator = true
+//        chartScrollView.bounces = true
         
-        moistureChartView.top(to: view, offset: 20)
-        moistureChartView.left(to: view, offset: 40)
-        moistureChartView.right(to: view, offset: -40)
+        moistureChartView.top(to: chartScrollView, offset: 20)
+//        moistureChartView.left(to: view, offset: 40)
+//        moistureChartView.right(to: view, offset: -40)
         moistureChartView.height(300)
+        moistureChartView.width(300)
+        
+        tempHumChartView.top(to: moistureChartView, offset: 320)
+//        tempHumChartView.left(to: chartScrollView, offset: 40)
+//        tempHumChartView.right(to: chartScrollView, offset: -40)
+        tempHumChartView.height(300)
+        tempHumChartView.width(300)
+        chartScrollView.contentSize = CGSize(width: chartScrollView.frame.width, height: 1000)
+        
+        
 
     }
 
