@@ -45,7 +45,6 @@ class FirebaseController: NSObject, DatabaseProtocol {
         super.init()
     }
     
-    
     /// 1
     /// adds reference to the dartabase from firebase firestore.
     /// Innitiates the listeners for user, and starts persing the plant snapshot
@@ -175,9 +174,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
             let s = Status(dictionary: value[key] as! [String: Any])
             plantStatusList.append(s)
         }
+        
         //print("From Firebase COntroller")
         //print(plantStatusList)
-        
         listeners.invoke { (listener) in
             if listener.listenerType == ListenerType.plantStatus ||
                 listener.listenerType == ListenerType.all {
