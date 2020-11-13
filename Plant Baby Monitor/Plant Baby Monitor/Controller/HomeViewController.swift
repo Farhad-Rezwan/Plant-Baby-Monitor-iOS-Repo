@@ -103,7 +103,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let viewController = storyboard?.instantiateViewController(identifier: K.Identifier.plantDetailsViewController) as! PlantDetailsViewController
+        let viewController = storyboard?.instantiateViewController(identifier: K.Identifier.plantChartDetailsViewController) as! ChartsViewController
         
         viewController.plant = plant[indexPath.section]
         viewController.uID = uID
