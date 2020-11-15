@@ -11,6 +11,7 @@ target 'Plant Baby Monitor' do
   pod 'TinyConstraints'
   pod 'AWSMobileClient'
   pod 'AWSIoT'
+  pod 'CocoaMQTT' 
 
 
 end

@@ -235,6 +235,9 @@ PODS:
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
+  - CocoaAsyncSocket (7.6.4)
+  - CocoaMQTT (1.2.5):
+    - CocoaAsyncSocket (~> 7.6.3)
   - Firebase/Auth (6.34.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.9.2)
@@ -332,6 +335,7 @@ DEPENDENCIES:
   - AWSIoT
   - AWSMobileClient
   - Charts
+  - CocoaMQTT
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Firestore
@@ -349,6 +353,8 @@ SPEC REPOS:
     - AWSMobileClient
     - BoringSSL-GRPC
     - Charts
+    - CocoaAsyncSocket
+    - CocoaMQTT
     - Firebase
     - FirebaseAuth
     - FirebaseCore
@@ -376,6 +382,8 @@ SPEC CHECKSUMS:
   AWSMobileClient: e436716389ccbfaa8ee41f52d2128f942527a64e
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
+  CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
+  CocoaMQTT: a61490ed3b328011c5d75169a77781983e2bb221
   Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
   FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
   FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
@@ -393,6 +401,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   TinyConstraints: 8dd91295e56797648c7bc335dd20e1d91ec4c192
 
-PODFILE CHECKSUM: c40a672cb9cce812c83e86e544d9db1d29327ef8
+PODFILE CHECKSUM: 2cab9585180f59baa19d5bef69a70c857a560a92
 
 COCOAPODS: 1.10.0
