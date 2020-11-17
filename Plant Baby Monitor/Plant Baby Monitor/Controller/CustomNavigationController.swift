@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// Class to make custom back button for the navigation.
 class CustomNavigationController: UINavigationController, UINavigationControllerDelegate {
 
     override func viewDidLoad() {
@@ -16,11 +17,15 @@ class CustomNavigationController: UINavigationController, UINavigationController
     }
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        
+        // Empties the back button title
+        // Removing "Back" text
         let item = UIBarButtonItem(title: " ", style: .plain, target: nil, action: nil)
+        // assigns the back button custom image
         let backArrowImage = UIImage(named: "backButton")
         let renderedImage = backArrowImage?.withRenderingMode(.alwaysOriginal)
         
-        // Removing "Back" text
+        // assignes the back button item
         viewController.navigationItem.backBarButtonItem = item
         // Make the navigation bar background clear
         viewController.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)

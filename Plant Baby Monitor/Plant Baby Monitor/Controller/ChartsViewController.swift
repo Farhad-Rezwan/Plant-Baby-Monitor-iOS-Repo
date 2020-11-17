@@ -233,5 +233,6 @@ class ChartsViewController: UIViewController, DatabaseListener{
         loopAndPopulateDateInyValues()
         setData()
     }
+    
 
 }

@@ -16,14 +16,12 @@ class Plant: Codable, Equatable {
     var name: String = ""
     var location: String = ""
     var image: String = ""
-//    var plantStatuses: [PlantStatus] = []
 
     enum CodingKeys: String, CodingKey {
         case id
         case name
         case location
         case image
-//        case plantStatuses
     }
 }
 

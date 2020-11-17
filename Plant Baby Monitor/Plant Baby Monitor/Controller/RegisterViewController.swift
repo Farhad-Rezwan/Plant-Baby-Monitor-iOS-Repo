@@ -11,10 +11,11 @@ import Firebase
 class RegisterViewController: UIViewController {
 
     weak var databaseController: DatabaseProtocol?
-    var uID: String?
+    
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
+    var userID: String?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,29 +25,31 @@ class RegisterViewController: UIViewController {
         databaseController = appDelegate.databaseController
     }
     
+    // Once the user is properly registers for the app, the segue is performed
     @IBAction func registerButtonPressed(_ sender: Any) {
         if let email = emailTextField.text, let password = passwordTextField.text {
             Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                 if let err = error {
                     print(err)
                 } else {
-                    
-                    self.uID = authResult?.user.uid
+                    self.userID = authResult?.user.uid
                     self.addUserInFirestore()
                     self.performSegue(withIdentifier: K.Segue.registerToHomeSegue, sender: self)
                 }
             }
-            
         }
     }
+    
+    /// Adds user in the firestore collection user
     func addUserInFirestore() {
-        let _ = databaseController?.addUser(userID: uID!)
+        let _ = databaseController?.addUser(userID: userID!)
     }
     
+    // prepares userID to be transfered to the HomeViewController
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == K.Segue.registerToHomeSegue {
             let destination = segue.destination as! HomeViewController
-            destination.uID = uID
+            destination.uID = userID
         }
     }
 }

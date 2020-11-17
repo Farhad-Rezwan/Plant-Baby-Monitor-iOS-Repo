@@ -14,18 +14,22 @@ import FirebaseFirestoreSwift
 
 class FirebaseController: NSObject, DatabaseProtocol {
     
+    /// Multclass Delegate Listener
     var listeners = MulticastDelegate<DatabaseListener>()
     var defaultUser: User
-    var authController: Auth
     var database: Firestore
-    var plantsRef: CollectionReference?
     
-    var plantStatusRef: DatabaseReference?
-
+    // Reference of the database
+    /// from Firestore
+    var plantsRef: CollectionReference?
     var usersRef: CollectionReference?
+    /// from realtime database
+    var plantStatusRef: DatabaseReference?
+    
     var plantList: [Plant]
     var plantStatusList: [Status]
-    var defaultUserPlant: Plant
+
+    /// Constants
     var USER_PLANT_NAME = K.Databae.tempPlantName
     var DEFAULT_USER_UID = K.Databae.defaultUser
 
@@ -33,48 +37,41 @@ class FirebaseController: NSObject, DatabaseProtocol {
     override init() {
         /// firebase appp configuration method to run the fireabse in the app
         FirebaseApp.configure()
-
-        authController = Auth.auth()
         database = Firestore.firestore()
+        
         plantList = [Plant]()
         plantStatusList = [Status]()
         defaultUser = User()
-        defaultUserPlant = Plant()
-        // defaultPlantStatus = Status(dictionary: [String : Any])
-        
         super.init()
     }
     
-    /// 1
-    /// adds reference to the dartabase from firebase firestore.
-    /// Innitiates the listeners for user, and starts persing the plant snapshot
+    //MARK:- Methods for listenrs
+    
+    /// Sets up plant listener - Listens from firestore changes of collection - Plants
     private func setUpPlantListener() {
         plantsRef = database.collection(K.Databae.plantCollectionName)
         plantsRef?.addSnapshotListener({ (querySnapshot, error) in
-            if let err = error {
-                print("error listening to database collection plants \(err)")
-            } else if let querySnapshot = querySnapshot {
-                /// 2.
-                self.persePlantsSnapshot(snapshot: querySnapshot)
+            guard let querySnapshot = querySnapshot else {
+                print("error listening to database collection plants \(error!)")
+                return
             }
+            self.persePlantsSnapshot(snapshot: querySnapshot)
         })
     }
     
-    /// 3.
+    /// Sets up user listener - Listenes form firestore changes of collection - Users
     private func setupUserListener() {
         usersRef = database.collection(K.Databae.userCollectionName)
         usersRef?.whereField(K.Databae.Attributes.userID, isEqualTo: DEFAULT_USER_UID).addSnapshotListener({ (querySnapshot, error) in
-            if let err = error {
-                print("error \(err)")
-            } else if let querySnapshot = querySnapshot, let teamSnapshot = querySnapshot.documents.first {
-                /// 4.
-                self.parseUserSnapshot(documentSnapshot: teamSnapshot)
+            guard let snapshot = querySnapshot, let userSnapshot = snapshot.documents.first else {
+                print("error fetching databse collection user \(error!)")
+                return
             }
+            self.parseUserSnapshot(documentSnapshot: userSnapshot)
         })
     }
     
-    /// 5
-    /// Setting up to listen plant status from real time database
+    /// sets up plant status listener - LIstens from realtime database changes of collection - plant status
     private func setupPlantStatusListener() {
         /// sets reference to the database
         plantStatusRef = Database.database().reference()
@@ -89,12 +86,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     
-    // MARK:- Parse Functions for Firestore Responses
-    /// 2. perse plant snapshots
+    // MARK:- Parse Functions for cloud responses
+    /// Perse plant snapshots, and invokes listeners for any plant changes
     private func persePlantsSnapshot(snapshot: QuerySnapshot) {
         snapshot.documentChanges.forEach { (change) in
             let plantID = change.document.documentID
-
             var parsePlant: Plant?
             
             do{
@@ -111,6 +107,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
             
             plant.id = plantID
             
+            /// functions based on change functionalities
             switch change.type {
             case .added:
                 plantList.append(plant)
@@ -136,12 +133,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
     }
     
-    /// 4.
+    /// Perse user snapshots, and invokes listeners for any user changes
     private func parseUserSnapshot(documentSnapshot: QueryDocumentSnapshot) {
         defaultUser = User()
         defaultUser.name = documentSnapshot.data()[K.Databae.Attributes.userID] as! String
         defaultUser.id = documentSnapshot.documentID
-        print("Default User Id: (FROM FIREBASE CONTROLLER CLASS: 146:) \(defaultUser.id ?? "USER NOT FOUND")")
         
         if let plantReference = documentSnapshot.data()[K.Databae.Attributes.plants] as? [DocumentReference] {
             for reference in plantReference {
@@ -154,28 +150,22 @@ class FirebaseController: NSObject, DatabaseProtocol {
         listeners.invoke { (listener) in
             if listener.listenerType == ListenerType.user ||
                 listener.listenerType == ListenerType.all {
-                
                 listener.onUserChange(change: .update, userPlants: defaultUser.plants)
             }
         }
         
     }
     
-    /// 6
-    /// Perse plant status snapshot
+    /// Perse plant status snapshot, invokes listeners for any plant status changes
     private func parsePlantStatusSnapshot(documentSnapshot: DataSnapshot) {
         let value = documentSnapshot.value as! NSDictionary
         // print(value)
         
-        //MARK:- FIX!!!
-        
-        /// have to be time stamp insted of double
         for key in value.allKeys {
             let s = Status(dictionary: value[key] as! [String: Any])
             plantStatusList.append(s)
         }
         
-        //print("From Firebase COntroller")
         //print(plantStatusList)
         listeners.invoke { (listener) in
             if listener.listenerType == ListenerType.plantStatus ||
@@ -186,6 +176,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
+    /// gets plants index by id provided.
+    /// - Parameter id: stirng id
+    /// - Returns: returns first index of the plant
     private func getPlantIndexByID(_ id: String) -> Int? {
         if let plant = getPlantByID(id) {
             return plantList.firstIndex(of: plant)
@@ -193,6 +186,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return nil
     }
     
+    /// gets plant by id
+    /// - Parameter id: plant id
+    /// - Returns: returns a particular plant
     private func getPlantByID(_ id: String) -> Plant? {
         for plant in plantList {
             if plant.id == id {
@@ -203,9 +199,15 @@ class FirebaseController: NSObject, DatabaseProtocol {
     }
     
     func cleanup() {
-        
+        // does nothing
     }
     
+    /// Adds pant in the firebase
+    /// - Parameters:
+    ///   - name: name of the plant
+    ///   - location: location of the plant
+    ///   - image: iamge url of the plant
+    /// - Returns: returns plant which is saved in the firebase
     func addPlant(name: String, location: String, image: String) -> Plant {
         plantsRef = database.collection(K.Databae.plantCollectionName)
         let plant = Plant()
@@ -223,6 +225,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return plant
     }
     
+    /// Adds user in the firebase
+    /// - Parameter userID: user credential id
+    /// - Returns: returns users as saved in the firebase
     func addUser(userID: String) -> User {
         /// userRef required becauase the collection will be nill if the app wants to add a user.
         usersRef = database.collection(K.Databae.userCollectionName)
@@ -236,6 +241,11 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return user
     }
     
+    /// Adds plant for the user
+    /// - Parameters:
+    ///   - plant: Plant object
+    ///   - userID: User credentials
+    /// - Returns: returns true if the plant is successfully added, otherwise returns false
     func addPlantToUser(plant: Plant, userID: String) -> Bool {
         plantsRef = database.collection(K.Databae.plantCollectionName)
         usersRef = database.collection(K.Databae.userCollectionName)
@@ -251,37 +261,47 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return true
     }
     
-    func deletePlant(hero: Plant) {
-        if let heroID = hero.id {
-            plantsRef?.document(heroID).delete()
+    /// Deletes a partuclar plant by id
+    /// - Parameter plant: Plant to be deleted from the firestore
+    func deletePlant(plant: Plant) {
+        if let plantID = plant.id {
+            plantsRef?.document(plantID).delete()
         }
     }
     
-    func deleteUser(team: User) {
-        if let teamID = team.id {
-            usersRef?.document(teamID).delete()
+    /// Deletes a particular user by id
+    /// - Parameter user: User to be deleted from the firestore
+    func deleteUser(user: User) {
+        if let userID = user.id {
+            usersRef?.document(userID).delete()
         }
     }
     
-    func deletePlantFromTeam(hero: Plant, team: User) {
-        if team.plants.contains(hero), let teamID = team.id, let heroID = hero.id {
-            if let removedRef = plantsRef?.document(heroID) {
-                usersRef?.document(teamID).updateData(
+    /// Deletes a particular plant for the user from firestore
+    /// - Parameters:
+    ///   - plant: Plant to be deleted
+    ///   - user: user of whoom the plant to be deleted
+    func deletePlantFromUser(plant: Plant, user: User) {
+        if user.plants.contains(plant), let userID = user.id, let plantID = plant.id {
+            if let removedRef = plantsRef?.document(plantID) {
+                usersRef?.document(userID).updateData(
                     [K.Databae.plantCollectionName : FieldValue.arrayRemove([removedRef])]
                 )
             }
         }
     }
     
+    /// Adds LIsteners depending on listerner type (user, plant or plant status)
+    /// - Parameters:
+    ///   - listener: enum lsitener can be user/plant or plantStatus
+    ///   - userCredentials: users Credential of whoom the plant or plant status is shown
     func addListener(listener: DatabaseListener, userCredentials: String) {
         DEFAULT_USER_UID = userCredentials
-
-
+        
         listeners.addDelegate(listener)
         
         if listener.listenerType == ListenerType.user ||
             listener.listenerType == ListenerType.all {
-            
             /// HOME VIEW CONTROLLER
             setUpPlantListener()
             setupUserListener()
@@ -291,11 +311,8 @@ class FirebaseController: NSObject, DatabaseProtocol {
         
         if listener.listenerType == ListenerType.plant ||
             listener.listenerType == ListenerType.all {
-            
             ///
             setUpPlantListener()
-
-            
             listener.onPlantListChange(change: .update, plants: plantList)
         }
         if listener.listenerType == ListenerType.plantStatus ||
@@ -307,10 +324,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
         }
     }
     
+    /// Removes the lsiterners, to stop listening for database change
+    /// - Parameter listener: Listener to be removed
     func removeListener(listener: DatabaseListener) {
         listeners.removeDelegate(listener)
     }
-    
-    
-
 }

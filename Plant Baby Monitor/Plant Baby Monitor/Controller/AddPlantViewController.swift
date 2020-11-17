@@ -14,7 +14,6 @@ class AddPlantViewController: UIViewController {
     
     @IBOutlet weak var plantNameTextField: UITextField!
     @IBOutlet weak var plantImageTextField: UITextField!
-
     @IBOutlet weak var plantLocationTextField: UITextField!
     
     
@@ -22,6 +21,7 @@ class AddPlantViewController: UIViewController {
         super.viewDidLoad()
         title = K.appName
         
+        // Adds the delegate for database
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
     }
@@ -31,8 +31,10 @@ class AddPlantViewController: UIViewController {
             let image = plantImageTextField.text!
             let location = plantLocationTextField.text!
             
-            let storredPlant: Plant = (databaseController?.addPlant(name: name, location: location, image: image))!
-            let _ = databaseController?.addPlantToUser(plant: storredPlant, userID: userDocumentID!)
+            let plantToStore: Plant = (databaseController?.addPlant(name: name, location: location, image: image))!
+            
+            // plant to be stored for user id
+            let _ = databaseController?.addPlantToUser(plant: plantToStore, userID: userDocumentID!)
             navigationController?.popViewController(animated: true)
             return
         }
