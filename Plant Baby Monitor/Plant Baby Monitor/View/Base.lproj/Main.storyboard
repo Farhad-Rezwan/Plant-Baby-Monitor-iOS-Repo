@@ -164,7 +164,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JFr-Yi-i5j">
-                                <rect key="frame" x="30" y="238" width="354" height="480"/>
+                                <rect key="frame" x="30" y="188" width="354" height="530"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <sections/>
                             </tableView>
@@ -182,33 +182,16 @@
                                     <segue destination="Kqr-Kr-Su1" kind="show" identifier="homeToAddPlantSegue" id="2u2-iI-Hwl"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m5a-Ic-uAk">
-                                <rect key="frame" x="10" y="130" width="394" height="40"/>
-                                <color key="backgroundColor" name="DGreen"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="iqM-dF-rhX"/>
-                                </constraints>
-                                <state key="normal" title="Trigger Motor">
-                                    <color key="titleColor" name="AccentColor"/>
-                                </state>
-                                <connections>
-                                    <action selector="triggerButtonPressed:" destination="d9l-rt-Bxd" eventType="touchUpInside" id="P7Z-05-C6G"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="zfg-dA-dIr"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="m5a-Ic-uAk" firstAttribute="leading" secondItem="zfg-dA-dIr" secondAttribute="leading" constant="10" id="6hs-gz-Oer"/>
                             <constraint firstItem="zfg-dA-dIr" firstAttribute="trailing" secondItem="XVl-GH-pIj" secondAttribute="trailing" constant="50" id="8Dz-KU-8Dq"/>
                             <constraint firstItem="JFr-Yi-i5j" firstAttribute="leading" secondItem="zfg-dA-dIr" secondAttribute="leading" constant="30" id="Dcb-rZ-BtE"/>
                             <constraint firstItem="zfg-dA-dIr" firstAttribute="bottom" secondItem="XVl-GH-pIj" secondAttribute="bottom" constant="50" id="ECz-UB-Exg"/>
-                            <constraint firstItem="m5a-Ic-uAk" firstAttribute="centerX" secondItem="E9d-Kp-SpX" secondAttribute="centerX" id="KSL-kh-Ndy"/>
                             <constraint firstItem="zfg-dA-dIr" firstAttribute="trailing" secondItem="JFr-Yi-i5j" secondAttribute="trailing" constant="30" id="cvM-2e-ZKB"/>
-                            <constraint firstItem="zfg-dA-dIr" firstAttribute="trailing" secondItem="m5a-Ic-uAk" secondAttribute="trailing" constant="10" id="fZL-lH-9vZ"/>
                             <constraint firstItem="XVl-GH-pIj" firstAttribute="top" secondItem="JFr-Yi-i5j" secondAttribute="bottom" constant="50" id="mnd-36-fBL"/>
-                            <constraint firstItem="m5a-Ic-uAk" firstAttribute="top" secondItem="zfg-dA-dIr" secondAttribute="top" constant="42" id="rKo-nf-9Ll"/>
-                            <constraint firstItem="JFr-Yi-i5j" firstAttribute="top" secondItem="zfg-dA-dIr" secondAttribute="top" constant="150" id="xlk-Ld-wB2"/>
+                            <constraint firstItem="JFr-Yi-i5j" firstAttribute="top" secondItem="zfg-dA-dIr" secondAttribute="top" constant="100" id="xlk-Ld-wB2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BjG-re-ufY">
@@ -489,11 +472,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0wn-2c-Png" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5453" y="48"/>
+            <point key="canvasLocation" x="4122" y="453"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="vs1-Wu-imD"/>
+        <segue reference="pqA-Tl-1CJ"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="textfield" width="298" height="93"/>

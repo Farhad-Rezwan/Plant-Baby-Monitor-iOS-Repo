@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		111CC2200820FE580987978F /* Pods_Plant_Baby_Monitor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41D9BF7FFFE8C54AE490E9CC /* Pods_Plant_Baby_Monitor.framework */; };
+		E43443E6256778D3005E1E8D /* DateValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E43443E5256778D3005E1E8D /* DateValueFormatter.swift */; };
 		E44549BA2547A9BF001F2CC1 /* DatabaseProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44549B92547A9BF001F2CC1 /* DatabaseProtocol.swift */; };
 		E44549BE2547A9EE001F2CC1 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44549BD2547A9EE001F2CC1 /* MulticastDelegate.swift */; };
 		E44549C12547AA0D001F2CC1 /* FirebaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44549C02547AA0D001F2CC1 /* FirebaseController.swift */; };
@@ -37,6 +38,7 @@
 		2E7FE89289C8D89A48486C0D /* Pods-Plant Baby Monitor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Plant Baby Monitor.release.xcconfig"; path = "Target Support Files/Pods-Plant Baby Monitor/Pods-Plant Baby Monitor.release.xcconfig"; sourceTree = "<group>"; };
 		41D9BF7FFFE8C54AE490E9CC /* Pods_Plant_Baby_Monitor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Plant_Baby_Monitor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E002F8CF89A597F9B7F8861C /* Pods-Plant Baby Monitor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Plant Baby Monitor.debug.xcconfig"; path = "Target Support Files/Pods-Plant Baby Monitor/Pods-Plant Baby Monitor.debug.xcconfig"; sourceTree = "<group>"; };
+		E43443E5256778D3005E1E8D /* DateValueFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateValueFormatter.swift; sourceTree = "<group>"; };
 		E44549B92547A9BF001F2CC1 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		E44549BD2547A9EE001F2CC1 /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		E44549C02547AA0D001F2CC1 /* FirebaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseController.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				FC49A8D0253EEC2A004D9206 /* CustomNavigationController.swift */,
 				E44549DF2547BC43001F2CC1 /* AddPlantViewController.swift */,
 				E45E7AE5255E8E000040DB9A /* ChartsViewController.swift */,
+				E43443E5256778D3005E1E8D /* DateValueFormatter.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -305,6 +308,7 @@
 				E44AF8CE255519ED00B4B53A /* Constants.swift in Sources */,
 				FC8EB398253EBB31009D858E /* AppDelegate.swift in Sources */,
 				E44549C12547AA0D001F2CC1 /* FirebaseController.swift in Sources */,
+				E43443E6256778D3005E1E8D /* DateValueFormatter.swift in Sources */,
 				E44549DB2547AACE001F2CC1 /* User.swift in Sources */,
 				FC49A88E253ED59F004D9206 /* WelcomeViewController.swift in Sources */,
 				E49DFFB7254B58A400B9EE2C /* Status.swift in Sources */,

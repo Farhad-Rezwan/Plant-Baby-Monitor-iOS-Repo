@@ -158,6 +158,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     /// Perse plant status snapshot, invokes listeners for any plant status changes
     private func parsePlantStatusSnapshot(documentSnapshot: DataSnapshot) {
+        plantStatusList.removeAll()
         let value = documentSnapshot.value as! NSDictionary
         // print(value)
         
@@ -328,5 +329,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     /// - Parameter listener: Listener to be removed
     func removeListener(listener: DatabaseListener) {
         listeners.removeDelegate(listener)
+        plantStatusRef?.removeAllObservers()
+        
     }
 }

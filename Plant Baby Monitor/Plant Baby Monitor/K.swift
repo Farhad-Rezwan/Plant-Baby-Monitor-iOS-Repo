@@ -37,4 +37,9 @@ struct K {
             static var plantStatusHumidity = "humidity"
         }
     }
+    
+    struct Colors {
+        static var buttonColor = "DGreen"
+        static var buttonTextColor = "AccentColor"
+    }
 }
