@@ -8,6 +8,7 @@
 import UIKit
 import AWSIoT
 import AWSMobileClient
+import TinyConstraints
 
 
 class HomeViewController: UIViewController, DatabaseListener {
@@ -89,6 +90,8 @@ class HomeViewController: UIViewController, DatabaseListener {
 /// Table view to show the plants of user
 extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
+    
+    
     // using section insted of row, so that the cell difference is significant
     func numberOfSections(in tableView: UITableView) -> Int {
         return plant.count
@@ -112,9 +115,26 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         cell.plantName.text = plant[indexPath.section].name
         cell.plantLocation.text = plant[indexPath.section].location
         cell.plantImage.image = UIImage(named: plant[indexPath.section].image)
+        
+        /// reference: https://stackoverflow.com/questions/34778283/what-is-the-action-for-custom-accessory-view-button-swift
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "plantEditButtonCell"), for: .normal)
+        button.addTarget(self, action: #selector(self.buttonTest), for: .touchUpInside)
+        button.tag = indexPath.section
+        cell.addSubview(button)
+        
+        /// making the button center to the super view in the right side
+        button.rightToSuperview()
+        button.centerYToSuperview()
+
         return cell
     }
     
+    @objc func buttonTest(sender : UIButton) {
+        print(sender.tag)
+        print("pressed")
+                    //Write button action here
+    }
     
     /// navigate to chars view when any of the plat is selected - Should show plant information
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
