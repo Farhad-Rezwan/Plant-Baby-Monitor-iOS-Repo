@@ -14,6 +14,8 @@ import FirebaseFirestoreSwift
 
 class FirebaseController: NSObject, DatabaseProtocol {
     
+    
+    
     /// Multclass Delegate Listener
     var listeners = MulticastDelegate<DatabaseListener>()
     var defaultUser: User
@@ -62,7 +64,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     /// Sets up user listener - Listenes form firestore changes of collection - Users
     private func setupUserListener() {
         usersRef = database.collection(K.Databae.userCollectionName)
-        usersRef?.whereField(K.Databae.Attributes.userID, isEqualTo: DEFAULT_USER_UID).addSnapshotListener({ (querySnapshot, error) in
+        usersRef?.whereField(K.Databae.Attributes.plantName, isEqualTo: DEFAULT_USER_UID).addSnapshotListener({ (querySnapshot, error) in
             guard let snapshot = querySnapshot, let userSnapshot = snapshot.documents.first else {
                 print("error fetching databse collection user \(error!)")
                 return
@@ -136,7 +138,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     /// Perse user snapshots, and invokes listeners for any user changes
     private func parseUserSnapshot(documentSnapshot: QueryDocumentSnapshot) {
         defaultUser = User()
-        defaultUser.name = documentSnapshot.data()[K.Databae.Attributes.userID] as! String
+        defaultUser.name = documentSnapshot.data()[K.Databae.Attributes.plantName] as! String
         defaultUser.id = documentSnapshot.documentID
         
         if let plantReference = documentSnapshot.data()[K.Databae.Attributes.plants] as? [DocumentReference] {
@@ -226,6 +228,18 @@ class FirebaseController: NSObject, DatabaseProtocol {
         return plant
     }
     
+    func updateUserPlant(newPlant: Plant) {
+        let tempPlantRef = plantsRef?.document(newPlant.id ?? " ")
+        tempPlantRef?.updateData([K.Databae.Attributes.plantName: newPlant.name,
+                                  K.Databae.Attributes.plantImage: newPlant.image,
+                                  K.Databae.Attributes.plantLocation: newPlant.location ], completion: { (err) in
+            if let err = err {
+                print(err.localizedDescription)
+            }
+            print("Successsfully saved data")
+        })
+    }
+    
     /// Adds user in the firebase
     /// - Parameter userID: user credential id
     /// - Returns: returns users as saved in the firebase
@@ -235,7 +249,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         let user = User()
         user.name = userID
         
-        if let teamRef = usersRef?.addDocument(data: [K.Databae.Attributes.userID: userID, K.Databae.Attributes.plants: []]) {
+        if let teamRef = usersRef?.addDocument(data: [K.Databae.Attributes.plantName: userID, K.Databae.Attributes.plants: []]) {
             user.id = teamRef.documentID
         }
         

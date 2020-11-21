@@ -13,11 +13,11 @@ class EditPlantViewController: UIViewController {
     var uID: String?
     let plantImageArray = ["pa", "pb", "pc"]
     var plantImageName: String?
-    @IBOutlet weak var plantBackgroundImage: UIImageView!
     var selectedIndexPath: IndexPath?
+    weak var databaseController: DatabaseProtocol?
     
+    @IBOutlet weak var plantBackgroundImage: UIImageView!
     @IBOutlet weak var plantImageCollectionView: UICollectionView!
-    
     @IBOutlet weak var plantNameEditTextField: UITextField!
     @IBOutlet weak var plantLocationEditTextField: UITextField!
     
@@ -27,15 +27,42 @@ class EditPlantViewController: UIViewController {
         
         plantImageCollectionView.dataSource = self
         plantImageCollectionView.delegate = self
+        
+        // Adds the delegate for database
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        databaseController = appDelegate.databaseController
+
         plantBackgroundImage.image = UIImage(named: plant?.image ?? "pa")
     
-        print(plant?.name, plant?.id, plant?.location, plant?.image)
-        plantNameEditTextField.placeholder = plant?.name
-        plantLocationEditTextField.placeholder = plant?.location
-        plantImageName = plant?.image
+        guard let plantName = plant?.name, let plantLocation = plant?.location, let plantImage = plant?.image else { return }
+        
+        plantNameEditTextField.placeholder = ("name: \(plantName)")
+        plantLocationEditTextField.placeholder = ("location: \(plantLocation)")
+        plantImageName = plantImage
         // Do any additional setup after loading the view.
     }
     @IBAction func saveEditingPantTapped(_ sender: Any) {
+        let newPlant = plant
+        var edited: Bool = false
+        
+        if plantNameEditTextField.hasText == true {
+            newPlant?.name = plantNameEditTextField.text!
+            edited = true
+        }
+        
+        if plantLocationEditTextField.hasText == true {
+            newPlant?.location = plantLocationEditTextField.text!
+            edited = true
+        }
+        
+        if selectedIndexPath != nil {
+            newPlant?.image = plantImageArray[selectedIndexPath!.row]
+            edited = true
+        }
+        
+        if edited == true {
+            let _ = databaseController?.updateUserPlant(newPlant: newPlant!)
+        }
         
         navigationController?.popViewController(animated: true)
     }

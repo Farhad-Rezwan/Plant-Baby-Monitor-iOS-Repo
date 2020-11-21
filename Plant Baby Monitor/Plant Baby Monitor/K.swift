@@ -32,7 +32,9 @@ struct K {
         static var plantStatusCollectionName = "plantStatuses"
         
         struct Attributes {
-            static var userID = "name"
+            static var plantName = "name"
+            static var plantLocation = "location"
+            static var plantImage = "image"
             static var plants = "plants"
             static var plantStatusMoisture = "moisture"
             static var plantStatusTemperature = "temperature"
