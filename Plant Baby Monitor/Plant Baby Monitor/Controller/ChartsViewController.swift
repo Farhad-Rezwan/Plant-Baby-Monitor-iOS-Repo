@@ -8,8 +8,12 @@
 import UIKit
 import Charts
 import TinyConstraints
+import CocoaMQTT
 
 class ChartsViewController: UIViewController, DatabaseListener, IAxisValueFormatter{
+    
+    let mqttClient = CocoaMQTT(clientID: "iOS Device", host: "192.168.0.X", port: 1883)
+    
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
 
         var localDate: String = ""
@@ -295,6 +299,8 @@ class ChartsViewController: UIViewController, DatabaseListener, IAxisValueFormat
     
     @objc func buttonTapped(sender : UIButton) {
         print("pressed")
-                    //Write button action here
+        
+        mqttClient.connect()
+        // mqttClient.disconnect()
     }
 }

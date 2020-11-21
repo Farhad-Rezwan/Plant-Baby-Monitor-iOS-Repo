@@ -22,7 +22,7 @@ class HomeViewController: UIViewController, DatabaseListener {
     var uID: String?
     var user: User?
     var listenerType: ListenerType = .user
-    var plant: [Plant] = []
+    var plants: [Plant] = []
     var cellSpacingHeight = 200
     
     override func viewDidLoad() {
@@ -75,7 +75,7 @@ class HomeViewController: UIViewController, DatabaseListener {
     // MARK:- Listener Methods
     func onUserChange(change: DatabaseChange, userPlants: [Plant]) {
         print("User listener listening")
-        plant = userPlants
+        plants = userPlants
         plantTableView.reloadData()
     }
     /// do nothing
@@ -94,7 +94,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     // using section insted of row, so that the cell difference is significant
     func numberOfSections(in tableView: UITableView) -> Int {
-        return plant.count
+        return plants.count
     }
     
     // per section will have one plant
@@ -112,9 +112,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     // designing the cell using custom cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: K.Identifier.plantTableViewCell, for: indexPath) as! PlantTableViewCell
-        cell.plantName.text = plant[indexPath.section].name
-        cell.plantLocation.text = plant[indexPath.section].location
-        cell.plantImage.image = UIImage(named: plant[indexPath.section].image)
+        cell.plantName.text = plants[indexPath.section].name
+        cell.plantLocation.text = plants[indexPath.section].location
+        cell.plantImage.image = UIImage(named: plants[indexPath.section].image)
         
         /// reference: https://stackoverflow.com/questions/34778283/what-is-the-action-for-custom-accessory-view-button-swift
         let button = UIButton(type: .custom)
@@ -134,13 +134,18 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         print(sender.tag)
         print("pressed")
                     //Write button action here
+        let viewController = storyboard?.instantiateViewController(identifier: K.Identifier.editPlantViewController) as! EditPlantViewController
+        
+        viewController.uID = uID
+        viewController.plant = plants[sender.tag]
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     /// navigate to chars view when any of the plat is selected - Should show plant information
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewController = storyboard?.instantiateViewController(identifier: K.Identifier.plantChartDetailsViewController) as! ChartsViewController
         
-        viewController.plant = plant[indexPath.section]
+        viewController.plant = plants[indexPath.section]
         viewController.uID = uID
         navigationController?.pushViewController(viewController, animated: true)
         

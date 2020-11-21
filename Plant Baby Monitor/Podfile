@@ -9,9 +9,7 @@ target 'Plant Baby Monitor' do
   pod 'FirebaseFirestoreSwift'
   pod 'Charts'
   pod 'TinyConstraints'
-  pod 'AWSMobileClient'
-  pod 'AWSIoT'
-  pod 'CocoaMQTT' 
+  pod 'CocoaMQTT'
 
 
 end

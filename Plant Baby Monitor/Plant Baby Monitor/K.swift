@@ -20,6 +20,8 @@ struct K {
         static var plantChartTableCiewCell = "plantChartCell"
         static var plantChartTableCiewNib = "PlantChartTableViewCell"
         static var plantChartDetailsViewController = "plantDetailsVC"
+        static var plantImageCell = "plantImageCell"
+        static var editPlantViewController = "editPlantViewController"
     }
     
     struct Databae {

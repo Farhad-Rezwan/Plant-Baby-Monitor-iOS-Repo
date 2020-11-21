@@ -1,0 +1,92 @@
+//
+//  EditPlantViewController.swift
+//  Plant Baby Monitor
+//
+//  Created by Farhad Ullah Rezwan on 21/11/20.
+//
+
+import UIKit
+
+class EditPlantViewController: UIViewController {
+    
+    var plant: Plant?
+    var uID: String?
+    let plantImageArray = ["pa", "pb", "pc"]
+    var plantImageName: String?
+    @IBOutlet weak var plantBackgroundImage: UIImageView!
+    var selectedIndexPath: IndexPath?
+    
+    @IBOutlet weak var plantImageCollectionView: UICollectionView!
+    
+    @IBOutlet weak var plantNameEditTextField: UITextField!
+    @IBOutlet weak var plantLocationEditTextField: UITextField!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        title = "Tap on the text field to edit"
+        
+        plantImageCollectionView.dataSource = self
+        plantImageCollectionView.delegate = self
+        plantBackgroundImage.image = UIImage(named: plant?.image ?? "pa")
+    
+        print(plant?.name, plant?.id, plant?.location, plant?.image)
+        plantNameEditTextField.placeholder = plant?.name
+        plantLocationEditTextField.placeholder = plant?.location
+        plantImageName = plant?.image
+        // Do any additional setup after loading the view.
+    }
+    @IBAction func saveEditingPantTapped(_ sender: Any) {
+        
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+extension EditPlantViewController: UICollectionViewDataSource, UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return plantImageArray.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.plantImageCell, for: indexPath) as! PlantImageCell
+        
+        cell.plantCellImageView.image = UIImage(named: plantImageArray[indexPath.row])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PlantImageCell else { return }
+        redraw(selectedCell: cell)
+        selectedIndexPath = indexPath
+        plantBackgroundImage.image = UIImage(named: plantImageArray[indexPath.row])
+        print("selected", plantImageArray[indexPath.row])
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? PlantImageCell else { return }
+        redraw(deselectedCell: cell)
+        selectedIndexPath = nil
+        plantBackgroundImage.image = UIImage(named: plantImageName ?? "pa")
+        print("Deselected", plantImageArray[indexPath.row])
+    }
+    
+    /// reference for both method: https://stackoverflow.com/questions/44205550/select-only-one-item-in-uicollectionviewcontroller
+    // makes boarder if the cell is selected
+    /// - Parameter cell: collection view cell
+    private func redraw(selectedCell cell: PlantImageCell
+            ) {
+        cell.layer.borderWidth = 4.0
+        cell.layer.cornerRadius = 10
+        cell.layer.borderColor = UIColor.systemGreen.cgColor
+    }
+
+    /// removes boarder if the cell is selected
+    /// - Parameter cell: collection view cell
+    private func redraw(deselectedCell cell: PlantImageCell) {
+        cell.layer.cornerRadius = 10
+        cell.layer.borderWidth = 1.0
+        cell.layer.borderColor = UIColor.systemGroupedBackground.cgColor
+
+    }
+    
+    
+}
