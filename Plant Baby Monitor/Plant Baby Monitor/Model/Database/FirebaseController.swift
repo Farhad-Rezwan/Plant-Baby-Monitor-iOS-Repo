@@ -66,7 +66,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         usersRef = database.collection(K.Databae.userCollectionName)
         usersRef?.whereField(K.Databae.Attributes.plantName, isEqualTo: DEFAULT_USER_UID).addSnapshotListener({ (querySnapshot, error) in
             guard let snapshot = querySnapshot, let userSnapshot = snapshot.documents.first else {
-                print("error fetching databse collection user \(error!)")
+                print("error fetching databse collection user \(String(describing: error))")
                 return
             }
             self.parseUserSnapshot(documentSnapshot: userSnapshot)

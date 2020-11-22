@@ -33,6 +33,10 @@ class EditPlantViewController: UIViewController {
         databaseController = appDelegate.databaseController
 
         plantBackgroundImage.image = UIImage(named: plant?.image ?? "pa")
+        
+        
+        plantNameEditTextField.delegate = self
+        plantLocationEditTextField.delegate = self
     
         guard let plantName = plant?.name, let plantLocation = plant?.location, let plantImage = plant?.image else { return }
         
@@ -116,4 +120,16 @@ extension EditPlantViewController: UICollectionViewDataSource, UICollectionViewD
     }
     
     
+}
+
+extension EditPlantViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    /// when user presses anywhere else other than keyboard the keyboard will hide
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

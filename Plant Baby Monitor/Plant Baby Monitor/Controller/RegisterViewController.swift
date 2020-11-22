@@ -23,6 +23,9 @@ class RegisterViewController: UIViewController {
         /// adding delegate, because need to update user in the firestore
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
     }
     
     // Once the user is properly registers for the app, the segue is performed
@@ -31,6 +34,7 @@ class RegisterViewController: UIViewController {
             Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                 if let err = error {
                     print(err)
+                    self.displayMessage(title: "User Registration Failure", message: err.localizedDescription)
                 } else {
                     self.userID = authResult?.user.uid
                     self.addUserInFirestore()
@@ -52,4 +56,28 @@ class RegisterViewController: UIViewController {
             destination.uID = userID
         }
     }
+    
+    /// Displays Alert for invalid infomation
+    /// - Parameters:
+    ///   - title: the title of the alert
+    ///   - message: message of the allert
+    func displayMessage(title: String, message: String) {
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
+
+
+extension RegisterViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    /// when user presses anywhere else other than keyboard the keyboard will hide
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+}
+

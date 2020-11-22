@@ -212,20 +212,6 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
-  - AWSAuthCore (2.18.1):
-    - AWSCore (= 2.18.1)
-  - AWSCognitoIdentityProvider (2.18.1):
-    - AWSCognitoIdentityProviderASF (= 2.18.1)
-    - AWSCore (= 2.18.1)
-  - AWSCognitoIdentityProviderASF (2.18.1)
-  - AWSCore (2.18.1)
-  - AWSIoT (2.18.1):
-    - AWSCore (= 2.18.1)
-  - AWSMobileClient (2.18.1):
-    - AWSAuthCore (= 2.18.1)
-    - AWSCognitoIdentityProvider (= 2.18.1)
-    - AWSCognitoIdentityProviderASF (= 2.18.1)
-    - AWSCore (= 2.18.1)
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
     - BoringSSL-GRPC/Interface (= 0.0.7)
@@ -238,6 +224,22 @@ PODS:
   - CocoaAsyncSocket (7.6.4)
   - CocoaMQTT (1.2.5):
     - CocoaAsyncSocket (~> 7.6.3)
+  - FacebookCore (0.9.0):
+    - FBSDKCoreKit (~> 5.0)
+  - FacebookLogin (0.9.0):
+    - FacebookCore (~> 0.9.0)
+    - FBSDKCoreKit (~> 5.0)
+    - FBSDKLoginKit (~> 5.0)
+  - FBSDKCoreKit (5.15.1):
+    - FBSDKCoreKit/Basics (= 5.15.1)
+    - FBSDKCoreKit/Core (= 5.15.1)
+  - FBSDKCoreKit/Basics (5.15.1)
+  - FBSDKCoreKit/Core (5.15.1):
+    - FBSDKCoreKit/Basics
+  - FBSDKLoginKit (5.15.1):
+    - FBSDKLoginKit/Login (= 5.15.1)
+  - FBSDKLoginKit/Login (5.15.1):
+    - FBSDKCoreKit (~> 5.0)
   - Firebase/Auth (6.34.0):
     - Firebase/CoreOnly
     - FirebaseAuth (~> 6.9.2)
@@ -332,10 +334,10 @@ PODS:
   - TinyConstraints (4.0.1)
 
 DEPENDENCIES:
-  - AWSIoT
-  - AWSMobileClient
   - Charts
   - CocoaMQTT
+  - FacebookCore
+  - FacebookLogin
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Firestore
@@ -345,16 +347,14 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - abseil
-    - AWSAuthCore
-    - AWSCognitoIdentityProvider
-    - AWSCognitoIdentityProviderASF
-    - AWSCore
-    - AWSIoT
-    - AWSMobileClient
     - BoringSSL-GRPC
     - Charts
     - CocoaAsyncSocket
     - CocoaMQTT
+    - FacebookCore
+    - FacebookLogin
+    - FBSDKCoreKit
+    - FBSDKLoginKit
     - Firebase
     - FirebaseAuth
     - FirebaseCore
@@ -374,16 +374,14 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
-  AWSAuthCore: 89562ca19419744144f7afcfe81acba64b33a9bd
-  AWSCognitoIdentityProvider: bb5c856ac56d976efb72660a2c09aeb131b44c88
-  AWSCognitoIdentityProviderASF: 67fe08635f9c0769a0cb1e6c548662075e40251e
-  AWSCore: 0979d22aebe17ffc24eea19d8bc40402b651b018
-  AWSIoT: e03fbff16d7593545bafa097aa64f0a340ecdada
-  AWSMobileClient: e436716389ccbfaa8ee41f52d2128f942527a64e
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaMQTT: a61490ed3b328011c5d75169a77781983e2bb221
+  FacebookCore: ba86524b66cfa86d0f8e65d08faa8504a9f732dd
+  FacebookLogin: 6cee9fd6e1fe976fe8f7eec199e27b28b14f5d63
+  FBSDKCoreKit: 1d5acf7c9d7a2f92bb1a242dc60cae5b7adb91df
+  FBSDKLoginKit: f1ea8026a58b52d30c9f2e6a58ca7d813619fb83
   Firebase: c23a36d9e4cdf7877dfcba8dd0c58add66358999
   FirebaseAuth: c92d49ada7948d1a23466e3db17bc4c2039dddc3
   FirebaseCore: d3a978a3cfa3240bf7e4ba7d137fdf5b22b628ec
@@ -401,6 +399,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   TinyConstraints: 8dd91295e56797648c7bc335dd20e1d91ec4c192
 
-PODFILE CHECKSUM: 2cab9585180f59baa19d5bef69a70c857a560a92
+PODFILE CHECKSUM: 7f5bd592266a84b21d114d7accf46c80830b79aa
 
 COCOAPODS: 1.10.0

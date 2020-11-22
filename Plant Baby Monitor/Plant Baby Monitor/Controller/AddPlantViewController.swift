@@ -28,6 +28,9 @@ class AddPlantViewController: UIViewController {
         plantImageCollectionView.dataSource = self
         plantImageCollectionView.delegate = self
         
+        plantNameTextField.delegate = self
+        plantLocationTextField.delegate = self
+        
         // Adds the delegate for database
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
@@ -121,8 +124,17 @@ extension AddPlantViewController: UICollectionViewDelegate, UICollectionViewData
         cell.layer.borderColor = UIColor.systemGroupedBackground.cgColor
 
     }
-    
 
+}
+
+extension AddPlantViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
     
-    
+    /// when user presses anywhere else other than keyboard the keyboard will hide
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

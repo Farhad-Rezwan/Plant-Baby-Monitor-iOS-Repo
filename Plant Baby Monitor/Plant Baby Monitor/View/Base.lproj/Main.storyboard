@@ -196,6 +196,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BjG-re-ufY">
+                        <barButtonItem key="backBarButtonItem" title="\" id="FUo-2J-5a6"/>
                         <rightBarButtonItems>
                             <barButtonItem title="Item" image="info.circle" catalog="system" id="dB5-kb-dRY">
                                 <color key="tintColor" name="DGreen"/>

@@ -6,9 +6,11 @@
 //
 
 import UIKit
-import AWSIoT
-import AWSMobileClient
 import TinyConstraints
+import FirebaseAuth
+import FacebookCore
+import FacebookLogin
+import FBSDKCoreKit
 
 
 class HomeViewController: UIViewController, DatabaseListener {
@@ -16,7 +18,6 @@ class HomeViewController: UIViewController, DatabaseListener {
 
     @IBOutlet weak var addPlantButtonDesign: UIButton!
     @IBOutlet weak var plantTableView: UITableView!
-    @objc var iotDataManager: AWSIoTDataManager!
 
     weak var databaseController: DatabaseProtocol?
     var uID: String?
@@ -27,6 +28,7 @@ class HomeViewController: UIViewController, DatabaseListener {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // adding table view delegates
         plantTableView.dataSource = self
@@ -45,10 +47,42 @@ class HomeViewController: UIViewController, DatabaseListener {
         addPlantButtonDesign.layer.borderColor = UIColor.black.cgColor
         addPlantButtonDesign.layer.borderWidth = 1
         addPlantButtonDesign.layer.cornerRadius = addPlantButtonDesign.frame.size.height / 10
+        
+        /// hiding the back button
+        self.navigationItem.setHidesBackButton(true, animated: true)
     }
     
     /// once the logout button is pressed the user is navigated to the root view controller
     @IBAction func logoutPressed(_ sender: Any) {
+        let alert = UIAlertController(title: "Logout?", message: "Do you want to logout", preferredStyle: .alert)
+        let yes = UIAlertAction(title: "YES", style: .default) { (action) in
+            
+            /// perform logo0ut opration
+            self.performLogoutOperation()
+        }
+        let no = UIAlertAction(title: "NO", style: .default) { (action) in
+            alert.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(yes)
+        alert.addAction(no)
+        present(alert, animated: true, completion: nil)
+
+    }
+    func performLogoutOperation(){
+        guard Auth.auth().currentUser != nil else { return
+        }
+        if let accessTocken = AccessToken.current {
+            // user is already loggind in with facebook
+            print("user is already logged in")
+            print(accessTocken)
+            LoginManager().logOut()
+        }
+        
+        do {
+            try Auth.auth().signOut()
+        } catch let error as NSError {
+            print(error.localizedDescription)
+        }
         navigationController?.popToRootViewController(animated: true)
     }
     
