@@ -196,11 +196,20 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="BjG-re-ufY">
-                        <barButtonItem key="rightBarButtonItem" title="Logout" id="8Bk-PI-PhC">
-                            <connections>
-                                <action selector="logoutPressed:" destination="d9l-rt-Bxd" id="ydy-YC-6wy"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Item" image="info.circle" catalog="system" id="dB5-kb-dRY">
+                                <color key="tintColor" name="DGreen"/>
+                                <connections>
+                                    <segue destination="hIx-Wz-TvE" kind="showDetail" id="dJF-zj-8SD"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Logout" image="person.fill.xmark.rtl" catalog="system" id="8Bk-PI-PhC">
+                                <color key="tintColor" name="DGreen"/>
+                                <connections>
+                                    <action selector="logoutPressed:" destination="d9l-rt-Bxd" id="ydy-YC-6wy"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addPlantButtonDesign" destination="XVl-GH-pIj" id="7iJ-rn-Rzf"/>
@@ -503,7 +512,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0wn-2c-Png" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4122" y="422"/>
+            <point key="canvasLocation" x="5109" y="530"/>
         </scene>
         <!--Edit Plant View Controller-->
         <scene sceneID="LJY-Vd-Fab">
@@ -674,14 +683,67 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9cm-Ul-hXr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4998.5507246376819" y="10.714285714285714"/>
+            <point key="canvasLocation" x="5109" y="-265"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Ovn-h8-s2T">
+            <objects>
+                <viewController id="hIx-Wz-TvE" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ddd-J0-BiE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="BrD-qc-CFT">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <color key="backgroundColor" name="LogoBackground"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COPYRIGHT©2020-FARHAD&amp;YOHAN" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsI-Jf-Ugs">
+                                <rect key="frame" x="61.333333333333343" y="411" width="291.66666666666663" height="20.333333333333314"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MRd-jE-3jf">
+                                <rect key="frame" x="25" y="451" width="364" height="300"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="iUX-cG-hdF"/>
+                                </constraints>
+                                <string key="text">Many young professionals travel often and have to leave their plant babies unattended. Timers and naive remote watering systems are incomplete solutions as excess soil moisture can be harmful to plants according to the Sensoterra index. In addition to remote watering, we propose a way to monitor the plant’s state and environment.</string>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="pbL-5Q-ztq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="BrD-qc-CFT" firstAttribute="leading" secondItem="ddd-J0-BiE" secondAttribute="leading" id="03n-xH-9wC"/>
+                            <constraint firstAttribute="trailing" secondItem="BrD-qc-CFT" secondAttribute="trailing" id="5WI-PE-jdV"/>
+                            <constraint firstItem="hsI-Jf-Ugs" firstAttribute="centerX" secondItem="ddd-J0-BiE" secondAttribute="centerX" id="AdL-dr-bXW"/>
+                            <constraint firstAttribute="bottom" secondItem="BrD-qc-CFT" secondAttribute="bottom" id="B67-Gh-uXI"/>
+                            <constraint firstItem="MRd-jE-3jf" firstAttribute="centerY" secondItem="ddd-J0-BiE" secondAttribute="centerY" constant="180" id="bJc-tQ-ZNN"/>
+                            <constraint firstItem="MRd-jE-3jf" firstAttribute="leading" secondItem="pbL-5Q-ztq" secondAttribute="leading" constant="25" id="fYd-4g-nMC"/>
+                            <constraint firstItem="hsI-Jf-Ugs" firstAttribute="centerY" secondItem="ddd-J0-BiE" secondAttribute="centerY" id="gQL-FV-iUe"/>
+                            <constraint firstItem="pbL-5Q-ztq" firstAttribute="trailing" secondItem="MRd-jE-3jf" secondAttribute="trailing" constant="25" id="hQh-Uk-Ybt"/>
+                            <constraint firstItem="MRd-jE-3jf" firstAttribute="centerX" secondItem="ddd-J0-BiE" secondAttribute="centerX" id="itm-vz-Jub"/>
+                            <constraint firstItem="BrD-qc-CFT" firstAttribute="top" secondItem="ddd-J0-BiE" secondAttribute="top" id="nrC-vc-t7A"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jMb-Uj-KPF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4122" y="530"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="vs1-Wu-imD"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="Logo" width="224.66667175292969" height="224.66667175292969"/>
+        <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="pa" width="166.66667175292969" height="166.66667175292969"/>
+        <image name="person.fill.xmark.rtl" catalog="system" width="128" height="88"/>
         <image name="textfield" width="298" height="93"/>
         <namedColor name="AccentColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -695,6 +757,9 @@
         <namedColor name="LogoBackground">
             <color red="0.49411764705882355" green="0.72549019607843135" blue="0.62745098039215685" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
