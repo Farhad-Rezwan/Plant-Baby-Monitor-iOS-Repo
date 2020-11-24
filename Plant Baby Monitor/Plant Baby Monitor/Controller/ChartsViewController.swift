@@ -10,10 +10,14 @@ import Charts
 import TinyConstraints
 import CocoaMQTT
 
-class ChartsViewController: UIViewController, DatabaseListener, IAxisValueFormatter{
+class ChartsViewController: UIViewController, DatabaseListener, IAxisValueFormatter {
     
-    let mqttClient = CocoaMQTT(clientID: "iOS Device", host: "192.168.0.X", port: 1883)
     
+    
+//    let defaultHost = "XX.XXX.XXXX.XXXX" //greengrass core host.
+//    let clientID = "MyPhone"
+    var mqttClient = CocoaMQTT(clientID: "HelloWorld_Subscriber", host: "a3p7lfkutd41l6-ats.iot.ap-southeast-2.amazonaws.com", port: 8883)
+
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
 
         var localDate: String = ""
@@ -299,8 +303,99 @@ class ChartsViewController: UIViewController, DatabaseListener, IAxisValueFormat
     
     @objc func buttonTapped(sender : UIButton) {
         print("pressed")
+        ggConnect()
+    }
+    
+    
+    /// https://forums.aws.amazon.com/thread.jspa?threadID=279322
+    func ggConnect() {
         
+//        mqttClient = CocoaMQTT(clientID: clientID, host: defaultHost, port: 8883)
+        mqttClient.delegate = self
+        mqttClient.enableSSL = true
+        mqttClient.allowUntrustCACertificate = true
+        //used openSSL to Create this .p;12 from device key, cert and the GreenGrass Group CA obtained by running the basicDiscovery.py of Python SDK.
+        let clientCertArray = getClientCertFromP12File(certName: "ggCoreCertX", certPassword: "1234567890")
+        var sslSettings: [ String : NSObject ] = [ : ] //replace ( with [
+        sslSettings [ kCFStreamSSLCertificates as String ] = clientCertArray //replace ( with [
+        mqttClient.sslSettings = sslSettings
+        mqttClient.publish("iOS", withString: "Frin me", qos: .qos0, retained: true, dup: true)
+        mqttClient.publish("iOS", withString: "from me")
         mqttClient.connect()
-        // mqttClient.disconnect()
+        mqttClient.publish("iOS", withString: "from me")
+    }
+    func getClientCertFromP12File(certName: String, certPassword: String) -> CFArray? {
+        // get p12 file path
+        let resourcePath = Bundle.main.path(forResource: certName, ofType: "p12")
+        guard let filePath = resourcePath, let p12Data = NSData(contentsOfFile: filePath) else {
+            print("Failed to open the certificate file: \(certName).p12")
+            return nil
+        }
+        // create key dictionary for reading p12 file
+        let key = kSecImportExportPassphrase as String
+        let options : NSDictionary = [ key: certPassword ] //replace ( with [
+        var items : CFArray?
+        let securityError = SecPKCS12Import(p12Data, options, &items)
+        guard securityError == errSecSuccess else {
+            if securityError == errSecAuthFailed {
+                print("ERROR: SecPKCS12Import returned errSecAuthFailed. Incorrect password?")
+            } else {
+                print("Failed to open the certificate file: \(certName).p12")
+            }
+            return nil
+        }
+        guard let theArray = items, CFArrayGetCount(theArray) > 0 else {
+            return nil
+        }
+        let dictionary = (theArray as NSArray).object(at: 0)
+        guard let identity = (dictionary as AnyObject).value(forKey: kSecImportItemIdentity as String) else {
+            return nil
+        }
+        let certArray = [ identity ] as CFArray //replace ( with [
+        return certArray
+    }
+    
+}
+
+extension ChartsViewController: CocoaMQTTDelegate {
+    
+    func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
+        print("didConnectAct")
+    }
+    
+    func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
+        print("didPublishMessage")
+    }
+    
+    func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
+        print("didPublishAck")
+    }
+    
+    func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
+        print("didRecieveMessage")
+    }
+    
+    func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopic topics: [String]) {
+        print("didSubscriveTopic")
+    }
+    
+    func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopic topic: String) {
+        print("didUnsubscribeTopic")
+    }
+    
+    func mqttDidPing(_ mqtt: CocoaMQTT) {
+        print("didPingMqtt")
+        
+    }
+    
+    func mqttDidReceivePong(_ mqtt: CocoaMQTT) {
+        print("didRecievePong")
+    }
+    
+    func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
+        print("didDisconnectMqtt")
     }
 }
+
+// Alternative actions :
+/// https://github.com/awslabs/aws-sdk-ios-samples/tree/main/IoT-Sample/Swift

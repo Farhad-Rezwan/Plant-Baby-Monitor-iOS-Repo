@@ -14,6 +14,8 @@ class RegisterViewController: UIViewController {
     
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var registerUIButton: UIButton!
+
     var userID: String?
 
     
@@ -26,6 +28,15 @@ class RegisterViewController: UIViewController {
         
         emailTextField.delegate = self
         passwordTextField.delegate = self
+        /// helps to decorate buttons when the view did load
+        decorateUIButtons()
+    }
+    
+    /// Function to help decorate buttons for the current view controller
+    private func decorateUIButtons() {
+        /// Make the button round with
+        registerUIButton.layer.cornerRadius = 40
+        registerUIButton.layer.cornerRadius = 40
     }
     
     // Once the user is properly registers for the app, the segue is performed

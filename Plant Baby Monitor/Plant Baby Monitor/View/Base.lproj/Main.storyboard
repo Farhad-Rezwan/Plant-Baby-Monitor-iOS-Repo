@@ -18,9 +18,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="introBackground" translatesAutoresizingMaskIntoConstraints="NO" id="LEc-2j-0WL">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Yx-Ae-5PW">
                                 <rect key="frame" x="30" y="679" width="354" height="59"/>
-                                <color key="backgroundColor" name="LogoBackground"/>
+                                <color key="backgroundColor" name="DGreen"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="33"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Login"/>
@@ -30,7 +33,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qnE-yU-yQ5">
                                 <rect key="frame" x="30" y="758" width="354" height="59"/>
-                                <color key="backgroundColor" name="LogoBackground"/>
+                                <color key="backgroundColor" name="DGreen"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="33"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Register"/>
@@ -46,17 +49,25 @@
                             <constraint firstItem="qnE-yU-yQ5" firstAttribute="leading" secondItem="C7E-Uz-j7V" secondAttribute="leading" constant="30" id="Ef7-Z2-0aE"/>
                             <constraint firstItem="2Yx-Ae-5PW" firstAttribute="leading" secondItem="C7E-Uz-j7V" secondAttribute="leading" constant="30" id="TzB-vS-hCg"/>
                             <constraint firstItem="C7E-Uz-j7V" firstAttribute="bottom" secondItem="qnE-yU-yQ5" secondAttribute="bottom" constant="45" id="VLR-Nt-dtT"/>
+                            <constraint firstAttribute="trailing" secondItem="LEc-2j-0WL" secondAttribute="trailing" id="Xk1-To-Azh"/>
+                            <constraint firstItem="LEc-2j-0WL" firstAttribute="leading" secondItem="fjc-SD-57h" secondAttribute="leading" id="ZPy-fc-elz"/>
                             <constraint firstItem="qnE-yU-yQ5" firstAttribute="top" secondItem="2Yx-Ae-5PW" secondAttribute="bottom" constant="20" id="bZn-n1-RZE"/>
                             <constraint firstItem="C7E-Uz-j7V" firstAttribute="trailing" secondItem="2Yx-Ae-5PW" secondAttribute="trailing" constant="30" id="mnY-cy-CjF"/>
+                            <constraint firstAttribute="bottom" secondItem="LEc-2j-0WL" secondAttribute="bottom" id="ncR-5Q-zJB"/>
+                            <constraint firstItem="LEc-2j-0WL" firstAttribute="top" secondItem="fjc-SD-57h" secondAttribute="top" id="rNp-op-z0d"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="DuX-h8-VEs"/>
+                    <connections>
+                        <outlet property="loginButtonUIButton" destination="2Yx-Ae-5PW" id="grC-YN-YST"/>
+                        <outlet property="registerButtonUIButton" destination="qnE-yU-yQ5" id="zwE-y3-PrV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pHD-xF-QaU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="939.13043478260875" y="11.383928571428571"/>
         </scene>
-        <!--Login View Controller-->
+        <!--Login-->
         <scene sceneID="wl1-tk-ziG">
             <objects>
                 <viewController id="dOm-0p-8ZC" customClass="LoginViewController" customModule="Plant_Baby_Monitor" customModuleProvider="target" sceneMemberID="viewController">
@@ -120,7 +131,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0TY-vl-BJM">
                                 <rect key="frame" x="57" y="298.66666666666669" width="300" height="59"/>
-                                <color key="backgroundColor" name="LogoBackground"/>
+                                <color key="backgroundColor" name="DGreen"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="8eC-kr-gSI"/>
                                 </constraints>
@@ -145,9 +156,10 @@
                             <constraint firstItem="uQw-bI-xDu" firstAttribute="leading" secondItem="Sh1-9a-ISG" secondAttribute="leading" id="pwo-qJ-vaa"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="L6i-6l-eRf"/>
+                    <navigationItem key="navigationItem" title="Login" id="L6i-6l-eRf"/>
                     <connections>
                         <outlet property="emailTextField" destination="5is-I7-v2X" id="Hrr-Ub-Ya4"/>
+                        <outlet property="loginUIButton" destination="0TY-vl-BJM" id="mw6-1d-pBo"/>
                         <outlet property="passwordTextField" destination="Qa4-0h-hUU" id="Mgi-kf-OI1"/>
                         <segue destination="d9l-rt-Bxd" kind="show" identifier="loginToHomeSegue" id="pqA-Tl-1CJ"/>
                     </connections>
@@ -213,7 +225,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
-                        <outlet property="addPlantButtonDesign" destination="XVl-GH-pIj" id="7iJ-rn-Rzf"/>
+                        <outlet property="addPlantUIButton" destination="XVl-GH-pIj" id="12E-K4-D6t"/>
                         <outlet property="plantTableView" destination="JFr-Yi-i5j" id="vwH-xj-H30"/>
                     </connections>
                 </viewController>
@@ -239,7 +251,7 @@
             </objects>
             <point key="canvasLocation" x="28.985507246376812" y="11.383928571428571"/>
         </scene>
-        <!--Register View Controller-->
+        <!--Register-->
         <scene sceneID="Zsm-HC-F1y">
             <objects>
                 <viewController id="n9D-c4-gG3" customClass="RegisterViewController" customModule="Plant_Baby_Monitor" customModuleProvider="target" sceneMemberID="viewController">
@@ -303,7 +315,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="owP-1p-F3b">
                                 <rect key="frame" x="57" y="298.66666666666669" width="300" height="59"/>
-                                <color key="backgroundColor" name="LogoBackground"/>
+                                <color key="backgroundColor" name="DGreen"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="U9v-R5-Uyn"/>
                                 </constraints>
@@ -328,10 +340,11 @@
                             <constraint firstItem="M2H-Ed-BkS" firstAttribute="trailing" secondItem="lZr-bl-vlV" secondAttribute="trailing" id="ynL-J4-zbW"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="arZ-K7-bnc"/>
+                    <navigationItem key="navigationItem" title="Register" id="arZ-K7-bnc"/>
                     <connections>
                         <outlet property="emailTextField" destination="e06-Bt-zRu" id="lHl-HI-nLc"/>
                         <outlet property="passwordTextField" destination="CjA-T5-mfY" id="2ne-x8-qqE"/>
+                        <outlet property="registerUIButton" destination="owP-1p-F3b" id="iZi-Gh-bfH"/>
                         <segue destination="d9l-rt-Bxd" kind="show" identifier="registerToHomeSegue" id="vs1-Wu-imD"/>
                     </connections>
                 </viewController>
@@ -375,7 +388,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kS6-9X-S9Z">
                                 <rect key="frame" x="57" y="613" width="300" height="59"/>
-                                <color key="backgroundColor" name="LogoBackground"/>
+                                <color key="backgroundColor" name="DGreen"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="Dhz-cc-e9g"/>
                                 </constraints>
@@ -491,6 +504,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="855-fe-rn0"/>
                     <connections>
+                        <outlet property="addPlantUIButton" destination="kS6-9X-S9Z" id="A0V-Ie-tOf"/>
                         <outlet property="plantImageCollectionView" destination="BlA-hV-mGU" id="X3x-Ve-vvF"/>
                         <outlet property="plantLocationTextField" destination="nc8-Cs-lax" id="F6f-4F-f4x"/>
                         <outlet property="plantNameTextField" destination="Buh-vb-Uuh" id="wnr-65-KiA"/>
@@ -551,7 +565,7 @@
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vLs-Nm-SBG">
                                 <rect key="frame" x="57" y="589" width="300" height="59"/>
-                                <color key="backgroundColor" name="LogoBackground"/>
+                                <color key="backgroundColor" name="DGreen"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="300" id="IGd-vC-bb7"/>
                                 </constraints>
@@ -676,6 +690,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="J3m-2W-hAE"/>
                     <connections>
+                        <outlet property="editPlantUIButton" destination="vLs-Nm-SBG" id="K3x-Pg-0pJ"/>
                         <outlet property="plantBackgroundImage" destination="BxA-Pv-oHU" id="4lI-aJ-DAI"/>
                         <outlet property="plantImageCollectionView" destination="u9k-vj-bji" id="ssM-MZ-Sic"/>
                         <outlet property="plantLocationEditTextField" destination="bpB-0O-ksV" id="5kr-R4-YwH"/>
@@ -741,8 +756,9 @@
         <segue reference="vs1-Wu-imD"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="Logo" width="224.66667175292969" height="224.66667175292969"/>
+        <image name="Logo" width="400" height="400"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
+        <image name="introBackground" width="414" height="736"/>
         <image name="pa" width="166.66667175292969" height="166.66667175292969"/>
         <image name="person.fill.xmark.rtl" catalog="system" width="128" height="88"/>
         <image name="textfield" width="298" height="93"/>

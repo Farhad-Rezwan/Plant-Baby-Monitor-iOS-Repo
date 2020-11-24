@@ -17,6 +17,7 @@
 		E44549E02547BC43001F2CC1 /* AddPlantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44549DF2547BC43001F2CC1 /* AddPlantViewController.swift */; };
 		E44AF8CE255519ED00B4B53A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E44AF8CD255519ED00B4B53A /* Constants.swift */; };
 		E45E7AE6255E8E010040DB9A /* ChartsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E45E7AE5255E8E000040DB9A /* ChartsViewController.swift */; };
+		E4648409256BCC67002192F9 /* ggCoreCertX.p12 in Resources */ = {isa = PBXBuildFile; fileRef = E4648408256BCC67002192F9 /* ggCoreCertX.p12 */; };
 		E472D4FA256931E1002DBB4B /* EditPlantViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E472D4F9256931E0002DBB4B /* EditPlantViewController.swift */; };
 		E49DFFB7254B58A400B9EE2C /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49DFFB6254B58A400B9EE2C /* Status.swift */; };
 		E4A76089256A36340047AD51 /* UserDefaults+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4A76088256A36340047AD51 /* UserDefaults+Helpers.swift */; };
@@ -49,8 +50,8 @@
 		E44549DA2547AACE001F2CC1 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E44549DF2547BC43001F2CC1 /* AddPlantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlantViewController.swift; sourceTree = "<group>"; };
 		E44AF8CD255519ED00B4B53A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		E44AF8D02555210C00B4B53A /* awsiot-identity.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; name = "awsiot-identity.p12"; path = "../../../../../Downloads/PlantBabyMonitor/certs/awsiot-identity.p12"; sourceTree = "<group>"; };
 		E45E7AE5255E8E000040DB9A /* ChartsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartsViewController.swift; sourceTree = "<group>"; };
+		E4648408256BCC67002192F9 /* ggCoreCertX.p12 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ggCoreCertX.p12; sourceTree = "<group>"; };
 		E472D4F9256931E0002DBB4B /* EditPlantViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditPlantViewController.swift; sourceTree = "<group>"; };
 		E49DFFB6254B58A400B9EE2C /* Status.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
 		E4A76088256A36340047AD51 /* UserDefaults+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Helpers.swift"; sourceTree = "<group>"; };
@@ -182,7 +183,7 @@
 		FC8EB396253EBB31009D858E /* Plant Baby Monitor */ = {
 			isa = PBXGroup;
 			children = (
-				E44AF8D02555210C00B4B53A /* awsiot-identity.p12 */,
+				E4648408256BCC67002192F9 /* ggCoreCertX.p12 */,
 				E44549B82547A992001F2CC1 /* Model */,
 				FC8EB397253EBB31009D858E /* AppDelegate.swift */,
 				FC8EB399253EBB31009D858E /* SceneDelegate.swift */,
@@ -260,6 +261,7 @@
 				FCEC7D7B25443020009FC83C /* PlantTableViewCell.xib in Resources */,
 				FC8EB3A1253EBB34009D858E /* Assets.xcassets in Resources */,
 				FC8EB39F253EBB31009D858E /* Main.storyboard in Resources */,
+				E4648409256BCC67002192F9 /* ggCoreCertX.p12 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -16,9 +16,9 @@ class AddPlantViewController: UIViewController {
 
     
     @IBOutlet weak var plantImageCollectionView: UICollectionView!
-//    @IBOutlet weak var plantNameTextField: UITextField!
     @IBOutlet weak var plantNameTextField: UITextField!
     @IBOutlet weak var plantLocationTextField: UITextField!
+    @IBOutlet weak var addPlantUIButton: UIButton!
     
     
     override func viewDidLoad() {
@@ -34,7 +34,17 @@ class AddPlantViewController: UIViewController {
         // Adds the delegate for database
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
+        
+        /// helps to decorate buttons when the view did load
+        decorateUIButtons()
     }
+    
+    /// Function to help decorate buttons for the current view controller
+    private func decorateUIButtons() {
+        /// Make the button round with
+        addPlantUIButton.layer.cornerRadius = 40
+    }
+
     @IBAction func addPlantButtonAction(_ sender: Any) {
         if plantNameTextField.text != "" && plantLocationTextField.text != "" && selectedIndexPath != nil {
             let name = plantNameTextField.text!

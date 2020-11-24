@@ -7,8 +7,8 @@
 
 import UIKit
 import Firebase
-import FacebookCore
 import FacebookLogin
+import TinyConstraints
 
 class LoginViewController: UIViewController {
     
@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     var userID: String?
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var loginUIButton: UIButton!
     
     override func viewDidLoad() {
         
@@ -29,26 +30,34 @@ class LoginViewController: UIViewController {
         /// Making sure that when user presses return button, or presses anywhere else in the screen  keyboard is hidden
         emailTextField.delegate = self
         passwordTextField.delegate = self
+
+        decorateUIButtons()
+    }
+
+    /// Function to help decorate buttons for the current view controller
+    private func decorateUIButtons() {
+        /// Make the button round with
+        loginUIButton.layer.cornerRadius = 40
+        loginUIButton.layer.cornerRadius = 40
         
-        /// facebook login things
+        /// generating login button for Facebook
         let loginButton = FBLoginButton()
         loginButton.center = view.center
         loginButton.delegate = self
+        
+        /// adding login button in the view
         self.view.addSubview(loginButton)
         
-        if let accessTocken = AccessToken.current {
-            // user is already loggind in with facebook
-            print("user is already logged in")
-            print(accessTocken)
-//            firebaseFacebookLogin(accessTocken: accessTocken.tokenString)
-//            loginButton.isHidden = true
-        }
+        /// adding constraints with tinyconstraints library
+        loginButton.top(to: loginUIButton, offset: 100)
+        loginButton.centerX(to: view)
     }
     
     // Once the user is properly logged in, the segue is performed
     @IBAction func loginButtonPressed(_ sender: Any) {
         if let email = emailTextField.text, let password = passwordTextField.text {
             
+            /// sign in using firebase signer
             Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
                 if let err = error {
                     print(err)
@@ -57,8 +66,6 @@ class LoginViewController: UIViewController {
                     
                     self.userID = authResult?.user.uid
                     self.finishLogginIn()
-
-
                 }
             }
         }
@@ -73,7 +80,7 @@ class LoginViewController: UIViewController {
     }
     
     
-    func firebaseFacebookLogin(accessTocken: String) {
+    private func firebaseFacebookLogin(accessTocken: String) {
         let credential = FacebookAuthProvider.credential(withAccessToken: accessTocken)
         Auth.auth().signIn(with: credential) { (authResult, error) in
             if let error = error {
@@ -95,12 +102,13 @@ class LoginViewController: UIViewController {
         }
     }
     
-    func finishLogginIn() {
+    /// Once the login is finished perform segue
+    private func finishLogginIn() {
         self.performSegue(withIdentifier: K.Segue.loginToHomeSegue, sender: self)
     }
     
     /// Adds user in the firestore collection user
-    func addUserInFirestore() {
+    private func addUserInFirestore() {
         let _ = databaseController?.addUser(userID: userID!)
     }
     
@@ -116,6 +124,7 @@ class LoginViewController: UIViewController {
 
 }
 
+// Extension of the LoginViewController Class for LoginButtonDelegate
 extension LoginViewController: LoginButtonDelegate {
     func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
         print("USer logged in")
@@ -133,6 +142,7 @@ extension LoginViewController: LoginButtonDelegate {
     
 }
 
+// Extension of the LoginViewController Class for TextFieldDelegate
 extension LoginViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

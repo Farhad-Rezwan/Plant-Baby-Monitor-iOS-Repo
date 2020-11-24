@@ -20,6 +20,7 @@ class EditPlantViewController: UIViewController {
     @IBOutlet weak var plantImageCollectionView: UICollectionView!
     @IBOutlet weak var plantNameEditTextField: UITextField!
     @IBOutlet weak var plantLocationEditTextField: UITextField!
+    @IBOutlet weak var editPlantUIButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,8 +44,21 @@ class EditPlantViewController: UIViewController {
         plantNameEditTextField.placeholder = ("name: \(plantName)")
         plantLocationEditTextField.placeholder = ("location: \(plantLocation)")
         plantImageName = plantImage
+        
         // Do any additional setup after loading the view.
+        /// helps to decorate buttons when the view did load
+        decorateUIButtons()
     }
+    
+    /// Function to help decorate buttons for the current view controller
+    private func decorateUIButtons() {
+        /// Make the button round with
+        editPlantUIButton.layer.cornerRadius = 40
+    }
+
+    
+    
+    
     @IBAction func saveEditingPantTapped(_ sender: Any) {
         let newPlant = plant
         var edited: Bool = false

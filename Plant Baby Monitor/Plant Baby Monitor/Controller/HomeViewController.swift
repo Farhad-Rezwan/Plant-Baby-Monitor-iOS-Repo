@@ -16,9 +16,9 @@ import FBSDKCoreKit
 class HomeViewController: UIViewController, DatabaseListener {
 
 
-    @IBOutlet weak var addPlantButtonDesign: UIButton!
     @IBOutlet weak var plantTableView: UITableView!
-
+    @IBOutlet weak var addPlantUIButton: UIButton!
+    
     weak var databaseController: DatabaseProtocol?
     var uID: String?
     var user: User?
@@ -34,7 +34,6 @@ class HomeViewController: UIViewController, DatabaseListener {
         plantTableView.dataSource = self
         plantTableView.delegate = self
         
-        title = K.appName
 
         /// registeres the custom plat cell
         plantTableView.register(UINib(nibName: K.Identifier.plantTableViewCellNib, bundle: nil), forCellReuseIdentifier: K.Identifier.plantTableViewCell)
@@ -43,15 +42,25 @@ class HomeViewController: UIViewController, DatabaseListener {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
         
-        /// designing the plant add button
-        addPlantButtonDesign.layer.borderColor = UIColor.black.cgColor
-        addPlantButtonDesign.layer.borderWidth = 1
-        addPlantButtonDesign.layer.cornerRadius = addPlantButtonDesign.frame.size.height / 10
-        
         /// hiding the back button
         self.navigationItem.setHidesBackButton(true, animated: true)
+        
+        /// helps to decorate buttons when the view did load
+        decorateUIButtons()
     }
     
+    /// Function to help decorate buttons for the current view controller
+    private func decorateUIButtons() {
+        /// designing the plant add to make sure it is consistent in the viewcontroller (adding border)
+        addPlantUIButton.layer.borderColor = UIColor.black.cgColor
+        addPlantUIButton.layer.borderWidth = 1
+        
+        /// Make the button round with
+        addPlantUIButton.layer.cornerRadius = 40
+        
+
+    }
+
     /// once the logout button is pressed the user is navigated to the root view controller
     @IBAction func logoutPressed(_ sender: Any) {
         let alert = UIAlertController(title: "Logout?", message: "Do you want to logout", preferredStyle: .alert)
@@ -68,7 +77,8 @@ class HomeViewController: UIViewController, DatabaseListener {
         present(alert, animated: true, completion: nil)
 
     }
-    func performLogoutOperation(){
+    
+    private func performLogoutOperation(){
         guard Auth.auth().currentUser != nil else { return
         }
         if let accessTocken = AccessToken.current {
