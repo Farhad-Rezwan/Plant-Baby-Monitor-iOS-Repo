@@ -19,6 +19,18 @@ class CustomNavigationController: UINavigationController, UINavigationController
         self.navigationBar.titleTextAttributes =
             [NSAttributedString.Key.foregroundColor: UIColor(named: K.Colors.buttonTxtColor) ?? UIColor.label,
              NSAttributedString.Key.font: UIFont(name: K.defaultFont, size: 21)!]
+        
+        /// change root view controller depending on the user login status keept in the User Default
+        if UserDefaults.standard.isLoggedIn() {
+            let homeViewController = storyboard?.instantiateViewController(identifier: K.Identifier.homeViewController) as! HomeViewController
+            homeViewController.uID = UserDefaults.standard.getUserId()
+            viewControllers = [homeViewController]
+        } else {
+            let welcomeViewController = storyboard?.instantiateViewController(identifier: K.Identifier.welcomeViewController) as! WelcomeViewController
+            viewControllers = [welcomeViewController]
+        }
+        
+        
     }
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {

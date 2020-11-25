@@ -78,6 +78,9 @@ class HomeViewController: UIViewController, DatabaseListener {
     }
     
     private func performLogoutOperation(){
+        UserDefaults.standard.setIsLoggedIn(value: false)
+        UserDefaults.standard.setUserId(userID: " ")
+        
         guard Auth.auth().currentUser != nil else { return
         }
         if let accessTocken = AccessToken.current {
@@ -92,7 +95,25 @@ class HomeViewController: UIViewController, DatabaseListener {
         } catch let error as NSError {
             print(error.localizedDescription)
         }
-        navigationController?.popToRootViewController(animated: true)
+        
+        handleViewControllerArraysForNavigationController()
+    }
+    
+    /// Makes sure when the user logged out is performed the new view controller stack is loaded in the navigation controller
+    private func handleViewControllerArraysForNavigationController() {
+        
+        guard let navigationController = self.navigationController else { return }
+        
+        /// removing the previous view controller
+        var navigationArray = navigationController.viewControllers // To get all UIViewController stack as Array
+        navigationArray.removeAll() // To remove previous UIViewController
+        
+        /// intanstiate new stack
+        let viewControllers = storyboard?.instantiateViewController(identifier: K.Identifier.welcomeViewController) as! WelcomeViewController
+        /// attach the new stack in the navigaiton controller
+        navigationController.viewControllers = [viewControllers]
+        navigationController.popToRootViewController(animated: true)
+        
     }
     
     /// adds the users listener when the view is loaded

@@ -26,6 +26,10 @@ extension UserDefaults {
         synchronize()
     }
     
+    func getUserId() -> String {
+        return string(forKey: UserDefaultKeys.userId.rawValue) ?? " "
+    }
+    
     func isLoggedIn() -> Bool {
         return bool(forKey: UserDefaultKeys.isLoggedIn.rawValue)
     }

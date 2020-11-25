@@ -76,6 +76,10 @@ class RegisterViewController: UIViewController {
     }
     
     func finishLogginIn() {
+        /// keep the logged in status in
+        UserDefaults.standard.setIsLoggedIn(value: true)
+        UserDefaults.standard.setUserId(userID: userID ?? " ")
+        
         self.performSegue(withIdentifier: K.Segue.registerToHomeSegue, sender: self)
     }
     

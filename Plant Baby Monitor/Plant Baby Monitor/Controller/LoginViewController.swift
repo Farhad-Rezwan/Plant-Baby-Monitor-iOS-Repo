@@ -104,9 +104,11 @@ class LoginViewController: UIViewController {
     
     /// Once the login is finished perform segue
     private func finishLogginIn() {
-        self.performSegue(withIdentifier: K.Segue.loginToHomeSegue, sender: self)
-        
         /// keep the logged in status in
+        UserDefaults.standard.setIsLoggedIn(value: true)
+        UserDefaults.standard.setUserId(userID: userID ?? " ")
+        
+        self.performSegue(withIdentifier: K.Segue.loginToHomeSegue, sender: self)
     }
     
     /// Adds user in the firestore collection user

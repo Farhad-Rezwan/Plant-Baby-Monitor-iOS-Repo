@@ -13,7 +13,7 @@
         <!--Welcome View Controller-->
         <scene sceneID="8mZ-ZH-uMo">
             <objects>
-                <viewController id="wlK-As-U0V" customClass="WelcomeViewController" customModule="Plant_Baby_Monitor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="welclomeViewController" id="wlK-As-U0V" customClass="WelcomeViewController" customModule="Plant_Baby_Monitor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fjc-SD-57h">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,14 +21,17 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XPj-TR-elF">
                                 <rect key="frame" x="0.0" y="88" width="414" height="589"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="Tm3-Q0-pw8">
-                                        <rect key="frame" x="7" y="94.666666666666629" width="400" height="400"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="Tm3-Q0-pw8">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="589"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="Tm3-Q0-pw8" firstAttribute="top" secondItem="XPj-TR-elF" secondAttribute="top" id="9sr-YU-Q76"/>
+                                    <constraint firstAttribute="bottom" secondItem="Tm3-Q0-pw8" secondAttribute="bottom" id="NlD-zz-eJ9"/>
+                                    <constraint firstItem="Tm3-Q0-pw8" firstAttribute="leading" secondItem="XPj-TR-elF" secondAttribute="leading" id="cuh-XG-0Hl"/>
                                     <constraint firstItem="Tm3-Q0-pw8" firstAttribute="centerX" secondItem="XPj-TR-elF" secondAttribute="centerX" id="eJH-jn-QWE"/>
-                                    <constraint firstItem="Tm3-Q0-pw8" firstAttribute="centerY" secondItem="XPj-TR-elF" secondAttribute="centerY" id="gkA-pa-ksw"/>
+                                    <constraint firstAttribute="trailing" secondItem="Tm3-Q0-pw8" secondAttribute="trailing" id="nac-dZ-1zM"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Yx-Ae-5PW">
@@ -211,7 +214,7 @@
         <!--Home View Controller-->
         <scene sceneID="BAw-Oa-YrY">
             <objects>
-                <viewController id="d9l-rt-Bxd" customClass="HomeViewController" customModule="Plant_Baby_Monitor" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="homeViewControllerID" id="d9l-rt-Bxd" customClass="HomeViewController" customModule="Plant_Baby_Monitor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="E9d-Kp-SpX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -867,51 +870,64 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="BrD-qc-CFT">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
-                                <color key="backgroundColor" name="LogoBackground"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COPYRIGHT©2020-FARHAD&amp;YOHAN" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsI-Jf-Ugs">
-                                <rect key="frame" x="73.666666666666686" y="463.33333333333331" width="267" height="22.666666666666686"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uk7-eD-4dP">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="398.33333333333331"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="BrD-qc-CFT">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="398.33333333333331"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="BrD-qc-CFT" firstAttribute="leading" secondItem="Uk7-eD-4dP" secondAttribute="leading" id="IpH-S3-v6b"/>
+                                    <constraint firstAttribute="bottom" secondItem="BrD-qc-CFT" secondAttribute="bottom" id="WDa-HC-EYA"/>
+                                    <constraint firstAttribute="trailing" secondItem="BrD-qc-CFT" secondAttribute="trailing" id="oOV-zk-HTt"/>
+                                    <constraint firstItem="BrD-qc-CFT" firstAttribute="top" secondItem="Uk7-eD-4dP" secondAttribute="top" id="s78-iQ-3Kr"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COPYRIGHT©2020-FARHAD&amp;YOHAN" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsI-Jf-Ugs">
+                                <rect key="frame" x="73.666666666666657" y="398.33333333333331" width="266.66666666666674" height="45.333333333333314"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22.670000000000002" id="X99-2K-O3h"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="MRd-jE-3jf">
-                                <rect key="frame" x="25" y="516" width="364" height="170"/>
+                                <rect key="frame" x="25" y="473.66666666666674" width="364" height="304.33333333333326"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="170" id="iUX-cG-hdF"/>
-                                </constraints>
-                                <string key="text">Many young professionals travel often and have to leave their plant babies unattended. Timers and naive remote watering systems are incomplete solutions as excess soil moisture can be harmful to plants according to the Sensoterra index. In addition to remote watering, we propose a way to monitor the plant’s state and environment.</string>
+                                <string key="text">Many young professionals travel often and have to leave their plant babies unattended. Timers and naive remote watering systems are incomplete solutions as excess soil moisture can be harmful to plants according to the Sensoterra index. In addition to remote watering, Plant Baby Monitor app monitors the plant’s state and environment.</string>
                                 <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="pbL-5Q-ztq"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="LogoBackground"/>
                         <constraints>
-                            <constraint firstItem="BrD-qc-CFT" firstAttribute="leading" secondItem="ddd-J0-BiE" secondAttribute="leading" id="03n-xH-9wC"/>
-                            <constraint firstAttribute="trailing" secondItem="BrD-qc-CFT" secondAttribute="trailing" id="5WI-PE-jdV"/>
-                            <constraint firstItem="hsI-Jf-Ugs" firstAttribute="centerX" secondItem="ddd-J0-BiE" secondAttribute="centerX" id="AdL-dr-bXW"/>
-                            <constraint firstAttribute="bottom" secondItem="BrD-qc-CFT" secondAttribute="bottom" id="B67-Gh-uXI"/>
-                            <constraint firstItem="MRd-jE-3jf" firstAttribute="centerY" secondItem="ddd-J0-BiE" secondAttribute="centerY" constant="180" id="bJc-tQ-ZNN"/>
+                            <constraint firstItem="Uk7-eD-4dP" firstAttribute="leading" secondItem="pbL-5Q-ztq" secondAttribute="leading" id="Eyx-ZA-qnx"/>
+                            <constraint firstItem="pbL-5Q-ztq" firstAttribute="trailing" secondItem="Uk7-eD-4dP" secondAttribute="trailing" id="IGG-sO-e0r"/>
+                            <constraint firstItem="hsI-Jf-Ugs" firstAttribute="centerX" secondItem="ddd-J0-BiE" secondAttribute="centerX" id="Zdb-pS-lUj"/>
+                            <constraint firstItem="hsI-Jf-Ugs" firstAttribute="top" secondItem="Uk7-eD-4dP" secondAttribute="bottom" id="bS9-WG-Deg"/>
                             <constraint firstItem="MRd-jE-3jf" firstAttribute="top" secondItem="hsI-Jf-Ugs" secondAttribute="bottom" constant="30" id="dmH-BA-RuU"/>
                             <constraint firstItem="MRd-jE-3jf" firstAttribute="leading" secondItem="pbL-5Q-ztq" secondAttribute="leading" constant="25" id="fYd-4g-nMC"/>
                             <constraint firstItem="pbL-5Q-ztq" firstAttribute="trailing" secondItem="MRd-jE-3jf" secondAttribute="trailing" constant="25" id="hQh-Uk-Ybt"/>
-                            <constraint firstItem="MRd-jE-3jf" firstAttribute="centerX" secondItem="ddd-J0-BiE" secondAttribute="centerX" id="itm-vz-Jub"/>
-                            <constraint firstItem="BrD-qc-CFT" firstAttribute="top" secondItem="ddd-J0-BiE" secondAttribute="top" id="nrC-vc-t7A"/>
+                            <constraint firstItem="Uk7-eD-4dP" firstAttribute="top" secondItem="pbL-5Q-ztq" secondAttribute="top" id="nxj-nS-ZQi"/>
+                            <constraint firstItem="hsI-Jf-Ugs" firstAttribute="leading" secondItem="pbL-5Q-ztq" secondAttribute="leading" constant="73.666666666666686" id="omd-mp-Mpb"/>
+                            <constraint firstItem="hsI-Jf-Ugs" firstAttribute="centerY" secondItem="ddd-J0-BiE" secondAttribute="centerY" id="sI4-ET-Tfn"/>
+                            <constraint firstItem="pbL-5Q-ztq" firstAttribute="bottom" secondItem="MRd-jE-3jf" secondAttribute="bottom" constant="30" id="wVp-Gx-GBA"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jMb-Uj-KPF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4122" y="530"/>
+            <point key="canvasLocation" x="4121.739130434783" y="529.6875"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="pqA-Tl-1CJ"/>
+        <segue reference="vs1-Wu-imD"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Logo" width="400" height="400"/>
@@ -934,9 +950,6 @@
         </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
             <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

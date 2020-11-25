@@ -157,7 +157,6 @@
 				E43443E5256778D3005E1E8D /* DateValueFormatter.swift */,
 				E4C167D0256910CB00F3363F /* PlantImageCell.swift */,
 				E472D4F9256931E0002DBB4B /* EditPlantViewController.swift */,
-				E4A76088256A36340047AD51 /* UserDefaults+Helpers.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -184,14 +183,15 @@
 			isa = PBXGroup;
 			children = (
 				E4648408256BCC67002192F9 /* ggCoreCertX.p12 */,
-				E44549B82547A992001F2CC1 /* Model */,
-				FC8EB397253EBB31009D858E /* AppDelegate.swift */,
-				FC8EB399253EBB31009D858E /* SceneDelegate.swift */,
-				FC49A886253ECE28004D9206 /* View */,
-				FC49A88C253ED4F4004D9206 /* Controller */,
 				FC8EB3A5253EBB34009D858E /* Info.plist */,
 				FC49A8BC253ED8D2004D9206 /* GoogleService-Info.plist */,
+				FC8EB397253EBB31009D858E /* AppDelegate.swift */,
+				FC8EB399253EBB31009D858E /* SceneDelegate.swift */,
+				E44549B82547A992001F2CC1 /* Model */,
+				FC49A886253ECE28004D9206 /* View */,
+				FC49A88C253ED4F4004D9206 /* Controller */,
 				FC49A888253ECE64004D9206 /* K.swift */,
+				E4A76088256A36340047AD51 /* UserDefaults+Helpers.swift */,
 				E44AF8CD255519ED00B4B53A /* Constants.swift */,
 			);
 			path = "Plant Baby Monitor";
