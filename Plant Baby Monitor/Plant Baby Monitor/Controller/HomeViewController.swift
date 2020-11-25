@@ -21,7 +21,6 @@ class HomeViewController: UIViewController, DatabaseListener {
     
     weak var databaseController: DatabaseProtocol?
     var uID: String?
-    var user: User?
     var listenerType: ListenerType = .user
     var plants: [Plant] = []
     var cellSpacingHeight = 200
@@ -163,23 +162,22 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         /// reference: https://stackoverflow.com/questions/34778283/what-is-the-action-for-custom-accessory-view-button-swift
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "plantEditButtonCell"), for: .normal)
-        button.addTarget(self, action: #selector(self.buttonTest), for: .touchUpInside)
+        button.addTarget(self, action: #selector(self.editPlantButtonPressed), for: .touchUpInside)
         button.tag = indexPath.section
         cell.addSubview(button)
         
         /// making the button center to the super view in the right side
         button.rightToSuperview()
         button.centerYToSuperview()
-
+        
         return cell
     }
     
-    @objc func buttonTest(sender : UIButton) {
+    @objc func editPlantButtonPressed(sender : UIButton) {
         print(sender.tag)
         print("pressed")
                     //Write button action here
         let viewController = storyboard?.instantiateViewController(identifier: K.Identifier.editPlantViewController) as! EditPlantViewController
-        
         viewController.uID = uID
         viewController.plant = plants[sender.tag]
         navigationController?.pushViewController(viewController, animated: true)
@@ -195,5 +193,16 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         
     }
     
+    
+    /// this code is to meke the home cell editable, the cell/plant can be delted with swipe
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+//
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//
+//        databaseController!.deletePlantFromUser(plant: plants[indexPath.section], userId: uID!)
+//
+//    }
 }
 

@@ -12,8 +12,13 @@ class CustomNavigationController: UINavigationController, UINavigationController
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.delegate = self
-
+        
+        /// using default value to make the color navigation title color  failproff
+        self.navigationBar.titleTextAttributes =
+            [NSAttributedString.Key.foregroundColor: UIColor(named: K.Colors.buttonTxtColor) ?? UIColor.label,
+             NSAttributedString.Key.font: UIFont(name: K.defaultFont, size: 21)!]
     }
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {

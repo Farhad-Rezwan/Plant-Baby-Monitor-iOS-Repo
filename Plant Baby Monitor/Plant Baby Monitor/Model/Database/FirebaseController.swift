@@ -32,7 +32,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     var plantStatusList: [Status]
 
     /// Constants
-    var USER_PLANT_NAME = K.Databae.tempPlantName
+    //var USER_PLANT_NAME = K.Databae.tempPlantName
     var DEFAULT_USER_UID = K.Databae.defaultUser
 
     /// user er email ane, akhane initialize korbo, niche method ase how to fetch for that email id,
@@ -64,7 +64,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     /// Sets up user listener - Listenes form firestore changes of collection - Users
     private func setupUserListener() {
         usersRef = database.collection(K.Databae.userCollectionName)
-        usersRef?.whereField(K.Databae.Attributes.plantName, isEqualTo: DEFAULT_USER_UID).addSnapshotListener({ (querySnapshot, error) in
+        usersRef?.whereField(K.Databae.Attributes.userName, isEqualTo: DEFAULT_USER_UID).addSnapshotListener({ (querySnapshot, error) in
             guard let snapshot = querySnapshot, let userSnapshot = snapshot.documents.first else {
                 print("error fetching databse collection user \(String(describing: error))")
                 return
@@ -138,7 +138,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     /// Perse user snapshots, and invokes listeners for any user changes
     private func parseUserSnapshot(documentSnapshot: QueryDocumentSnapshot) {
         defaultUser = User()
-        defaultUser.name = documentSnapshot.data()[K.Databae.Attributes.plantName] as! String
+        defaultUser.name = documentSnapshot.data()[K.Databae.Attributes.userName] as! String
         defaultUser.id = documentSnapshot.documentID
         
         if let plantReference = documentSnapshot.data()[K.Databae.Attributes.plants] as? [DocumentReference] {
@@ -230,7 +230,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func updateUserPlant(newPlant: Plant) {
         let tempPlantRef = plantsRef?.document(newPlant.id ?? " ")
-        tempPlantRef?.updateData([K.Databae.Attributes.plantName: newPlant.name,
+        tempPlantRef?.updateData([K.Databae.Attributes.userName: newPlant.name,
                                   K.Databae.Attributes.plantImage: newPlant.image,
                                   K.Databae.Attributes.plantLocation: newPlant.location ], completion: { (err) in
             if let err = err {
@@ -246,13 +246,20 @@ class FirebaseController: NSObject, DatabaseProtocol {
     func addUser(userID: String) -> User {
         /// userRef required becauase the collection will be nill if the app wants to add a user.
         usersRef = database.collection(K.Databae.userCollectionName)
+        
         let user = User()
         user.name = userID
         
-        if let teamRef = usersRef?.addDocument(data: [K.Databae.Attributes.plantName: userID, K.Databae.Attributes.plants: []]) {
-            user.id = teamRef.documentID
+        let docRef = usersRef?.document(userID)
+        docRef?.getDocument { (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
+                print("Document data: \(dataDescription)")
+            } else {
+                print("Document does not exist")
+                self.usersRef?.document(userID).setData([K.Databae.Attributes.userName: userID, K.Databae.Attributes.plants: []])
+            }
         }
-        
         return user
     }
     
@@ -296,14 +303,20 @@ class FirebaseController: NSObject, DatabaseProtocol {
     /// - Parameters:
     ///   - plant: Plant to be deleted
     ///   - user: user of whoom the plant to be deleted
-    func deletePlantFromUser(plant: Plant, user: User) {
-        if user.plants.contains(plant), let userID = user.id, let plantID = plant.id {
+    func deletePlantFromUser(plant: Plant, userId: String) {
+        usersRef = database.collection(K.Databae.userCollectionName)
+        if defaultUser.plants.contains(plant), let plantID = plant.id {
             if let removedRef = plantsRef?.document(plantID) {
-                usersRef?.document(userID).updateData(
-                    [K.Databae.plantCollectionName : FieldValue.arrayRemove([removedRef])]
+                usersRef?.document(defaultUser.id!).updateData(
+                    [K.Databae.plantCollectionName : FieldValue.arrayRemove([removedRef])], completion: { (err) in
+                        if let err = err {
+                            print(err.localizedDescription)
+                        }
+                    }
                 )
             }
         }
+        deletePlant(plant: plant)
     }
     
     /// Adds LIsteners depending on listerner type (user, plant or plant status)

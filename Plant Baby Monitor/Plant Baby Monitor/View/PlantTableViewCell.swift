@@ -18,7 +18,7 @@ class PlantTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         // add border and color
-        self.backgroundColor = UIColor.white
+        self.backgroundColor = UIColor.systemBackground
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.borderWidth = 1
         self.layer.cornerRadius = frameViewCorner.frame.size.height / 10

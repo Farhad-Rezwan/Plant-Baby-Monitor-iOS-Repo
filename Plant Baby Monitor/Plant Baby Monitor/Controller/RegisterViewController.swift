@@ -7,6 +7,8 @@
 
 import UIKit
 import Firebase
+import FacebookLogin
+import TinyConstraints
 
 class RegisterViewController: UIViewController {
 
@@ -37,6 +39,19 @@ class RegisterViewController: UIViewController {
         /// Make the button round with
         registerUIButton.layer.cornerRadius = 40
         registerUIButton.layer.cornerRadius = 40
+        
+        
+        /// generating login button for Facebook
+        let loginButton = FBLoginButton()
+        loginButton.center = view.center
+        loginButton.delegate = self
+        
+        /// adding login button in the view
+        self.view.addSubview(loginButton)
+        
+        /// adding constraints with tinyconstraints library
+        loginButton.top(to: registerUIButton, offset: 100)
+        loginButton.centerX(to: view)
     }
     
     // Once the user is properly registers for the app, the segue is performed
@@ -49,7 +64,7 @@ class RegisterViewController: UIViewController {
                 } else {
                     self.userID = authResult?.user.uid
                     self.addUserInFirestore()
-                    self.performSegue(withIdentifier: K.Segue.registerToHomeSegue, sender: self)
+                    self.finishLogginIn()
                 }
             }
         }
@@ -58,6 +73,10 @@ class RegisterViewController: UIViewController {
     /// Adds user in the firestore collection user
     func addUserInFirestore() {
         let _ = databaseController?.addUser(userID: userID!)
+    }
+    
+    func finishLogginIn() {
+        self.performSegue(withIdentifier: K.Segue.registerToHomeSegue, sender: self)
     }
     
     // prepares userID to be transfered to the HomeViewController
@@ -77,6 +96,29 @@ class RegisterViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    
+    private func firebaseFacebookLogin(accessTocken: String) {
+        let credential = FacebookAuthProvider.credential(withAccessToken: accessTocken)
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if let error = error {
+                print("firebase login error")
+                print(error)
+                self.displayMessage(title: "Login Failure", message: error.localizedDescription)
+                return
+            }
+            // user has signed in
+            print("Firebase login done")
+            self.userID = authResult?.user.uid
+            if let user = Auth.auth().currentUser {
+                print("currrent firebase user is ")
+                print(user)
+                print(user.uid)
+            }
+            self.finishLogginIn()
+            self.addUserInFirestore()
+        }
+    }
 }
 
 
@@ -92,3 +134,20 @@ extension RegisterViewController: UITextFieldDelegate {
     }
 }
 
+// Extension of the LoginViewController Class for LoginButtonDelegate
+extension RegisterViewController: LoginButtonDelegate {
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        print("USer logged in")
+        guard let tok = result?.token else {
+            return
+        }
+        firebaseFacebookLogin(accessTocken: (tok.tokenString))
+    }
+    
+
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        print("User logged out")
+    }
+    
+    
+}

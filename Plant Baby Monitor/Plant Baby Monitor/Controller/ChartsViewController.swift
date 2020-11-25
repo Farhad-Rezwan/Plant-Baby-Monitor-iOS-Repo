@@ -10,7 +10,7 @@ import Charts
 import TinyConstraints
 import CocoaMQTT
 
-class ChartsViewController: UIViewController, DatabaseListener, IAxisValueFormatter {
+class ChartsViewController: UIViewController, DatabaseListener {
     
     
     
@@ -18,21 +18,6 @@ class ChartsViewController: UIViewController, DatabaseListener, IAxisValueFormat
 //    let clientID = "MyPhone"
     var mqttClient = CocoaMQTT(clientID: "HelloWorld_Subscriber", host: "a3p7lfkutd41l6-ats.iot.ap-southeast-2.amazonaws.com", port: 8883)
 
-    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-
-        var localDate: String = ""
-        let date = Date(timeIntervalSince1970: value)
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = DateFormatter.Style.short //Set time style
-        dateFormatter.dateStyle = DateFormatter.Style.short //Set date style
-        dateFormatter.timeZone = .current
-        localDate = dateFormatter.string(from: date)
-        print(localDate)
-        
-        return localDate
-    }
-    
-    
     //MARK:- Variables for View Data
     var listenerType: ListenerType = .plantStatus
     weak var databaseController: DatabaseProtocol?
@@ -49,20 +34,48 @@ class ChartsViewController: UIViewController, DatabaseListener, IAxisValueFormat
     /// Formatter delegate
     weak var axisFormatDelegate: IAxisValueFormatter?
 
+    // setup custom water button
     let waterButton: UIButton = {
         let button = UIButton()
-        button.backgroundColor = UIColor(named: K.Colors.buttonColor)
-        button.setTitleColor(UIColor(named:K.Colors.buttonTextColor), for: .normal)
-        button.height(40)
+        button.backgroundColor = UIColor(named: K.Colors.buttonTxtColor)
+        button.setTitleColor(.white, for: .normal)
+        button.height(50)
         button.width(200)
         button.setTitle("Water Plant", for: .normal)
         
         return button
     }()
+    
+    // setup custom title for moisture chart view
+    let titleOfMoistureChartView: UILabel = {
+        let moistureLabel = UILabel()
+        moistureLabel.backgroundColor = UIColor(white: 1, alpha: 0)
+        moistureLabel.textAlignment = .center
+        moistureLabel.text = "Plant Soil Moisture Status"
+        moistureLabel.font = UIFont(name: K.defaultFont, size: 16)
+        moistureLabel.height(50)
+        moistureLabel.width(250)
 
+        return moistureLabel
+    }()
+
+    // setup custom title for humidity and temperature chart view
+    let titleOfTempHumidityChartView: UILabel = {
+        let tempAndHumidityLabel = UILabel()
+        tempAndHumidityLabel.backgroundColor = UIColor(white: 1, alpha: 0)
+        tempAndHumidityLabel.textAlignment = .center
+        tempAndHumidityLabel.text = "Temp & Humidity Status"
+        tempAndHumidityLabel.font = UIFont(name: K.defaultFont, size: 16)
+        tempAndHumidityLabel.height(50)
+        tempAndHumidityLabel.width(250)
+
+        return tempAndHumidityLabel
+    }()
+    
+    // setup custom scroll view for the two chart views
     lazy var chartScrollView: UIScrollView = {
         let chartScrollView = UIScrollView()
-        chartScrollView.backgroundColor = .white
+        chartScrollView.backgroundColor = UIColor(white: 1, alpha: 0)
         chartScrollView.autoresizingMask = .flexibleWidth
         chartScrollView.showsHorizontalScrollIndicator = true
         chartScrollView.bounces = true
@@ -70,6 +83,7 @@ class ChartsViewController: UIViewController, DatabaseListener, IAxisValueFormat
         return chartScrollView
     }()
     
+    // setup custom chart view for moisture data
     var firstChartViewOfMoisture: LineChartView = {
         let chartView = LineChartView()
         chartView.backgroundColor = .systemBlue
@@ -91,6 +105,7 @@ class ChartsViewController: UIViewController, DatabaseListener, IAxisValueFormat
         return chartView
     }()
     
+    // setup custom chart view for temperature and humidity data
     var secondChartViewOfHumidityAndTemperature: LineChartView = {
         let chartView = LineChartView()
         chartView.backgroundColor = .systemRed
@@ -118,10 +133,15 @@ class ChartsViewController: UIViewController, DatabaseListener, IAxisValueFormat
         // set delegate for the Database
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
-        
         axisFormatDelegate = self
         
+        // plant name show
+        title = "plant: \(plant?.name ?? " ")"
+        
+        // adding water button action
         waterButton.addTarget(self, action: #selector(self.buttonTapped), for: .touchUpInside)
+        
+        // setting up the view for charts and other views
         setupViews()
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -134,37 +154,65 @@ class ChartsViewController: UIViewController, DatabaseListener, IAxisValueFormat
         databaseController?.removeListener(listener: self)
     }
 
+    /// helps to setup and customize the views, and adds subviews
     fileprivate func setupViews() {
 
         view.addSubview(waterButton)
         view.addSubview(chartScrollView)
         
+        // title foer first chart view of moisuture
+        chartScrollView.addSubview(titleOfMoistureChartView)
+        // first chart view - Moisture
         chartScrollView.addSubview(firstChartViewOfMoisture)
+        // title foer second chart view of moisuture
+        chartScrollView.addSubview(titleOfTempHumidityChartView)
+        // second chart view - Temperature and Humidity
         chartScrollView.addSubview(secondChartViewOfHumidityAndTemperature)
 
-        waterButton.top(to: view, offset: 100)
+        waterButton.top(to: view, offset: 60)
         waterButton.right(to: view, offset: -30)
+        
+        // water button design
+        waterButton.layer.cornerRadius = 40
+        /// designing the plant add to make sure it is consistent in the viewcontroller (adding border)
+        waterButton.layer.borderColor = UIColor.black.cgColor
+        waterButton.layer.borderWidth = 1
 
+        // chart scroll view constraints
         chartScrollView.edgesToSuperview(excluding: .none, usingSafeArea: true)
-        chartScrollView.top(to: view, offset: 220)
+        chartScrollView.top(to: view, offset: 120)
         chartScrollView.bottom(to: view, offset: -10)
         chartScrollView.widthToSuperview()
         
+        // moisture intro title
+        titleOfMoistureChartView.centerX(to: chartScrollView)
+        titleOfMoistureChartView.top(to: chartScrollView, offset: 10)
+        titleOfMoistureChartView.layer.cornerRadius = 40
+        /// designing the text view to make sure it is consistent in the viewcontroller (adding border)
+        titleOfMoistureChartView.layer.borderColor = UIColor.black.cgColor
+        titleOfMoistureChartView.layer.borderWidth = 1
+        
         /// Moisture chart ciew constraints
         firstChartViewOfMoisture.centerX(to: chartScrollView)
-        firstChartViewOfMoisture.top(to: chartScrollView, offset: 20)
+        firstChartViewOfMoisture.top(to: chartScrollView, offset: 70)
         firstChartViewOfMoisture.height(300)
         firstChartViewOfMoisture.width(300)
         
+        // humidity and temperature intro title
+        titleOfTempHumidityChartView.centerX(to: chartScrollView)
+        titleOfTempHumidityChartView.bottom(to: firstChartViewOfMoisture, offset: 70)
+        titleOfTempHumidityChartView.layer.cornerRadius = 40
+        /// designing the text view to make sure it is consistent in the viewcontroller (adding border)
+        titleOfTempHumidityChartView.layer.borderColor = UIColor.black.cgColor
+        titleOfTempHumidityChartView.layer.borderWidth = 1
+        
+        
         /// Temperature and Humidity  chart ciew constraints
         secondChartViewOfHumidityAndTemperature.centerX(to: chartScrollView)
-        secondChartViewOfHumidityAndTemperature.top(to: firstChartViewOfMoisture, offset: 320)
+        secondChartViewOfHumidityAndTemperature.top(to: firstChartViewOfMoisture, offset: 380)
         secondChartViewOfHumidityAndTemperature.height(300)
         secondChartViewOfHumidityAndTemperature.width(300)
-        chartScrollView.contentSize = CGSize(width: chartScrollView.frame.width, height: 1000)
-        
-        
-
+        chartScrollView.contentSize = CGSize(width: chartScrollView.frame.width, height: 800)
     }
     
     
@@ -321,7 +369,7 @@ class ChartsViewController: UIViewController, DatabaseListener, IAxisValueFormat
         mqttClient.sslSettings = sslSettings
         mqttClient.publish("iOS", withString: "Frin me", qos: .qos0, retained: true, dup: true)
         mqttClient.publish("iOS", withString: "from me")
-        mqttClient.connect()
+        let _ = mqttClient.connect()
         mqttClient.publish("iOS", withString: "from me")
     }
     func getClientCertFromP12File(certName: String, certPassword: String) -> CFArray? {
@@ -399,3 +447,21 @@ extension ChartsViewController: CocoaMQTTDelegate {
 
 // Alternative actions :
 /// https://github.com/awslabs/aws-sdk-ios-samples/tree/main/IoT-Sample/Swift
+
+
+extension ChartsViewController: IAxisValueFormatter {
+    
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+
+        var localDate: String = ""
+        let date = Date(timeIntervalSince1970: value)
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = DateFormatter.Style.short //Set time style
+        dateFormatter.dateStyle = DateFormatter.Style.short //Set date style
+        dateFormatter.timeZone = .current
+        localDate = dateFormatter.string(from: date)
+        print(localDate)
+        
+        return localDate
+    }
+}

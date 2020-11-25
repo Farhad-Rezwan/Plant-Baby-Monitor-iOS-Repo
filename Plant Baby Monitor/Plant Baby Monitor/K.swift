@@ -7,6 +7,7 @@
 
 struct K {
     static var appName = "Plant Baby Monitor"
+    static var defaultFont = "Chalkboard SE Regular"
     
     struct Segue {
         static var loginToHomeSegue = "loginToHomeSegue"
@@ -26,13 +27,12 @@ struct K {
     
     struct Databae {
         static var defaultUser = "Default User"
-        static var tempPlantName = "Plant A" /// 8prnOgEAgJXvDrmzNOP5
         static var plantCollectionName = "plants"
         static var userCollectionName = "users"
         static var plantStatusCollectionName = "plantStatuses"
         
         struct Attributes {
-            static var plantName = "name"
+            static var userName = "userIdentity"
             static var plantLocation = "location"
             static var plantImage = "image"
             static var plants = "plants"
@@ -43,7 +43,6 @@ struct K {
     }
     
     struct Colors {
-        static var buttonColor = "DGreen"
-        static var buttonTextColor = "AccentColor"
+        static var buttonTxtColor = "DGreen"
     }
 }

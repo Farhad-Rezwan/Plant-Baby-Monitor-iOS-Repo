@@ -46,7 +46,11 @@ class AddPlantViewController: UIViewController {
     }
 
     @IBAction func addPlantButtonAction(_ sender: Any) {
-        if plantNameTextField.text != "" && plantLocationTextField.text != "" && selectedIndexPath != nil {
+        /// making sure user name has no spaces, also validates user name, if empty provides message
+        let trimmedPlantName = plantNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedPlantLocation = plantLocationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        if trimmedPlantName != "" && trimmedPlantLocation != "" && selectedIndexPath != nil {
             let name = plantNameTextField.text!
             let image = plantImageArray[selectedIndexPath!.row]
             let location = plantLocationTextField.text!
@@ -60,11 +64,11 @@ class AddPlantViewController: UIViewController {
         }
         var errorMessage = "Please ensure all fields are filled: \n"
         
-        if plantNameTextField.text == "" {
+        if trimmedPlantName == "" {
             errorMessage += "-must provide plant name\n"
         }
 
-        if plantLocationTextField.text == "" {
+        if trimmedPlantLocation == "" {
             errorMessage += "-must provide plant location\n"
         }
         
@@ -96,10 +100,13 @@ extension AddPlantViewController: UICollectionViewDelegate, UICollectionViewData
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.plantImageCell, for: indexPath) as! PlantImageCell
         
         cell.plantCellImageView.image = UIImage(named: plantImageArray[indexPath.row])
-        cell.layer.cornerRadius = 10
-        cell.layer.borderWidth = 1.0
-        cell.layer.borderColor = UIColor.systemGroupedBackground.cgColor
-
+        
+        if cell.isSelected == true {
+            redraw(selectedCell: cell)
+        } else {
+            redraw(deselectedCell: cell)
+        }
+        
         return cell
     }
     
@@ -121,6 +128,7 @@ extension AddPlantViewController: UICollectionViewDelegate, UICollectionViewData
     /// - Parameter cell: collection view cell
     private func redraw(selectedCell cell: PlantImageCell
             ) {
+        cell.isSelected = true
         cell.layer.borderWidth = 4.0
         cell.layer.cornerRadius = 10
         cell.layer.borderColor = UIColor.systemGreen.cgColor
@@ -129,6 +137,7 @@ extension AddPlantViewController: UICollectionViewDelegate, UICollectionViewData
     /// removes boarder if the cell is selected
     /// - Parameter cell: collection view cell
     private func redraw(deselectedCell cell: PlantImageCell) {
+        cell.isSelected = false
         cell.layer.cornerRadius = 10
         cell.layer.borderWidth = 1.0
         cell.layer.borderColor = UIColor.systemGroupedBackground.cgColor

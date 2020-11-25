@@ -36,7 +36,7 @@ protocol DatabaseProtocol: AnyObject {
     func addPlantToUser(plant: Plant, userID: String) -> Bool
     func deletePlant(plant: Plant)
     func deleteUser(user: User)
-    func deletePlantFromUser(plant: Plant, user: User)
+    func deletePlantFromUser(plant: Plant, userId: String)
     func addListener(listener: DatabaseListener, userCredentials: String)
     func removeListener(listener: DatabaseListener)
     func updateUserPlant(newPlant: Plant)

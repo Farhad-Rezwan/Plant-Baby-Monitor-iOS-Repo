@@ -21,6 +21,7 @@ class EditPlantViewController: UIViewController {
     @IBOutlet weak var plantNameEditTextField: UITextField!
     @IBOutlet weak var plantLocationEditTextField: UITextField!
     @IBOutlet weak var editPlantUIButton: UIButton!
+    @IBOutlet weak var deletePlantUIButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,7 @@ class EditPlantViewController: UIViewController {
     private func decorateUIButtons() {
         /// Make the button round with
         editPlantUIButton.layer.cornerRadius = 40
+        deletePlantUIButton.layer.cornerRadius = 40
     }
 
     
@@ -63,12 +65,16 @@ class EditPlantViewController: UIViewController {
         let newPlant = plant
         var edited: Bool = false
         
-        if plantNameEditTextField.hasText == true {
+        let trimmedPlantName = plantNameEditTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        let trimmedPlantLocation = plantLocationEditTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        
+        if plantNameEditTextField.hasText == true && trimmedPlantName != "" {
             newPlant?.name = plantNameEditTextField.text!
             edited = true
         }
         
-        if plantLocationEditTextField.hasText == true {
+        if plantLocationEditTextField.hasText == true && trimmedPlantLocation != "" {
             newPlant?.location = plantLocationEditTextField.text!
             edited = true
         }
@@ -78,12 +84,39 @@ class EditPlantViewController: UIViewController {
             edited = true
         }
         
+
         if edited == true {
             let _ = databaseController?.updateUserPlant(newPlant: newPlant!)
+        } else {
+            
+            /// alert for handling if thhere is no change made
+            let alertController = UIAlertController(title: "No change made", message: "Do you want to exit?", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Change Attributes", style: UIAlertAction.Style.default, handler: nil))
+            alertController.addAction(UIAlertAction(title: "Exit", style: UIAlertAction.Style.default, handler: { (UIAlertAction) in
+                self.navigationController?.popViewController(animated: true)
+                return
+                    
+            }))
+            self.present(alertController, animated: true, completion: nil)
         }
         
         navigationController?.popViewController(animated: true)
     }
+    
+    
+    @IBAction func deletePlantTapped(_ sender: Any) {
+        guard let plantToDelete = plant, let userIDOfPlantToDelete = uID else {
+            
+            // alert for issue relates to nil values
+            let alertController = UIAlertController(title: "Something Wrong Happend", message: "Cannot delete the plant due to unavoidable reason", preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+            return
+        }
+        databaseController?.deletePlantFromUser(plant: plantToDelete, userId: userIDOfPlantToDelete)
+        navigationController?.popViewController(animated: true)
+    }
+    
 }
 
 extension EditPlantViewController: UICollectionViewDataSource, UICollectionViewDelegate {
@@ -95,6 +128,11 @@ extension EditPlantViewController: UICollectionViewDataSource, UICollectionViewD
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.Identifier.plantImageCell, for: indexPath) as! PlantImageCell
         
         cell.plantCellImageView.image = UIImage(named: plantImageArray[indexPath.row])
+        if cell.isSelected == true {
+            redraw(selectedCell: cell)
+        } else {
+            redraw(deselectedCell: cell)
+        }
         return cell
     }
     
@@ -119,6 +157,7 @@ extension EditPlantViewController: UICollectionViewDataSource, UICollectionViewD
     /// - Parameter cell: collection view cell
     private func redraw(selectedCell cell: PlantImageCell
             ) {
+        cell.isSelected = true
         cell.layer.borderWidth = 4.0
         cell.layer.cornerRadius = 10
         cell.layer.borderColor = UIColor.systemGreen.cgColor
@@ -127,6 +166,7 @@ extension EditPlantViewController: UICollectionViewDataSource, UICollectionViewD
     /// removes boarder if the cell is selected
     /// - Parameter cell: collection view cell
     private func redraw(deselectedCell cell: PlantImageCell) {
+        cell.isSelected = false
         cell.layer.cornerRadius = 10
         cell.layer.borderWidth = 1.0
         cell.layer.borderColor = UIColor.systemGroupedBackground.cgColor
