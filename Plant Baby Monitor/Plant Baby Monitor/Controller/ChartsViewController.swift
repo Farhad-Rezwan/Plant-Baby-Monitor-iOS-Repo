@@ -146,6 +146,9 @@ class ChartsViewController: UIViewController, DatabaseListener {
         
         // setting up the view for charts and other views
         setupViews()
+        
+        // setting up the right bar button item
+        setUpRightBarButtonItem()
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -217,6 +220,22 @@ class ChartsViewController: UIViewController, DatabaseListener {
         secondChartViewOfHumidityAndTemperature.width(300)
         chartScrollView.contentSize = CGSize(width: chartScrollView.frame.width, height: 800)
     }
+    
+    private func setUpRightBarButtonItem() {
+        let btnBluetooth = UIButton()
+        btnBluetooth.setBackgroundImage(UIImage(systemName: "calendar.badge.clock.rtl"), for: .normal)
+//        btnBluetooth.setImage(UIImage(systemName: "calendar.badge.clock.rtl"), for: .highlighted)
+        btnBluetooth.tintColor = UIColor(named: K.Colors.buttonTxtColor)
+        btnBluetooth.addTarget(self, action: #selector(addTapped), for: UIControl.Event.touchUpInside)
+
+        let barButton = UIBarButtonItem(customView: btnBluetooth)
+        self.navigationItem.rightBarButtonItem = barButton
+        
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(style: .plain, target: self, action: #selector(addTapped))
+    }
+//    @objc func addTapped() {
+//        print("Tapped")
+//    }
     
     
     func setData() {
@@ -514,3 +533,35 @@ extension ChartsViewController: IAxisValueFormatter {
         return localDate
     }
 }
+
+
+// Reference https://www.youtube.com/watch?v=cZbEGJOPZ98
+// Code regarding push notifications:
+extension ChartsViewController {
+    
+    
+    @IBAction func addTapped(_ sender: Any) {
+        guard let plantName = plant?.name else { return }
+        
+        let alertController = UIAlertController(title: "Water Plant Reminder: \(plantName)", message: nil, preferredStyle: .actionSheet)
+        let setLocalNotificationAction = UIAlertAction(title: "Set water-alert for every day", style: .default) { (action) in
+            LocalNotificationManager.setNotification(1, of: .days, repeats: true, title: "Hey its time to water your plant: \(plantName)", body: "Click to open in app", userInfo: ["aps" : ["Alert" : "1 per day"]])
+        }
+        let setLocalNotificationAction2 = UIAlertAction(title: "Set Alert for every 61 sec(Testing)", style: .default) { (action) in
+            LocalNotificationManager.setNotification(10, of: .seconds, repeats: false, title: "Hey its time to water your plant: \(plantName)", body: "Click to open in app", userInfo: ["aps" : ["Alert" : "1 in every ~ sec"]])
+        }
+        let removeLocalNotificationAction = UIAlertAction(title: "Remove", style: .default) { (action) in
+            LocalNotificationManager.cancel()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (action) in }
+        
+        alertController.addAction(setLocalNotificationAction)
+        alertController.addAction(setLocalNotificationAction2)
+        alertController.addAction(removeLocalNotificationAction)
+        alertController.addAction(cancelAction)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+}
+
+

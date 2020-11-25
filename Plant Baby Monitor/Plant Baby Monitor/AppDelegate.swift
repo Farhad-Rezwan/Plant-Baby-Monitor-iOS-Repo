@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let _ = ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
 
+        setupNotifications(on: application)
         return true
     }
 
@@ -40,5 +41,75 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return ApplicationDelegate.shared.application(app, open: url, options: options)
     }
+}
+
+// Reference https://www.youtube.com/watch?v=cZbEGJOPZ98
+extension AppDelegate {
+    func setupNotifications(on application: UIApplication) {
+        let notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.delegate = self
+        
+        /// Can be done to reduce number of request authorization whenever user requests
+        notificationCenter.requestAuthorization(options: [.alert, .sound]) { granted, error in
+            if let error = error {
+                print("Failed to request autorization for notification center: \(error.localizedDescription)")
+                return
+            }
+            guard granted else {
+                print("Failed to request autorization for notification center: not granted")
+                return
+            }
+            // in main thread register for remote notifications
+            DispatchQueue.main.async {
+                application.registerForRemoteNotifications()
+            }
+        }
+    }
+}
+
+// Reference https://www.youtube.com/watch?v=cZbEGJOPZ98
+extension AppDelegate {
+    
+    ///
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        let tokenParts = deviceToken.map { data -> String in
+            return String(format: "%02.2hhx", data)
+        }
+        let token = tokenParts.joined()
+        print("Device Token: \(token)")
+        let bundleID = Bundle.main.bundleIdentifier
+        print("Bundle ID: \(token) \(String(describing: bundleID))")
+    }
+    
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Failed to register for remote notifications: \(error.localizedDescription)")
+    }
+    
+}
+
+// Reference https://www.youtube.com/watch?v=cZbEGJOPZ98
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    
+    /// will enable alert badge and sound
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .badge, .sound])
+    }
+    
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        defer { completionHandler() }
+        guard response.actionIdentifier == UNNotificationDefaultActionIdentifier else { return }
+        
+        let content = response.notification.request.content
+        print("Title: \(content.title)")
+        print("Body: \(content.body)")
+        
+        // print the user info, to use it in my liking
+        if let userInfo = content.userInfo as? [String: Any],
+            let aps = userInfo["aps"] as? [String: Any] {
+            print("aps: \(aps)")
+        }
+    }
+    
 }
 
