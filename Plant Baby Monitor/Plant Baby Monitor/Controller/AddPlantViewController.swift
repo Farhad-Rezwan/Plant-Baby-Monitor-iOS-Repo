@@ -10,6 +10,7 @@ import UIKit
 class AddPlantViewController: UIViewController {
     
     weak var databaseController: DatabaseProtocol?
+    var delegateForEdit: ReloadDataAfterEdit?
     var userDocumentID: String?
     let plantImageArray = ["pa", "pb", "pc"]
     var selectedIndexPath: IndexPath?
@@ -59,7 +60,8 @@ class AddPlantViewController: UIViewController {
             
             // plant to be stored for user id
             let _ = databaseController?.addPlantToUser(plant: plantToStore, userID: userDocumentID!)
-            navigationController?.popViewController(animated: true)
+            delegateForEdit?.didFinishEditing()
+            dismiss(animated: true, completion: nil)
             return
         }
         var errorMessage = "Please ensure all fields are filled: \n"
@@ -89,6 +91,12 @@ class AddPlantViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
+    
+    @IBAction func closeViewbuttonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
 }
 
 extension AddPlantViewController: UICollectionViewDelegate, UICollectionViewDataSource {

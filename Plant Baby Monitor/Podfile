@@ -13,5 +13,4 @@ target 'Plant Baby Monitor' do
   pod 'TinyConstraints'
   pod 'CocoaMQTT'
 
-
 end

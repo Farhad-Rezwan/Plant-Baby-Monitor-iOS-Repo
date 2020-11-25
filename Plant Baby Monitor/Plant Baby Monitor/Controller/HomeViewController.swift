@@ -13,8 +13,9 @@ import FacebookLogin
 import FBSDKCoreKit
 
 
-class HomeViewController: UIViewController, DatabaseListener {
 
+class HomeViewController: UIViewController, DatabaseListener {
+    
 
     @IBOutlet weak var plantTableView: UITableView!
     @IBOutlet weak var addPlantUIButton: UIButton!
@@ -28,11 +29,9 @@ class HomeViewController: UIViewController, DatabaseListener {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         // adding table view delegates
         plantTableView.dataSource = self
         plantTableView.delegate = self
-        
 
         /// registeres the custom plat cell
         plantTableView.register(UINib(nibName: K.Identifier.plantTableViewCellNib, bundle: nil), forCellReuseIdentifier: K.Identifier.plantTableViewCell)
@@ -113,7 +112,6 @@ class HomeViewController: UIViewController, DatabaseListener {
         /// attach the new stack in the navigaiton controller
         navigationController.viewControllers = [viewControllers]
         navigationController.popToRootViewController(animated: true)
-        
     }
     
     /// adds the users listener when the view is loaded
@@ -129,13 +127,15 @@ class HomeViewController: UIViewController, DatabaseListener {
         databaseController?.removeListener(listener: self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == K.Segue.homeToAddPlantSegue {
-            let destination = segue.destination as! AddPlantViewController
-            destination.userDocumentID = uID
-        }
+    @IBAction func addPlantButtonPressed(_ sender: Any) {
+        let viewController = storyboard?.instantiateViewController(identifier: K.Identifier.addPlantViewController) as! AddPlantViewController
+        viewController.userDocumentID = uID
+        viewController.delegateForEdit = self
+        self.present(viewController, animated: true, completion: nil)
     }
     
+    
+
     // MARK:- Listener Methods
     func onUserChange(change: DatabaseChange, userPlants: [Plant]) {
         print("User listener listening")
@@ -201,7 +201,9 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         let viewController = storyboard?.instantiateViewController(identifier: K.Identifier.editPlantViewController) as! EditPlantViewController
         viewController.uID = uID
         viewController.plant = plants[sender.tag]
-        navigationController?.pushViewController(viewController, animated: true)
+        viewController.delegateForEdit = self
+        // navigationController?.pushViewController(viewController, animated: true)
+        self.present(viewController, animated: true, completion: nil)
     }
     
     /// navigate to chars view when any of the plat is selected - Should show plant information
@@ -213,17 +215,11 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         navigationController?.pushViewController(viewController, animated: true)
         
     }
-    
-    
-    /// this code is to meke the home cell editable, the cell/plant can be delted with swipe
-//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
-//
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//
-//        databaseController!.deletePlantFromUser(plant: plants[indexPath.section], userId: uID!)
-//
-//    }
+}
+
+extension HomeViewController: ReloadDataAfterEdit {
+    func didFinishEditing() {
+        plantTableView.reloadData()
+    }
 }
 

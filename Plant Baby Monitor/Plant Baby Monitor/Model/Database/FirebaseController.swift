@@ -230,7 +230,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     
     func updateUserPlant(newPlant: Plant) {
         let tempPlantRef = plantsRef?.document(newPlant.id ?? " ")
-        tempPlantRef?.updateData([K.Databae.Attributes.userName: newPlant.name,
+        tempPlantRef?.updateData([K.Databae.Attributes.plantName: newPlant.name,
                                   K.Databae.Attributes.plantImage: newPlant.image,
                                   K.Databae.Attributes.plantLocation: newPlant.location ], completion: { (err) in
             if let err = err {

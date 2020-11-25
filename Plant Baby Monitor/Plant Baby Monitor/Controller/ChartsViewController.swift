@@ -17,6 +17,8 @@ class ChartsViewController: UIViewController, DatabaseListener {
 //    let defaultHost = "XX.XXX.XXXX.XXXX" //greengrass core host.
 //    let clientID = "MyPhone"
     var mqttClient = CocoaMQTT(clientID: "HelloWorld_Subscriber", host: "a3p7lfkutd41l6-ats.iot.ap-southeast-2.amazonaws.com", port: 8883)
+    
+    
 
     //MARK:- Variables for View Data
     var listenerType: ListenerType = .plantStatus
@@ -39,6 +41,7 @@ class ChartsViewController: UIViewController, DatabaseListener {
         let button = UIButton()
         button.backgroundColor = UIColor(named: K.Colors.buttonTxtColor)
         button.setTitleColor(.white, for: .normal)
+        button.setTitleColor(.red, for: .disabled)
         button.height(50)
         button.width(200)
         button.setTitle("Water Plant", for: .normal)
@@ -169,7 +172,7 @@ class ChartsViewController: UIViewController, DatabaseListener {
         // second chart view - Temperature and Humidity
         chartScrollView.addSubview(secondChartViewOfHumidityAndTemperature)
 
-        waterButton.top(to: view, offset: 60)
+        waterButton.top(to: view, offset: 90)
         waterButton.right(to: view, offset: -30)
         
         // water button design
@@ -180,7 +183,7 @@ class ChartsViewController: UIViewController, DatabaseListener {
 
         // chart scroll view constraints
         chartScrollView.edgesToSuperview(excluding: .none, usingSafeArea: true)
-        chartScrollView.top(to: view, offset: 120)
+        chartScrollView.top(to: view, offset: 140)
         chartScrollView.bottom(to: view, offset: -10)
         chartScrollView.widthToSuperview()
         
@@ -329,10 +332,31 @@ class ChartsViewController: UIViewController, DatabaseListener {
 
             k += 1
         }
+        let last1 = last20?.suffix(1)
+        
+        for j in last1!  {
+            /// date time requried?
+            var localDate: String = ""
+            let timeResult = (j.timeStamp)
+            let date = Date(timeIntervalSince1970: timeResult)
+            let dateFormatter = DateFormatter()
+            dateFormatter.timeStyle = DateFormatter.Style.short //Set time style
+            dateFormatter.dateStyle = DateFormatter.Style.short //Set date style
+            dateFormatter.timeZone = .current
+            localDate = dateFormatter.string(from: date)
+            print("lat one here")
+            print(localDate, j.moist, j.humid, j.temp)
+            if (j.moist > 7.00) {
+                // desabled
+                waterButton.isEnabled = false
+            }
+        }
+        
+        
+
 
     }
-    
-    
+
     
     
     
@@ -351,7 +375,32 @@ class ChartsViewController: UIViewController, DatabaseListener {
     
     @objc func buttonTapped(sender : UIButton) {
         print("pressed")
-        ggConnect()
+        let url = "https://dd3363022dae.ngrok.io"
+        waterButton.isEnabled = false
+        print(" button is disabled")
+        
+        if let myUrl = URL(string: url)
+        {
+            URLSession.shared.dataTask(with: myUrl)
+            {
+                (data, response, err) in
+                
+                if let data = data
+                {
+                    let dataString = String(data: data, encoding: .utf8)
+                    print(dataString)
+                }
+            }.resume()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 30.0) {
+            self.yourFuncHere()
+        }
+        
+    }
+    //Your function here
+    func yourFuncHere() {
+        waterButton.isEnabled = true
+        print("water button is back")
     }
     
     

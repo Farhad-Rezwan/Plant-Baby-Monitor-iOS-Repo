@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ReloadDataAfterEdit {
+    func didFinishEditing()
+}
+
 class EditPlantViewController: UIViewController {
     
     var plant: Plant?
@@ -15,6 +19,7 @@ class EditPlantViewController: UIViewController {
     var plantImageName: String?
     var selectedIndexPath: IndexPath?
     weak var databaseController: DatabaseProtocol?
+    var delegateForEdit: ReloadDataAfterEdit?
     
     @IBOutlet weak var plantBackgroundImage: UIImageView!
     @IBOutlet weak var plantImageCollectionView: UICollectionView!
@@ -93,14 +98,18 @@ class EditPlantViewController: UIViewController {
             let alertController = UIAlertController(title: "No change made", message: "Do you want to exit?", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Change Attributes", style: UIAlertAction.Style.default, handler: nil))
             alertController.addAction(UIAlertAction(title: "Exit", style: UIAlertAction.Style.default, handler: { (UIAlertAction) in
-                self.navigationController?.popViewController(animated: true)
+                
+                self.delegateForEdit?.didFinishEditing()
+                self.dismiss(animated: true, completion: nil)
                 return
                     
             }))
             self.present(alertController, animated: true, completion: nil)
+            return
         }
         
-        navigationController?.popViewController(animated: true)
+        delegateForEdit?.didFinishEditing()
+        dismiss(animated: true, completion: nil)
     }
     
     
@@ -114,8 +123,13 @@ class EditPlantViewController: UIViewController {
             return
         }
         databaseController?.deletePlantFromUser(plant: plantToDelete, userId: userIDOfPlantToDelete)
-        navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func dismissViewButtonTapped(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
 }
 

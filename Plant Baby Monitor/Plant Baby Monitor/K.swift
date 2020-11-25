@@ -12,7 +12,6 @@ struct K {
     struct Segue {
         static var loginToHomeSegue = "loginToHomeSegue"
         static var registerToHomeSegue = "registerToHomeSegue"
-        static var homeToAddPlantSegue = "homeToAddPlantSegue"
 
     }
     struct Identifier {
@@ -25,6 +24,7 @@ struct K {
         static var editPlantViewController = "editPlantViewController"
         static var homeViewController = "homeViewControllerID"
         static var welcomeViewController = "welclomeViewController"
+        static var addPlantViewController = "addPlantViewController"
     }
     
     struct Databae {
@@ -35,6 +35,7 @@ struct K {
         
         struct Attributes {
             static var userName = "userIdentity"
+            static var plantName = "name"
             static var plantLocation = "location"
             static var plantImage = "image"
             static var plants = "plants"
