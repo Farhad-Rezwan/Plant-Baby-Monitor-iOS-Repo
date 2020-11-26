@@ -390,10 +390,9 @@ class ChartsViewController: UIViewController, DatabaseListener {
         if statuses?.count == 0 {
             
             /// set the views when the plant data not available
-            
             setViewForNoData()
         } else {
-            
+            waterButton.isEnabled = true
             /// remove no data view from the scroll view
             visualAffectView.removeFromSuperview()
             logoImageView.removeFromSuperview()
@@ -421,7 +420,7 @@ class ChartsViewController: UIViewController, DatabaseListener {
         noDataFoundLabel.textColor = UIColor(named: K.Colors.buttonTxtColor)
         noDataFoundLabel.centerX(to: chartScrollView)
         noDataFoundLabel.top(to: chartScrollView, offset: 15)
-        
+        waterButton.isEnabled = false
     }
     
     /// did nothing
