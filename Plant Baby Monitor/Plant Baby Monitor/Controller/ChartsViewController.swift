@@ -496,8 +496,8 @@ extension ChartsViewController {
         let setLocalNotificationAction = UIAlertAction(title: "Set water-alert for every day", style: .default) { (action) in
             LocalNotificationManager.setNotification(1, of: .days, repeats: true, title: "Hey its time to water your plant: \(plantName)", body: "Click to open in app", userInfo: ["aps" : ["Alert" : "1 per day"]])
         }
-        let setLocalNotificationAction2 = UIAlertAction(title: "Set Alert for every 61 sec(Testing)", style: .default) { (action) in
-            LocalNotificationManager.setNotification(3, of: .seconds, repeats: false, title: "Hey its time to water your plant: \(plantName)", body: "Click to open in app", userInfo: ["aps" : ["Alert" : "1 in every ~ sec"]])
+        let setLocalNotificationAction2 = UIAlertAction(title: "Set Alert for after 6 sec sec(Testing)", style: .default) { (action) in
+            LocalNotificationManager.setNotification(6, of: .seconds, repeats: false, title: "Hey its time to water your plant: \(plantName)", body: "Click to open in app", userInfo: ["aps" : ["Alert" : "6 in every ~ sec"]])
         }
         let removeLocalNotificationAction = UIAlertAction(title: "Remove", style: .default) { (action) in
             LocalNotificationManager.cancel()
