@@ -7,23 +7,8 @@
 
 import Foundation
 
-//class PlantStatus: Codable, Equatable {
-//    static func == (lhs: PlantStatus, rhs: PlantStatus) -> Bool {
-//        return lhs.id == rhs.id
-//    }
-//
-//    var id: String?
-//    var moisture: String = ""
-//    var temperature: String = ""
-//    var humidity: String = ""
-//
-//    enum CodingKeys: String, CodingKey {
-//        case id
-//        case moisture
-//        case temperature
-//        case humidity
-//    }
-//}
+/// data model for Status, Keept it as struct and delegate to CustomStringConvertable, because of the type of data we
+/// get from the Realtime database
 struct Status: CustomStringConvertible {
     let humid: Double
     let moist: Double

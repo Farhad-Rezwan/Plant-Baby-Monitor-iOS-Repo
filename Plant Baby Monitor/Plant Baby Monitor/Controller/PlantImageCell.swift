@@ -16,8 +16,6 @@ class PlantImageCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -28,7 +26,7 @@ class PlantImageCell: UICollectionViewCell {
         super.prepareForReuse()
     }
     
-    /// to make sure that the cell is not selected randomly
+    /// to make sure that the cell is not selected randomly: Keeping the cell status
     override var isSelected: Bool{
         willSet{
             super.isSelected = newValue

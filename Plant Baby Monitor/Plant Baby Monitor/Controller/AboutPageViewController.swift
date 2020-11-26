@@ -14,6 +14,7 @@ class AboutPageViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    /// simple dismiss of the view button action
     @IBAction func dismissAboutPageButtonClicked(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }

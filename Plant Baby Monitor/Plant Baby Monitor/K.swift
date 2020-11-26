@@ -5,6 +5,7 @@
 //  Created by Farhad Ullah Rezwan on 20/10/20.
 //
 
+/// all the constants are stored here, the names are kept self explanatory
 struct K {
     static var appName = "Plant Baby Monitor"
     static var defaultFont = "Chalkboard SE Regular"

@@ -314,7 +314,7 @@ class ChartsViewController: UIViewController, DatabaseListener {
         set3.drawVerticalHighlightIndicatorEnabled = false
         set3.highlightColor = .systemRed
         
-        
+        /// adding data in the datasets
         var dataSets : [LineChartDataSet] = [LineChartDataSet]()
         dataSets.append(set2)
         dataSets.append(set3)
@@ -334,6 +334,7 @@ class ChartsViewController: UIViewController, DatabaseListener {
         
         statuses?.sort(by: { $0.timeStamp < $1.timeStamp})
         
+        /// looping through the last 20 statuses and
         let last20 = statuses?.suffix(20)
         print("sortedLast20")
         print("After sorting last 20")
@@ -363,6 +364,9 @@ class ChartsViewController: UIViewController, DatabaseListener {
 
             k += 1
         }
+        
+        
+        /// loooping through the last status and get the status count
         let last1 = last20?.suffix(1)
         
         for j in last1!  {
@@ -420,10 +424,11 @@ class ChartsViewController: UIViewController, DatabaseListener {
         
     }
     
-    
+    /// did nothing
     func onUserChange(change: DatabaseChange, userPlants: [Plant]) {
     }
     
+    /// did nothing
     func onPlantListChange(change: DatabaseChange, plants: [Plant]) {
     }
     
@@ -434,6 +439,7 @@ class ChartsViewController: UIViewController, DatabaseListener {
         setData()
     }
     
+    /// objective c function for the water button
     @objc func buttonTapped(sender : UIButton) {
         print("pressed")
         let url = "https://dd3363022dae.ngrok.io"
@@ -449,27 +455,41 @@ class ChartsViewController: UIViewController, DatabaseListener {
                 if let data = data
                 {
                     let dataString = String(data: data, encoding: .utf8)
-                    print(dataString)
+                    print("\(String(describing: dataString))")
                 }
             }.resume()
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 30.0) {
-            self.yourFuncHere()
+            self.makeWaterButtonBack()
         }
         
+        /// taptic feedback correct
+        let generator = UINotificationFeedbackGenerator()
+        generator.notificationOccurred(.success)
+        
+        /// highlight button feedback
+        waterButton.showsTouchWhenHighlighted = true
+        
     }
-    //Your function here
-    func yourFuncHere() {
+    
+    //function to make the water button back
+    func makeWaterButtonBack() {
         waterButton.isEnabled = true
         print("water button is back")
     }
 }
+
+
 // Reference https://www.youtube.com/watch?v=cZbEGJOPZ98
 // Code regarding push notifications:
 extension ChartsViewController {
     
-    
+    /// Add tapped for water reminder in the bar button item
     @IBAction func addTapped(_ sender: Any) {
+        /// gives user with selection haptic feedback
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
+        
         guard let plantName = plant?.name else { return }
         
         let alertController = UIAlertController(title: "Water Plant Reminder: \(plantName)", message: nil, preferredStyle: .actionSheet)

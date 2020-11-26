@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// Plant model to support encodable and decodable as per Firebase Recommendataions
 class Plant: Codable, Equatable {
     static func == (lhs: Plant, rhs: Plant) -> Bool {
         return lhs.id == rhs.id

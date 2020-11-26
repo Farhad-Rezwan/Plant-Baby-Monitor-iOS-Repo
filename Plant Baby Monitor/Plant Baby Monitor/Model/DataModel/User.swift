@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// simple user model class
 class User {
     var id: String?
     /// save email as well

@@ -14,7 +14,6 @@ class WelcomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         /// helps to decorate buttons when the view did load
         decorateUIButtons()
     }

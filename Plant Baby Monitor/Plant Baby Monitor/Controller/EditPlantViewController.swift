@@ -38,10 +38,12 @@ class EditPlantViewController: UIViewController {
         // Adds the delegate for database
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
-
+        
+        /// adding the plant background image, the image that showcase which one is user already selected
         plantBackgroundImage.image = UIImage(named: plant?.image ?? "pa")
         
         
+        /// assigning the delegates for textfields
         plantNameEditTextField.delegate = self
         plantLocationEditTextField.delegate = self
     
@@ -56,6 +58,7 @@ class EditPlantViewController: UIViewController {
         decorateUIButtons()
     }
     
+    
     /// Function to help decorate buttons for the current view controller
     private func decorateUIButtons() {
         /// Make the button round with
@@ -65,8 +68,13 @@ class EditPlantViewController: UIViewController {
 
     
     
-    
+    /// Function to save once the editing of the plant is done
+    /// validates properly with alert as well
     @IBAction func saveEditingPantTapped(_ sender: Any) {
+        /// gives user with selection haptic feedback
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
+        
         let newPlant = plant
         var edited: Bool = false
         
@@ -112,8 +120,12 @@ class EditPlantViewController: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    
+    /// delete plant with options
     @IBAction func deletePlantTapped(_ sender: Any) {
+        /// gives user with selection haptic feedback
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
+        
         guard let plantToDelete = plant, let userIDOfPlantToDelete = uID else {
             
             // alert for issue relates to nil values
@@ -133,6 +145,7 @@ class EditPlantViewController: UIViewController {
     
 }
 
+/// collection view datasource and delegate methods for the plant image for user to choose from
 extension EditPlantViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return plantImageArray.count
@@ -190,6 +203,7 @@ extension EditPlantViewController: UICollectionViewDataSource, UICollectionViewD
     
 }
 
+/// delegate method for textfields
 extension EditPlantViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

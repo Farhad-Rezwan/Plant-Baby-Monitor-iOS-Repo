@@ -7,7 +7,7 @@
 
 import UIKit
 
-/// Class to make custom back button for the navigation.
+/// Class to make custom back button for the navigation. also hold information of the next to root view controller
 class CustomNavigationController: UINavigationController, UINavigationControllerDelegate {
 
     override func viewDidLoad() {

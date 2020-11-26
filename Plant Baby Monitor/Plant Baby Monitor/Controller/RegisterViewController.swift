@@ -70,6 +70,10 @@ class RegisterViewController: UIViewController {
     
     // Once the user is properly registers for the app, the segue is performed
     @IBAction func registerButtonPressed(_ sender: Any) {
+        /// gives user with selection haptic feedback
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
+        
         activityIndicator?.startAnimating()
         if let email = emailTextField.text, let password = passwordTextField.text {
             Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
@@ -118,7 +122,7 @@ class RegisterViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    
+    /// makes facebook login once the facebook login button is pressed
     private func firebaseFacebookLogin(accessTocken: String) {
         let credential = FacebookAuthProvider.credential(withAccessToken: accessTocken)
         Auth.auth().signIn(with: credential) { (authResult, error) in
@@ -142,7 +146,7 @@ class RegisterViewController: UIViewController {
     }
 }
 
-
+/// delegate methods for TextFields are grouped here
 extension RegisterViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -163,6 +167,11 @@ extension RegisterViewController: LoginButtonDelegate {
             return
         }
         firebaseFacebookLogin(accessTocken: (tok.tokenString))
+        
+        /// gives user with selection haptic feedback
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
+        
         activityIndicator?.startAnimating()
     }
     

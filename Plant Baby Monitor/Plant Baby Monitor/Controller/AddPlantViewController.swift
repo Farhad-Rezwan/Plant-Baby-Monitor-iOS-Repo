@@ -47,6 +47,10 @@ class AddPlantViewController: UIViewController {
     }
 
     @IBAction func addPlantButtonAction(_ sender: Any) {
+        /// gives user with selection haptic feedback
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
+        
         /// making sure user name has no spaces, also validates user name, if empty provides message
         let trimmedPlantName = plantNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         let trimmedPlantLocation = plantLocationTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -154,6 +158,7 @@ extension AddPlantViewController: UICollectionViewDelegate, UICollectionViewData
 
 }
 
+/// text field delegate method
 extension AddPlantViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()

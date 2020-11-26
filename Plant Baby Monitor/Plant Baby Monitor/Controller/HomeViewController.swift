@@ -30,6 +30,9 @@ class HomeViewController: UIViewController, DatabaseListener {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /// Home view controller title for navigation bar
+        title = K.appName
+        
         // adding table view delegates
         plantTableView.dataSource = self
         plantTableView.delegate = self
@@ -89,6 +92,10 @@ class HomeViewController: UIViewController, DatabaseListener {
         alert.addAction(yes)
         alert.addAction(no)
         present(alert, animated: true, completion: nil)
+        
+        /// gives user with selection haptic feedback
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
 
     }
     
@@ -145,6 +152,10 @@ class HomeViewController: UIViewController, DatabaseListener {
     }
     
     @IBAction func addPlantButtonPressed(_ sender: Any) {
+        /// gives user with selection haptic feedback
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
+        
         let viewController = storyboard?.instantiateViewController(identifier: K.Identifier.addPlantViewController) as! AddPlantViewController
         viewController.userDocumentID = uID
         viewController.delegateForEdit = self
@@ -212,6 +223,10 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     @objc func editPlantButtonPressed(sender : UIButton) {
+        /// gives user with selection haptic feedback
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
+        
         print(sender.tag)
         print("pressed")
                     //Write button action here
@@ -234,6 +249,7 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+/// make sure that after user comes back form the edit or add plant screen, the table view is synchronized
 extension HomeViewController: ReloadDataAfterEdit {
     func didFinishEditing() {
         plantTableView.reloadData()

@@ -32,7 +32,8 @@ class LoginViewController: UIViewController {
         /// Making sure that when user presses return button, or presses anywhere else in the screen  keyboard is hidden
         emailTextField.delegate = self
         passwordTextField.delegate = self
-
+        
+        /// decorates the ui
         decorateUIButtons()
         setupActivityIndicator()
     }
@@ -70,6 +71,10 @@ class LoginViewController: UIViewController {
     
     // Once the user is properly logged in, the segue is performed
     @IBAction func loginButtonPressed(_ sender: Any) {
+        /// gives user with selection haptic feedback
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
+        
         activityIndicator?.startAnimating()
         if let email = emailTextField.text, let password = passwordTextField.text {
             
@@ -81,6 +86,7 @@ class LoginViewController: UIViewController {
                     self.displayMessage(title: "Login Failure", message: err.localizedDescription)
                 } else {
                     
+                    /// ordinary log in successfull
                     self.userID = authResult?.user.uid
                     self.finishLogginIn()
                 }
@@ -153,15 +159,26 @@ extension LoginViewController: LoginButtonDelegate {
         guard let tok = result?.token else {
             return
         }
+        /// faceboook login start
         firebaseFacebookLogin(accessTocken: (tok.tokenString))
+        
+        /// gives user with selection haptic feedback
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
+
         activityIndicator?.startAnimating()
     }
     
+    /// did nothing
     override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
     }
     
-
+    /// facebook login button, and its delegate can check user status and change button depending on that.
     func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        /// gives user with selection haptic feedback
+        let generator = UISelectionFeedbackGenerator()
+        generator.selectionChanged()
+        
         print("User logged out")
     }
     

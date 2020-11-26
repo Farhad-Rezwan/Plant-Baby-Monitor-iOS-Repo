@@ -7,6 +7,7 @@
 
 import UIKit
 
+/// custom table view cell for the Home Screen table view of plants
 class PlantTableViewCell: UITableViewCell {
 
     @IBOutlet weak var plantImage: UIImageView!
