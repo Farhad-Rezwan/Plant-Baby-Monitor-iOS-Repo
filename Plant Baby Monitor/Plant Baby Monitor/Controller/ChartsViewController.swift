@@ -460,7 +460,7 @@ class ChartsViewController: UIViewController, DatabaseListener {
         }
         
         databaseController?.removeListener(listener: self)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 30.0) {
             self.makeWaterButtonBack()
         }
         
