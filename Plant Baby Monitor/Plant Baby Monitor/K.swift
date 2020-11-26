@@ -10,6 +10,7 @@ struct K {
     static var appName = "Plant Baby Monitor"
     static var defaultFont = "Chalkboard SE Regular"
     static var logoImage = "Logo"
+    static var trigger_water_URL = "https://bf3cc20a4ed6.ngrok.io"
     
     struct Segue {
         static var loginToHomeSegue = "loginToHomeSegue"

@@ -134,8 +134,19 @@ class EditPlantViewController: UIViewController {
             self.present(alertController, animated: true, completion: nil)
             return
         }
-        databaseController?.deletePlantFromUser(plant: plantToDelete, userId: userIDOfPlantToDelete)
-        dismiss(animated: true, completion: nil)
+        
+        
+        // alert for issue relates to nil values
+        let alertController = UIAlertController(title: "Delete Plant: \(plant?.name ?? " ")", message: "Are you sure you want to delete this plant", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertAction.Style.default, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Delete", style: UIAlertAction.Style.default, handler: { (action) in
+            self.databaseController?.deletePlantFromUser(plant: plantToDelete, userId: userIDOfPlantToDelete)
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alertController, animated: true, completion: nil)
+
+        
+        
     }
     
     @IBAction func dismissViewButtonTapped(_ sender: Any) {

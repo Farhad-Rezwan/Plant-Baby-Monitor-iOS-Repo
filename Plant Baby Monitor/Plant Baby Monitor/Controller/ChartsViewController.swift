@@ -442,7 +442,7 @@ class ChartsViewController: UIViewController, DatabaseListener {
     /// objective c function for the water button
     @objc func buttonTapped(sender : UIButton) {
         print("pressed")
-        let url = "https://dd3363022dae.ngrok.io"
+        let url = K.trigger_water_URL
         waterButton.isEnabled = false
         print(" button is disabled")
         
@@ -459,7 +459,9 @@ class ChartsViewController: UIViewController, DatabaseListener {
                 }
             }.resume()
         }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 30.0) {
+        
+        databaseController?.removeListener(listener: self)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             self.makeWaterButtonBack()
         }
         
@@ -475,6 +477,9 @@ class ChartsViewController: UIViewController, DatabaseListener {
     //function to make the water button back
     func makeWaterButtonBack() {
         waterButton.isEnabled = true
+        guard let userId = uID else {return}
+        guard let plantID = plant?.id else {return}
+        databaseController?.addListener(listener: self, userCredentials: userId, plantID: plantID)
         print("water button is back")
     }
 }
