@@ -9,11 +9,13 @@ import UIKit
 import Firebase
 import FacebookLogin
 import TinyConstraints
+import NVActivityIndicatorView
 
 class LoginViewController: UIViewController {
     
     weak var databaseController: DatabaseProtocol?
     var userID: String?
+    var activityIndicator: NVActivityIndicatorView?
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var loginUIButton: UIButton!
@@ -32,6 +34,7 @@ class LoginViewController: UIViewController {
         passwordTextField.delegate = self
 
         decorateUIButtons()
+        setupActivityIndicator()
     }
 
     /// Function to help decorate buttons for the current view controller
@@ -53,14 +56,28 @@ class LoginViewController: UIViewController {
         loginButton.centerX(to: view)
     }
     
+    
+    /// Activity indicator view setup at the middle of the screen
+    private func setupActivityIndicator() {
+        // indicator for loading the weather
+        let indicatorSize: CGFloat = 70
+        let indicatorFrame = CGRect(x: (view.frame.width-indicatorSize)/2, y: (view.frame.height-indicatorSize)/2, width: indicatorSize, height: indicatorSize)
+        activityIndicator = NVActivityIndicatorView(frame: indicatorFrame,type: .lineScale, color: UIColor.white, padding: 20.0)
+        activityIndicator?.backgroundColor = UIColor.black
+        guard let activityIndicator = activityIndicator else {return}
+        view.addSubview(activityIndicator)
+    }
+    
     // Once the user is properly logged in, the segue is performed
     @IBAction func loginButtonPressed(_ sender: Any) {
+        activityIndicator?.startAnimating()
         if let email = emailTextField.text, let password = passwordTextField.text {
             
             /// sign in using firebase signer
             Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
                 if let err = error {
                     print(err)
+                    self.activityIndicator?.stopAnimating()
                     self.displayMessage(title: "Login Failure", message: err.localizedDescription)
                 } else {
                     
@@ -105,6 +122,7 @@ class LoginViewController: UIViewController {
     /// Once the login is finished perform segue
     private func finishLogginIn() {
         /// keep the logged in status in
+        activityIndicator?.stopAnimating()
         UserDefaults.standard.setIsLoggedIn(value: true)
         UserDefaults.standard.setUserId(userID: userID ?? " ")
         
@@ -136,6 +154,10 @@ extension LoginViewController: LoginButtonDelegate {
             return
         }
         firebaseFacebookLogin(accessTocken: (tok.tokenString))
+        activityIndicator?.startAnimating()
+    }
+    
+    override func pressesBegan(_ presses: Set<UIPress>, with event: UIPressesEvent?) {
     }
     
 

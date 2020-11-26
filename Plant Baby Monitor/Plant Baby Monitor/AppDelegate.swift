@@ -91,8 +91,9 @@ extension AppDelegate {
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
     /// will enable alert badge and sound
+    /// alert is depriciated so usibng .banner
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.alert, .badge, .sound])
+        completionHandler([.banner, .badge, .sound])
     }
     
     

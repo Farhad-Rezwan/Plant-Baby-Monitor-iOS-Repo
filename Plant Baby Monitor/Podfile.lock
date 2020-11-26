@@ -221,9 +221,6 @@ PODS:
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
-  - CocoaAsyncSocket (7.6.4)
-  - CocoaMQTT (1.2.5):
-    - CocoaAsyncSocket (~> 7.6.3)
   - FacebookCore (0.9.0):
     - FBSDKCoreKit (~> 5.0)
   - FacebookLogin (0.9.0):
@@ -330,18 +327,21 @@ PODS:
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
+  - NVActivityIndicatorView (5.1.1):
+    - NVActivityIndicatorView/Base (= 5.1.1)
+  - NVActivityIndicatorView/Base (5.1.1)
   - PromisesObjC (1.2.11)
   - TinyConstraints (4.0.1)
 
 DEPENDENCIES:
   - Charts
-  - CocoaMQTT
   - FacebookCore
   - FacebookLogin
   - Firebase/Auth
   - Firebase/Database
   - Firebase/Firestore
   - FirebaseFirestoreSwift
+  - NVActivityIndicatorView
   - TinyConstraints
 
 SPEC REPOS:
@@ -349,8 +349,6 @@ SPEC REPOS:
     - abseil
     - BoringSSL-GRPC
     - Charts
-    - CocoaAsyncSocket
-    - CocoaMQTT
     - FacebookCore
     - FacebookLogin
     - FBSDKCoreKit
@@ -369,6 +367,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - NVActivityIndicatorView
     - PromisesObjC
     - TinyConstraints
 
@@ -376,8 +375,6 @@ SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
-  CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
-  CocoaMQTT: a61490ed3b328011c5d75169a77781983e2bb221
   FacebookCore: ba86524b66cfa86d0f8e65d08faa8504a9f732dd
   FacebookLogin: 6cee9fd6e1fe976fe8f7eec199e27b28b14f5d63
   FBSDKCoreKit: 1d5acf7c9d7a2f92bb1a242dc60cae5b7adb91df
@@ -396,9 +393,10 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
+  NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   TinyConstraints: 8dd91295e56797648c7bc335dd20e1d91ec4c192
 
-PODFILE CHECKSUM: 07591cf67f0ac3d0307af1ec7faafffd3d9c0b07
+PODFILE CHECKSUM: 6499c6d6abdde349c3f53e1285558859cd19c17e
 
 COCOAPODS: 1.10.0

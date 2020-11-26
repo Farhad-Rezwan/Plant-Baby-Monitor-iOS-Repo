@@ -20,8 +20,8 @@
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pa" translatesAutoresizingMaskIntoConstraints="NO" id="qXb-d8-8a1">
                         <rect key="frame" x="-80" y="1" width="571" height="271.5"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Plant Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xoX-1x-IMA">
-                        <rect key="frame" x="20" y="280" width="296" height="42"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Plant Name" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xoX-1x-IMA">
+                        <rect key="frame" x="20" y="280" width="371" height="42"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="42" id="sYr-Km-wwX"/>
                         </constraints>
@@ -30,7 +30,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom Location" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zwe-Yp-bel">
-                        <rect key="frame" x="20" y="290" width="284" height="67"/>
+                        <rect key="frame" x="20" y="290" width="371" height="67"/>
                         <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -38,10 +38,10 @@
                 </subviews>
                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="xoX-1x-IMA" secondAttribute="trailing" constant="75" id="AZE-CS-sAQ"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="xoX-1x-IMA" secondAttribute="trailing" id="AZE-CS-sAQ"/>
                     <constraint firstAttribute="bottomMargin" secondItem="zwe-Yp-bel" secondAttribute="bottom" constant="22" id="D7s-4v-yDZ"/>
                     <constraint firstItem="xoX-1x-IMA" firstAttribute="top" secondItem="qXb-d8-8a1" secondAttribute="bottom" constant="7.5" id="U51-gy-pqg"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="zwe-Yp-bel" secondAttribute="trailing" constant="87" id="WlM-GS-EF2"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="zwe-Yp-bel" secondAttribute="trailing" id="WlM-GS-EF2"/>
                     <constraint firstItem="xoX-1x-IMA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="ftl-Nk-5B2"/>
                     <constraint firstItem="qXb-d8-8a1" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-10" id="hFG-Ie-dl1"/>
                     <constraint firstAttribute="trailingMargin" secondItem="qXb-d8-8a1" secondAttribute="trailing" constant="-100" id="jK2-oB-sfX"/>

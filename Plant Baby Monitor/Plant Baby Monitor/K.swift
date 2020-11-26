@@ -8,6 +8,7 @@
 struct K {
     static var appName = "Plant Baby Monitor"
     static var defaultFont = "Chalkboard SE Regular"
+    static var logoImage = "Logo"
     
     struct Segue {
         static var loginToHomeSegue = "loginToHomeSegue"
@@ -47,5 +48,6 @@ struct K {
     
     struct Colors {
         static var buttonTxtColor = "DGreen"
+        static var backgrondColor = "AppHeader"
     }
 }

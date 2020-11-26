@@ -462,22 +462,6 @@ Apache License
 
 
 
-## CocoaAsyncSocket
-
-Public Domain License
-
-The CocoaAsyncSocket project is in the public domain.
-
-The original TCP version (AsyncSocket) was created by Dustin Voss in January 2003.
-Updated and maintained by Deusty LLC and the Apple development community.
-
-
-## CocoaMQTT
-
-This project is dual licensed under the Eclipse Public License 1.0 and the
-Eclipse Distribution License 1.0 as described in the epl-v10 and edl-v10 files.
-
-
 ## FBSDKCoreKit
 
 Copyright (c) 2014-present, Facebook, Inc. All rights reserved.
@@ -2669,6 +2653,31 @@ similar to disable codesignature checks.
 
 More information at <a href="http://landonf.org/2009/02/index.html">Landon
 Fuller's blog</a>
+
+
+## NVActivityIndicatorView
+
+The MIT License (MIT)
+
+Copyright (c) 2016 Vinh Nguyen
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 
 ## PromisesObjC

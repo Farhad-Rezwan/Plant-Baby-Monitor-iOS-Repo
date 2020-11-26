@@ -11,6 +11,6 @@ target 'Plant Baby Monitor' do
   pod 'Firebase/Database'
   pod 'Charts'
   pod 'TinyConstraints'
-  pod 'CocoaMQTT'
+  pod 'NVActivityIndicatorView'
 
 end

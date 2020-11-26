@@ -8,17 +8,8 @@
 import UIKit
 import Charts
 import TinyConstraints
-import CocoaMQTT
 
 class ChartsViewController: UIViewController, DatabaseListener {
-    
-    
-    
-//    let defaultHost = "XX.XXX.XXXX.XXXX" //greengrass core host.
-//    let clientID = "MyPhone"
-    var mqttClient = CocoaMQTT(clientID: "HelloWorld_Subscriber", host: "a3p7lfkutd41l6-ats.iot.ap-southeast-2.amazonaws.com", port: 8883)
-    
-    
 
     //MARK:- Variables for View Data
     var listenerType: ListenerType = .plantStatus
@@ -49,6 +40,8 @@ class ChartsViewController: UIViewController, DatabaseListener {
         return button
     }()
     
+    
+    
     // setup custom title for moisture chart view
     let titleOfMoistureChartView: UILabel = {
         let moistureLabel = UILabel()
@@ -73,6 +66,25 @@ class ChartsViewController: UIViewController, DatabaseListener {
         tempAndHumidityLabel.width(250)
 
         return tempAndHumidityLabel
+    }()
+    
+    let visualAffectView: UIVisualEffectView = {
+        let visualAffectView = UIVisualEffectView()
+        /// animates in depending on the selection of the user
+        visualAffectView.effect = UIBlurEffect(style: .dark)
+        visualAffectView.backgroundColor = UIColor.init(red: 0.0, green: 0.1, blue: 0.0, alpha: 0.5)
+        return visualAffectView
+    }()
+    
+    let logoImageView: UIImageView = {
+        let logoImageView = UIImageView()
+        logoImageView.image = UIImage(named: K.logoImage)
+        return logoImageView
+    }()
+    
+    let noDataFoundLabel: UILabel = {
+        let noDataFoundLabel = UILabel()
+        return noDataFoundLabel
     }()
     
     // setup custom scroll view for the two chart views
@@ -136,8 +148,7 @@ class ChartsViewController: UIViewController, DatabaseListener {
         // set delegate for the Database
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         databaseController = appDelegate.databaseController
-        axisFormatDelegate = self
-        
+
         // plant name show
         title = "plant: \(plant?.name ?? " ")"
         
@@ -152,7 +163,8 @@ class ChartsViewController: UIViewController, DatabaseListener {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        databaseController?.addListener(listener: self, userCredentials: uID!)
+        guard let userId = uID else {return}
+        databaseController?.addListener(listener: self, userCredentials: userId, plantID: plant?.id ?? " ")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -186,7 +198,7 @@ class ChartsViewController: UIViewController, DatabaseListener {
 
         // chart scroll view constraints
         chartScrollView.edgesToSuperview(excluding: .none, usingSafeArea: true)
-        chartScrollView.top(to: view, offset: 140)
+        chartScrollView.top(to: view, offset: 150)
         chartScrollView.bottom(to: view, offset: -10)
         chartScrollView.widthToSuperview()
         
@@ -371,12 +383,42 @@ class ChartsViewController: UIViewController, DatabaseListener {
             }
         }
         
+        if statuses?.count == 0 {
+            
+            /// set the views when the plant data not available
+            
+            setViewForNoData()
+        } else {
+            
+            /// remove no data view from the scroll view
+            visualAffectView.removeFromSuperview()
+            logoImageView.removeFromSuperview()
+            noDataFoundLabel.removeFromSuperview()
+        }
+
         
 
-
     }
-
     
+    /// UIDesign for no data available.
+    private func setViewForNoData() {
+        chartScrollView.addSubview(visualAffectView)
+        visualAffectView.edgesToSuperview(excluding: .top, usingSafeArea: true)
+        visualAffectView.top(to: chartScrollView, offset: 10)
+        visualAffectView.center(in: chartScrollView)
+        chartScrollView.addSubview(logoImageView)
+        logoImageView.edgesToSuperview(excluding: .top, usingSafeArea: true)
+        logoImageView.top(to: chartScrollView, offset: 20)
+        logoImageView.contentMode = .scaleAspectFit
+        logoImageView.centerInSuperview()
+        chartScrollView.addSubview(noDataFoundLabel)
+        noDataFoundLabel.text = ("no data found for: \(plant?.name ?? " ")")
+        noDataFoundLabel.font = UIFont(name: K.defaultFont, size: 12)
+        noDataFoundLabel.textColor = UIColor(named: K.Colors.buttonTxtColor)
+        noDataFoundLabel.centerX(to: chartScrollView)
+        noDataFoundLabel.top(to: chartScrollView, offset: 15)
+        
+    }
     
     
     func onUserChange(change: DatabaseChange, userPlants: [Plant]) {
@@ -421,120 +463,7 @@ class ChartsViewController: UIViewController, DatabaseListener {
         waterButton.isEnabled = true
         print("water button is back")
     }
-    
-    
-    /// https://forums.aws.amazon.com/thread.jspa?threadID=279322
-    func ggConnect() {
-        
-//        mqttClient = CocoaMQTT(clientID: clientID, host: defaultHost, port: 8883)
-        mqttClient.delegate = self
-        mqttClient.enableSSL = true
-        mqttClient.allowUntrustCACertificate = true
-        //used openSSL to Create this .p;12 from device key, cert and the GreenGrass Group CA obtained by running the basicDiscovery.py of Python SDK.
-        let clientCertArray = getClientCertFromP12File(certName: "ggCoreCertX", certPassword: "1234567890")
-        var sslSettings: [ String : NSObject ] = [ : ] //replace ( with [
-        sslSettings [ kCFStreamSSLCertificates as String ] = clientCertArray //replace ( with [
-        mqttClient.sslSettings = sslSettings
-        mqttClient.publish("iOS", withString: "Frin me", qos: .qos0, retained: true, dup: true)
-        mqttClient.publish("iOS", withString: "from me")
-        let _ = mqttClient.connect()
-        mqttClient.publish("iOS", withString: "from me")
-    }
-    func getClientCertFromP12File(certName: String, certPassword: String) -> CFArray? {
-        // get p12 file path
-        let resourcePath = Bundle.main.path(forResource: certName, ofType: "p12")
-        guard let filePath = resourcePath, let p12Data = NSData(contentsOfFile: filePath) else {
-            print("Failed to open the certificate file: \(certName).p12")
-            return nil
-        }
-        // create key dictionary for reading p12 file
-        let key = kSecImportExportPassphrase as String
-        let options : NSDictionary = [ key: certPassword ] //replace ( with [
-        var items : CFArray?
-        let securityError = SecPKCS12Import(p12Data, options, &items)
-        guard securityError == errSecSuccess else {
-            if securityError == errSecAuthFailed {
-                print("ERROR: SecPKCS12Import returned errSecAuthFailed. Incorrect password?")
-            } else {
-                print("Failed to open the certificate file: \(certName).p12")
-            }
-            return nil
-        }
-        guard let theArray = items, CFArrayGetCount(theArray) > 0 else {
-            return nil
-        }
-        let dictionary = (theArray as NSArray).object(at: 0)
-        guard let identity = (dictionary as AnyObject).value(forKey: kSecImportItemIdentity as String) else {
-            return nil
-        }
-        let certArray = [ identity ] as CFArray //replace ( with [
-        return certArray
-    }
-    
 }
-
-extension ChartsViewController: CocoaMQTTDelegate {
-    
-    func mqtt(_ mqtt: CocoaMQTT, didConnectAck ack: CocoaMQTTConnAck) {
-        print("didConnectAct")
-    }
-    
-    func mqtt(_ mqtt: CocoaMQTT, didPublishMessage message: CocoaMQTTMessage, id: UInt16) {
-        print("didPublishMessage")
-    }
-    
-    func mqtt(_ mqtt: CocoaMQTT, didPublishAck id: UInt16) {
-        print("didPublishAck")
-    }
-    
-    func mqtt(_ mqtt: CocoaMQTT, didReceiveMessage message: CocoaMQTTMessage, id: UInt16) {
-        print("didRecieveMessage")
-    }
-    
-    func mqtt(_ mqtt: CocoaMQTT, didSubscribeTopic topics: [String]) {
-        print("didSubscriveTopic")
-    }
-    
-    func mqtt(_ mqtt: CocoaMQTT, didUnsubscribeTopic topic: String) {
-        print("didUnsubscribeTopic")
-    }
-    
-    func mqttDidPing(_ mqtt: CocoaMQTT) {
-        print("didPingMqtt")
-        
-    }
-    
-    func mqttDidReceivePong(_ mqtt: CocoaMQTT) {
-        print("didRecievePong")
-    }
-    
-    func mqttDidDisconnect(_ mqtt: CocoaMQTT, withError err: Error?) {
-        print("didDisconnectMqtt")
-    }
-}
-
-// Alternative actions :
-/// https://github.com/awslabs/aws-sdk-ios-samples/tree/main/IoT-Sample/Swift
-
-
-extension ChartsViewController: IAxisValueFormatter {
-    
-    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-
-        var localDate: String = ""
-        let date = Date(timeIntervalSince1970: value)
-        let dateFormatter = DateFormatter()
-        dateFormatter.timeStyle = DateFormatter.Style.short //Set time style
-        dateFormatter.dateStyle = DateFormatter.Style.short //Set date style
-        dateFormatter.timeZone = .current
-        localDate = dateFormatter.string(from: date)
-        print(localDate)
-        
-        return localDate
-    }
-}
-
-
 // Reference https://www.youtube.com/watch?v=cZbEGJOPZ98
 // Code regarding push notifications:
 extension ChartsViewController {
@@ -548,7 +477,7 @@ extension ChartsViewController {
             LocalNotificationManager.setNotification(1, of: .days, repeats: true, title: "Hey its time to water your plant: \(plantName)", body: "Click to open in app", userInfo: ["aps" : ["Alert" : "1 per day"]])
         }
         let setLocalNotificationAction2 = UIAlertAction(title: "Set Alert for every 61 sec(Testing)", style: .default) { (action) in
-            LocalNotificationManager.setNotification(10, of: .seconds, repeats: false, title: "Hey its time to water your plant: \(plantName)", body: "Click to open in app", userInfo: ["aps" : ["Alert" : "1 in every ~ sec"]])
+            LocalNotificationManager.setNotification(3, of: .seconds, repeats: false, title: "Hey its time to water your plant: \(plantName)", body: "Click to open in app", userInfo: ["aps" : ["Alert" : "1 in every ~ sec"]])
         }
         let removeLocalNotificationAction = UIAlertAction(title: "Remove", style: .default) { (action) in
             LocalNotificationManager.cancel()

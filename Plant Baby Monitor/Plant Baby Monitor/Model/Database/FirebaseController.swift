@@ -34,6 +34,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
     /// Constants
     //var USER_PLANT_NAME = K.Databae.tempPlantName
     var DEFAULT_USER_UID = K.Databae.defaultUser
+    var default_plant_id = " "
 
     /// user er email ane, akhane initialize korbo, niche method ase how to fetch for that email id,
     override init() {
@@ -78,7 +79,7 @@ class FirebaseController: NSObject, DatabaseProtocol {
         /// sets reference to the database
         plantStatusRef = Database.database().reference()
         /// Obesrve events of single plant status changes
-        plantStatusRef?.child("7MBL5Bbt48NnpWcZappr").observeSingleEvent(of: .value, with: { (snapshot) in
+        plantStatusRef?.child(default_plant_id).observeSingleEvent(of: .value, with: { (snapshot) in
           // Get user value
             self.parsePlantStatusSnapshot(documentSnapshot: snapshot)
           // ...
@@ -161,7 +162,18 @@ class FirebaseController: NSObject, DatabaseProtocol {
     /// Perse plant status snapshot, invokes listeners for any plant status changes
     private func parsePlantStatusSnapshot(documentSnapshot: DataSnapshot) {
         plantStatusList.removeAll()
-        let value = documentSnapshot.value as! NSDictionary
+        guard let value = documentSnapshot.value as? NSDictionary else {
+            //print(plantStatusList)
+            listeners.invoke { (listener) in
+                if listener.listenerType == ListenerType.plantStatus ||
+                    listener.listenerType == ListenerType.all {
+                    
+                    listener.onPlantStatusChange(change: .update, statuses: plantStatusList)
+                }
+            }
+            
+            return
+        }
         // print(value)
         
         for key in value.allKeys {
@@ -323,8 +335,9 @@ class FirebaseController: NSObject, DatabaseProtocol {
     /// - Parameters:
     ///   - listener: enum lsitener can be user/plant or plantStatus
     ///   - userCredentials: users Credential of whoom the plant or plant status is shown
-    func addListener(listener: DatabaseListener, userCredentials: String) {
+    func addListener(listener: DatabaseListener, userCredentials: String = " ", plantID: String = " ") {
         DEFAULT_USER_UID = userCredentials
+        default_plant_id = plantID
         
         listeners.addDelegate(listener)
         

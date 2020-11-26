@@ -9,11 +9,12 @@ import UIKit
 import Firebase
 import FacebookLogin
 import TinyConstraints
+import NVActivityIndicatorView
 
 class RegisterViewController: UIViewController {
 
     weak var databaseController: DatabaseProtocol?
-    
+    var activityIndicator: NVActivityIndicatorView?
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var registerUIButton: UIButton!
@@ -32,8 +33,10 @@ class RegisterViewController: UIViewController {
         passwordTextField.delegate = self
         /// helps to decorate buttons when the view did load
         decorateUIButtons()
+        
+        setupActivityIndicator()
     }
-    
+
     /// Function to help decorate buttons for the current view controller
     private func decorateUIButtons() {
         /// Make the button round with
@@ -54,12 +57,25 @@ class RegisterViewController: UIViewController {
         loginButton.centerX(to: view)
     }
     
+    // Activity indicator view setup at the middle of the screen
+    private func setupActivityIndicator() {
+        // indicator for loading the weather
+        let indicatorSize: CGFloat = 70
+        let indicatorFrame = CGRect(x: (view.frame.width-indicatorSize)/2, y: (view.frame.height-indicatorSize)/2, width: indicatorSize, height: indicatorSize)
+        activityIndicator = NVActivityIndicatorView(frame: indicatorFrame,type: .lineScale, color: UIColor.white, padding: 20.0)
+        activityIndicator?.backgroundColor = UIColor.black
+        guard let activityIndicator = activityIndicator else {return}
+        view.addSubview(activityIndicator)
+    }
+    
     // Once the user is properly registers for the app, the segue is performed
     @IBAction func registerButtonPressed(_ sender: Any) {
+        activityIndicator?.startAnimating()
         if let email = emailTextField.text, let password = passwordTextField.text {
             Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
                 if let err = error {
                     print(err)
+                    self.activityIndicator?.stopAnimating()
                     self.displayMessage(title: "User Registration Failure", message: err.localizedDescription)
                 } else {
                     self.userID = authResult?.user.uid
@@ -76,6 +92,7 @@ class RegisterViewController: UIViewController {
     }
     
     func finishLogginIn() {
+        activityIndicator?.stopAnimating()
         /// keep the logged in status in
         UserDefaults.standard.setIsLoggedIn(value: true)
         UserDefaults.standard.setUserId(userID: userID ?? " ")
@@ -146,6 +163,7 @@ extension RegisterViewController: LoginButtonDelegate {
             return
         }
         firebaseFacebookLogin(accessTocken: (tok.tokenString))
+        activityIndicator?.startAnimating()
     }
     
 

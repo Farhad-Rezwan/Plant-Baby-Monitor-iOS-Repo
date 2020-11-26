@@ -11,6 +11,7 @@ import FirebaseAuth
 import FacebookCore
 import FacebookLogin
 import FBSDKCoreKit
+import NVActivityIndicatorView
 
 
 
@@ -19,7 +20,7 @@ class HomeViewController: UIViewController, DatabaseListener {
 
     @IBOutlet weak var plantTableView: UITableView!
     @IBOutlet weak var addPlantUIButton: UIButton!
-    
+    var activityIndicator: NVActivityIndicatorView?
     weak var databaseController: DatabaseProtocol?
     var uID: String?
     var listenerType: ListenerType = .user
@@ -45,6 +46,8 @@ class HomeViewController: UIViewController, DatabaseListener {
         
         /// helps to decorate buttons when the view did load
         decorateUIButtons()
+        /// activitty indicator setup
+        setupActivityIndicator()
     }
     
     /// Function to help decorate buttons for the current view controller
@@ -58,12 +61,25 @@ class HomeViewController: UIViewController, DatabaseListener {
         
 
     }
+    
+    /// Activity indicator view setup at the middle of the screen
+    private func setupActivityIndicator() {
+        // indicator for loading the weather
+        let indicatorSize: CGFloat = 70
+        let indicatorFrame = CGRect(x: (view.frame.width-indicatorSize)/2, y: (view.frame.height-indicatorSize)/2, width: indicatorSize, height: indicatorSize)
+        activityIndicator = NVActivityIndicatorView(frame: indicatorFrame,type: .lineScale, color: UIColor.white, padding: 20.0)
+        activityIndicator?.backgroundColor = UIColor.black
+        guard let activityIndicator = activityIndicator else {return}
+        view.addSubview(activityIndicator)
+    }
 
     /// once the logout button is pressed the user is navigated to the root view controller
     @IBAction func logoutPressed(_ sender: Any) {
+        
         let alert = UIAlertController(title: "Logout?", message: "Do you want to logout", preferredStyle: .alert)
         let yes = UIAlertAction(title: "YES", style: .default) { (action) in
             
+            self.activityIndicator?.startAnimating()
             /// perform logo0ut opration
             self.performLogoutOperation()
         }
@@ -100,7 +116,7 @@ class HomeViewController: UIViewController, DatabaseListener {
     
     /// Makes sure when the user logged out is performed the new view controller stack is loaded in the navigation controller
     private func handleViewControllerArraysForNavigationController() {
-        
+        self.activityIndicator?.stopAnimating()
         guard let navigationController = self.navigationController else { return }
         
         /// removing the previous view controller
@@ -117,7 +133,8 @@ class HomeViewController: UIViewController, DatabaseListener {
     /// adds the users listener when the view is loaded
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        databaseController?.addListener(listener: self, userCredentials: uID!)
+        guard let userID = uID else {return}
+        databaseController?.addListener(listener: self, userCredentials: userID, plantID: " ")
         plantTableView.reloadData()
     }
     
