@@ -41,8 +41,8 @@ class LoginViewController: UIViewController {
     /// Function to help decorate buttons for the current view controller
     private func decorateUIButtons() {
         /// Make the button round with
-        loginUIButton.layer.cornerRadius = 40
-        loginUIButton.layer.cornerRadius = 40
+        loginUIButton.layer.cornerRadius = 20
+        loginUIButton.layer.cornerRadius = 20
         
         /// generating login button for Facebook
         let loginButton = FBLoginButton()

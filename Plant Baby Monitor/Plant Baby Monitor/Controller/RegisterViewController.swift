@@ -40,8 +40,8 @@ class RegisterViewController: UIViewController {
     /// Function to help decorate buttons for the current view controller
     private func decorateUIButtons() {
         /// Make the button round with
-        registerUIButton.layer.cornerRadius = 40
-        registerUIButton.layer.cornerRadius = 40
+        registerUIButton.layer.cornerRadius = 20
+        registerUIButton.layer.cornerRadius = 20
         
         
         /// generating login button for Facebook

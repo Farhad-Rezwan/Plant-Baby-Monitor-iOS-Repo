@@ -60,7 +60,7 @@ class HomeViewController: UIViewController, DatabaseListener {
         addPlantUIButton.layer.borderWidth = 1
         
         /// Make the button round with
-        addPlantUIButton.layer.cornerRadius = 40
+        addPlantUIButton.layer.cornerRadius = 20
         
 
     }

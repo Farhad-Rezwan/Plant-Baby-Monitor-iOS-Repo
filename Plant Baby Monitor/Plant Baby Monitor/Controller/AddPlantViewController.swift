@@ -43,7 +43,7 @@ class AddPlantViewController: UIViewController {
     /// Function to help decorate buttons for the current view controller
     private func decorateUIButtons() {
         /// Make the button round with
-        addPlantUIButton.layer.cornerRadius = 40
+        addPlantUIButton.layer.cornerRadius = 20
     }
 
     @IBAction func addPlantButtonAction(_ sender: Any) {

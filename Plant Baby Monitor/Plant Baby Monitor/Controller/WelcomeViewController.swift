@@ -21,7 +21,7 @@ class WelcomeViewController: UIViewController {
     /// Function to help decorate buttons for the current view controller
     private func decorateUIButtons() {
         /// Make the button round with 
-        loginButtonUIButton.layer.cornerRadius = 40
-        registerButtonUIButton.layer.cornerRadius = 40
+        loginButtonUIButton.layer.cornerRadius = 20
+        registerButtonUIButton.layer.cornerRadius = 20
     }
 }

@@ -191,7 +191,7 @@ class ChartsViewController: UIViewController, DatabaseListener {
         waterButton.right(to: view, offset: -30)
         
         // water button design
-        waterButton.layer.cornerRadius = 40
+        waterButton.layer.cornerRadius = 20
         /// designing the plant add to make sure it is consistent in the viewcontroller (adding border)
         waterButton.layer.borderColor = UIColor.black.cgColor
         waterButton.layer.borderWidth = 1

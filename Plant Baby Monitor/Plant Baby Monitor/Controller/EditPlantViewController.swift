@@ -62,8 +62,8 @@ class EditPlantViewController: UIViewController {
     /// Function to help decorate buttons for the current view controller
     private func decorateUIButtons() {
         /// Make the button round with
-        editPlantUIButton.layer.cornerRadius = 40
-        deletePlantUIButton.layer.cornerRadius = 40
+        editPlantUIButton.layer.cornerRadius = 20
+        deletePlantUIButton.layer.cornerRadius = 20
     }
 
     
