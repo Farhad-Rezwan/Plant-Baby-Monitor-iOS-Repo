@@ -23,7 +23,7 @@ class HomeViewController: UIViewController, DatabaseListener {
     var activityIndicator: NVActivityIndicatorView?
     weak var databaseController: DatabaseProtocol?
     var uID: String?
-    var listenerType: ListenerType = .user
+    var listenerType: ListenerType = .all
     var plants: [Plant] = []
     var cellSpacingHeight = 200
     
@@ -51,8 +51,21 @@ class HomeViewController: UIViewController, DatabaseListener {
         decorateUIButtons()
         /// activitty indicator setup
         setupActivityIndicator()
+        activityIndicator?.startAnimating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.performFetch()
+        }
     }
     
+    
+    
+    private func performFetch() {
+        /// to load data properly
+        databaseController?.addListener(listener: self, userCredentials: uID ?? " ", plantID: " ")
+        plantTableView.reloadData()
+        activityIndicator?.stopAnimating()
+        
+    }
     /// Function to help decorate buttons for the current view controller
     private func decorateUIButtons() {
         /// designing the plant add to make sure it is consistent in the viewcontroller (adding border)
@@ -171,10 +184,14 @@ class HomeViewController: UIViewController, DatabaseListener {
         plantTableView.reloadData()
     }
     /// do nothing
-    func onPlantStatusChange(change: DatabaseChange, statuses: [Status]) { }
+    func onPlantStatusChange(change: DatabaseChange, statuses: [Status]) {
+        plantTableView.reloadData()
+    }
     
     /// do nothing
-    func onPlantListChange(change: DatabaseChange, plants: [Plant]) { }
+    func onPlantListChange(change: DatabaseChange, plants: [Plant]) {
+        plantTableView.reloadData()
+    }
     
     
 }

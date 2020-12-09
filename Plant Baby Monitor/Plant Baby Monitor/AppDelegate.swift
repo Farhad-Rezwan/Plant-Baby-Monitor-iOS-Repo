@@ -94,7 +94,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     /// alert is depriciated so usibng .banner
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         if UserDefaults.standard.isLoggedIn() {
-            completionHandler([.banner, .badge, .sound])
+            completionHandler([.badge, .sound])
             
         }
     }
